@@ -15,7 +15,7 @@
     "type": "git",
     "url": "git+https://github.com/Lagbana/vogi.git"
   },
-  "keywords": ["Vogi", "react", "express", "node.js", "mongoDB", "mongoose"],
+  "keywords": ["Vogi", "React", "Express", "Node.js", "MongoDB", "Mongoose"],
   "author": "Larry Agbana & Dustin Irving",
   "license": "MIT",
   "bugs": {

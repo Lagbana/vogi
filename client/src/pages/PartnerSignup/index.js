@@ -1,7 +1,12 @@
 import React from 'react'
+import Form from '../../components/Form'
 
 function PartnerSignup () {
-  return <div>This is the PartnerSignup Page</div>
+  return (
+    <div>
+      <Form />
+    </div>
+  )
 }
 
 export default PartnerSignup

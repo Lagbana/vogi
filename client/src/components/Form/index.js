@@ -1,17 +1,15 @@
 import React from 'react'
+import { Form as AntForm, Input, Button, Checkbox } from 'antd'
 
 function Form () {
   return (
-    <Form
-      {...layout}
+    <AntForm
       name='basic'
       initialValues={{
         remember: true
       }}
-      onFinish={onFinish}
-      onFinishFailed={onFinishFailed}
     >
-      <Form.Item
+      <AntForm.Item
         label='Username'
         name='username'
         rules={[
@@ -22,9 +20,9 @@ function Form () {
         ]}
       >
         <Input />
-      </Form.Item>
+      </AntForm.Item>
 
-      <Form.Item
+      <AntForm.Item
         label='Password'
         name='password'
         rules={[
@@ -35,17 +33,19 @@ function Form () {
         ]}
       >
         <Input.Password />
-      </Form.Item>
+      </AntForm.Item>
 
-      <Form.Item {...tailLayout} name='remember' valuePropName='checked'>
+      <AntForm.Item name='remember' valuePropName='checked'>
         <Checkbox>Remember me</Checkbox>
-      </Form.Item>
+      </AntForm.Item>
 
-      <Form.Item {...tailLayout}>
+      <AntForm.Item>
         <Button type='primary' htmlType='submit'>
           Submit
         </Button>
-      </Form.Item>
-    </Form>
+      </AntForm.Item>
+    </AntForm>
   )
 }
+
+export default Form

@@ -11,5 +11,5 @@ services:
 
 script:
   - npm run build
-  # - npm run test (for node.js)
+  - npm run test (for node.js)
 

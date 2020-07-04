@@ -1,49 +1,47 @@
-import React from 'react'
-import { Menu } from 'antd'
+import React, { useState } from 'react'
+import LeftMenu from '../LeftMenu'
+import RightMenu from '../RightMenu'
+import { Drawer } from 'antd'
+import { MenuOutlined } from '@ant-design/icons'
 
-function Navbar() {
+function Navbar () {
+  //   const [current, setCurrent] = useState('mail')
+  const [visible, setVisible] = useState(false)
 
-  state = {
-    current: 'mail'
+  const showDrawer = () => {
+    setVisible(true)
   }
-
-  handleClick = e => {
-    console.log('click ', e)
-    this.setState({ current: e.key })
-    }
-    const { current } = this.state
-
-    return (
-      <Menu
-        onClick={this.handleClick}
-        selectedKeys={[current]}
-        mode='horizontal'
-      >
-        <Menu.Item key='partners' >
-          Partners
-        </Menu.Item>
-        <Menu.Item key='volunteers' >
-          Volunteers
-        </Menu.Item>
-        <Menu.Item key='signup' >
-          Signup
-        </Menu.Item>
-        <Menu.Item key='login' >
-          Login
-        </Menu.Item>
-        {/* <Menu.Item key='alipay'>
-          <a
-            href='https://ant.design'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Navigation Four - Link
-          </a>
-        </Menu.Item> */}
-      </Menu>
-    )
-  
+  const onClose = () => {
+    setVisible(false)
+  }
+  return (
+    <nav className='menuBar'>
+      <div className='logo'>
+        <a href=''>VOGI</a>
+      </div>
+      <div className='menuCon'>
+        <div className='leftMenu'>
+          <LeftMenu order='horizontal' />
+        </div>
+        <div className='rightMenu'>
+          <RightMenu order='horizontal' />
+        </div>
+        <div className='barsMenu'>
+          <MenuOutlined onClick={showDrawer} />
+        </div>
+        <Drawer
+          title='Basic Drawer'
+          placement='right'
+          closable={true}
+          onClose={onClose}
+          visible={visible}
+          keyboard={true}
+        >
+          <LeftMenu />
+          <RightMenu />
+        </Drawer>
+      </div>
+    </nav>
+  )
 }
-
-
 export default Navbar

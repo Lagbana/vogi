@@ -3,6 +3,8 @@ import LeftMenu from '../LeftMenu'
 import RightMenu from '../RightMenu'
 import { Drawer } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
+import './style.css'
 
 function Navbar () {
   //   const [current, setCurrent] = useState('mail')
@@ -17,7 +19,7 @@ function Navbar () {
   return (
     <nav className='menuBar'>
       <div className='logo'>
-        <a href=''>VOGI</a>
+        <Link to='/'>VOGI</Link>
       </div>
       <div className='menuCon'>
         <div className='leftMenu'>

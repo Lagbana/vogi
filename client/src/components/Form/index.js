@@ -1,7 +1,15 @@
 import React from 'react'
 import { Form as AntForm, Input, Button, Checkbox } from 'antd'
 
-function Form () {
+const layout = {
+  labelCol: { span: 6 },
+  wrapperCol: { span: 16 }
+}
+const tailLayout = {
+  wrapperCol: { offset: 4, span: 16 }
+}
+
+function Form ({ buttonName }) {
   const onFinish = values => {
     console.log('Success:', values)
   }
@@ -15,11 +23,13 @@ function Form () {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      {...layout}
     >
       <AntForm.Item
         label='Username'
         name='username'
         rules={[{ required: true, message: 'Please input your username!' }]}
+        colon={false}
       >
         <Input />
       </AntForm.Item>
@@ -28,6 +38,7 @@ function Form () {
         label='Password'
         name='password'
         rules={[{ required: true, message: 'Please input your password!' }]}
+        colon={false}
       >
         <Input.Password />
       </AntForm.Item>
@@ -38,7 +49,7 @@ function Form () {
 
       <AntForm.Item>
         <Button type='primary' htmlType='submit'>
-          Login
+          {buttonName}
         </Button>
       </AntForm.Item>
     </AntForm>

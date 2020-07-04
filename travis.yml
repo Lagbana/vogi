@@ -1,0 +1,15 @@
+language: node_js
+node_js: '12'
+branches:
+  only:
+    - master
+cache:
+  directories:
+    - node_modules
+services:
+  - mongodb
+
+script:
+  - npm run build
+  - npm run test (for node.js)
+

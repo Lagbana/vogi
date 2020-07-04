@@ -1,7 +1,15 @@
+// Import React dependencies
 import React from 'react'
 
+// Import Navbar component and styling
+import Navbar from '../../components/Navbar'
+import './style.css'
+
+// Landing page 
 function Landing () {
-  return <div>This is the Landing Page</div>
+  return (
+      <Navbar />
+  )
 }
 
 export default Landing

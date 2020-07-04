@@ -19,20 +19,20 @@ const compression = require('compression')
 const app = express()
 
 // Re-direct all unsecure traffic through the https protocol
-function requireHTTPS (req, res, next) {
-  // The 'x-forwarded-proto' check is for Heroku
-  if (
-    !req.secure &&
-    req.get('x-forwarded-proto') !== 'https' &&
-    process.env.NODE_ENV !== 'development'
-  ) {
-    return res.redirect('https://' + req.get('host') + req.url)
-  }
-  next()
-}
+// function requireHTTPS (req, res, next) {
+//   // The 'x-forwarded-proto' check is for Heroku
+//   if (
+//     !req.secure &&
+//     req.get('x-forwarded-proto') !== 'https' &&
+//     process.env.NODE_ENV !== 'development'
+//   ) {
+//     return res.redirect('https://' + req.get('host') + req.url)
+//   }
+//   next()
+// }
 
 // Set up all middleware
-app.use(requireHTTPS)
+// app.use(requireHTTPS)
 app.use(cors())
 app.use(logger('dev'))
 app.use(compression())
@@ -68,7 +68,7 @@ app.get('*', (req, res) => {
   Set's the PORT to 3000 when in local development OR to the PORT set by Heroku's environment when deployed
   The server accepts the PORT as a parameter to listen on.
 */
-const PORT = process.env.PORT
+const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
   console.log(`Server running on PORT ${PORT}`)
 })

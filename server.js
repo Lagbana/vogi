@@ -12,7 +12,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
-// const initializeRoutes = require('./routes')
+const initializeRoutes = require('./routes')
 const compression = require('compression')
 
 // Initialize the express app
@@ -58,11 +58,17 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
+// app.get('/api/partners', (req, res) => {
+//   res.send('hi')
+// })
+
+app.use(initializeRoutes)
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + './client/build/index.html'))
-})
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.join(__dirname + './client/build/index.html'))
+// })
 
 /*
   Set's the PORT to 3000 when in local development OR to the PORT set by Heroku's environment when deployed

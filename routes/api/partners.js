@@ -1,7 +1,9 @@
 const router = require('express').Router()
+const partnerController = require('../../controllers/partnerController')
 
-router.get('/', (req, res) => {
-  res.send('partners')
-})
+router
+  .route('/')
+  .get(partnerController.findAll)
+  .post(partnerController.create)
 
 module.exports = router

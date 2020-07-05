@@ -12,7 +12,7 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
-// const initializeRoutes = require('./routes')
+const initializeRoutes = require('./routes')
 const compression = require('compression')
 
 // Initialize the express app
@@ -38,11 +38,11 @@ app.use(logger('dev'))
 app.use(compression())
 
 // Connect to Mongo DB
-// mongoose.connect(process.env.MONGO_URI, {
-//   useCreateIndex: true,
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// })
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/vogiDB', {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
 app.use(
   bodyParser.urlencoded({
@@ -58,8 +58,12 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
+// API routes
+app.use(initializeRoutes)
+
 // Send every other request to the React app
 // Define any API routes before this runs
+
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + './client/build/index.html'))
 })

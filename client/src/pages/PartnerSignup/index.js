@@ -5,24 +5,31 @@ import Navbar from '../../components/Navbar'
 
 const { Content } = Layout
 
+const styling = {
+  header: {
+    border: 'none',
+    fontSize: '22px',
+    fontWeight: 'bold'
+  },
+  content: {
+    padding: 24,
+    margin: 0,
+    minHeight: 280
+  }
+}
+
 function PartnerSignup () {
   return (
     <>
       <Navbar />
       <Layout>
-        <Content
-          style={{
-            padding: 24,
-            margin: 0,
-            minHeight: 280
-          }}
-        >
+        <Content style={styling.content}>
           <Row justify='center'>
             <Col xs={22} sm={22} md={14} lg={12} xl={12}>
               <Card
                 size='large'
                 title='Partner Sign Up'
-                headStyle={{ border: 'none' }}
+                headStyle={styling.header}
               >
                 <Form buttonName='Sign Up' />
               </Card>

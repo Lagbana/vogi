@@ -1,12 +1,20 @@
 import React from 'react'
-import { Form as AntForm, Input, Button, Checkbox } from 'antd'
+import { Form as AntForm, Input, Button, Checkbox, Divider } from 'antd'
+import { GithubOutlined } from '@ant-design/icons'
 
-const layout = {
-  labelCol: { span: 6 },
-  wrapperCol: { span: 16 }
-}
-const tailLayout = {
-  wrapperCol: { offset: 4, span: 16 }
+const styling = {
+  formLayout: {
+    labelCol: {
+      span: 5
+    },
+    wrapperCol: {
+      span: 16
+    }
+  },
+  githubButton: {
+    backgroundColor: 'black',
+    border: 'none'
+  }
 }
 
 function Form ({ buttonName }) {
@@ -23,9 +31,9 @@ function Form ({ buttonName }) {
       initialValues={{ remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      {...layout}
     >
       <AntForm.Item
+        {...styling.formLayout}
         label='Username'
         name='username'
         rules={[{ required: true, message: 'Please input your username!' }]}
@@ -35,6 +43,7 @@ function Form ({ buttonName }) {
       </AntForm.Item>
 
       <AntForm.Item
+        {...styling.formLayout}
         label='Password'
         name='password'
         rules={[{ required: true, message: 'Please input your password!' }]}
@@ -48,8 +57,20 @@ function Form ({ buttonName }) {
       </AntForm.Item>
 
       <AntForm.Item>
-        <Button type='primary' htmlType='submit'>
+        <Button type='primary' shape='round' htmlType='submit'>
           {buttonName}
+        </Button>
+      </AntForm.Item>
+      <Divider>or</Divider>
+      <AntForm.Item>
+        <Button
+          style={styling.githubButton}
+          type='primary'
+          shape='round'
+          htmlType='submit'
+        >
+          <GithubOutlined />
+          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

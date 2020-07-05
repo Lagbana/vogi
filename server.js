@@ -38,11 +38,11 @@ app.use(logger('dev'))
 app.use(compression())
 
 // Connect to Mongo DB
-// mongoose.connect(process.env.MONGO_URI, {
-//   useCreateIndex: true,
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true
-// })
+mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/vogiDB', {
+  useCreateIndex: true,
+  useNewUrlParser: true,
+  useUnifiedTopology: true
+})
 
 app.use(
   bodyParser.urlencoded({
@@ -58,17 +58,15 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
-// app.get('/api/partners', (req, res) => {
-//   res.send('hi')
-// })
-
+// API routes
 app.use(initializeRoutes)
+
 // Send every other request to the React app
 // Define any API routes before this runs
 
-// app.get('*', (req, res) => {
-//   res.sendFile(path.join(__dirname + './client/build/index.html'))
-// })
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + './client/build/index.html'))
+})
 
 /*
   Set's the PORT to 3000 when in local development OR to the PORT set by Heroku's environment when deployed

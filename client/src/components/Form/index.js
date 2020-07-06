@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form as AntForm, Input, Button, Checkbox, Divider } from 'antd'
+import { Form as AntForm, Input, Button, Divider } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
 import API from '../../utils/API'
 
@@ -19,18 +19,24 @@ const styling = {
 }
 
 function Form ({ buttonName, page }) {
+  const [form] = AntForm.useForm()
+
   const onFinish = values => {
     if (page === 'partnerSignup') {
       API.savePartner({
         username: values.username,
         password: values.password
-      }).catch(err => console.log(err))
+      })
+        .then(form.resetFields())
+        .catch(err => console.log(err))
     }
     if (page === 'volunteerSignup') {
       API.saveVolunteer({
         username: values.username,
         password: values.password
-      }).catch(err => console.log(err))
+      })
+        .then(form.resetFields())
+        .catch(err => console.log(err))
     }
   }
 
@@ -39,6 +45,7 @@ function Form ({ buttonName, page }) {
   }
   return (
     <AntForm
+      form={form}
       name='basic'
       initialValues={{ remember: true }}
       onFinish={onFinish}
@@ -63,11 +70,6 @@ function Form ({ buttonName, page }) {
       >
         <Input.Password />
       </AntForm.Item>
-
-      <AntForm.Item name='remember' valuePropName='checked'>
-        <Checkbox>Remember me</Checkbox>
-      </AntForm.Item>
-
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>
           {buttonName}

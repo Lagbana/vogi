@@ -17,6 +17,12 @@ function RightMenu (props) {
 
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
+      <Menu.Item key='volunteers'>
+        <a href='/'>Volunteers</a>
+      </Menu.Item>
+      <Menu.Item key='partners'>
+        <a href='/'>Partners</a>
+      </Menu.Item>
       <SubMenu title='Signup'>
         <Menu.Item key='partnerSignup'>
           <Link to='/signup/partner'>Partner</Link>

@@ -1,6 +1,7 @@
 import React from 'react'
 import { Form as AntForm, Input, Button, Checkbox, Divider } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
+import API from '../../utils/API'
 
 const styling = {
   formLayout: {
@@ -17,9 +18,20 @@ const styling = {
   }
 }
 
-function Form ({ buttonName }) {
+function Form ({ buttonName, page }) {
   const onFinish = values => {
-    console.log('Success:', values)
+    if (page === 'partnerSignup') {
+      API.savePartner({
+        username: values.username,
+        password: values.password
+      }).catch(err => console.log(err))
+    }
+    if (page === 'volunteerSignup') {
+      API.saveVolunteer({
+        username: values.username,
+        password: values.password
+      }).catch(err => console.log(err))
+    }
   }
 
   const onFinishFailed = errorInfo => {

@@ -31,7 +31,7 @@ function PartnerSignup () {
                 title='Partner Sign Up'
                 headStyle={styling.header}
               >
-                <Form buttonName='Sign Up' />
+                <Form page='partnerSignup' buttonName='Sign Up' />
               </Card>
             </Col>
           </Row>

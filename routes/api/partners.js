@@ -6,4 +6,6 @@ router
   .get(partnerController.findAll)
   .post(partnerController.create)
 
+router.get('/auth/github', passport.authenticate('github'))
+
 module.exports = router

@@ -31,7 +31,7 @@ const styling = {
 function PartnerDashboard () {
   return (
     <>
-      <Navbar />
+      <Navbar authenticated='true' />
       <Layout style={styling.layout}>
         <PartnerSidebar />
         <Layout>

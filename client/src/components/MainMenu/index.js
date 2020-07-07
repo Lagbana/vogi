@@ -6,7 +6,7 @@ import { Menu } from 'antd'
 const SubMenu = Menu.SubMenu
 
 // Right Menu component
-function RightMenu (props) {
+function MainMenu (props) {
   const { order } = props
   const [current, setCurrent] = useState('mail')
 
@@ -18,12 +18,12 @@ function RightMenu (props) {
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
       <Menu.Item key='volunteers'>
-        <a href='/'>Volunteers</a>
+        <Link href='/'>Volunteers</Link>
       </Menu.Item>
       <Menu.Item key='partners'>
-        <a href='/'>Partners</a>
+        <Link href='/'>Partners</Link>
       </Menu.Item>
-      <SubMenu title='Signup'>
+      <SubMenu title='Sign up'>
         <Menu.Item key='partnerSignup'>
           <Link to='/signup/partner'>Partner</Link>
         </Menu.Item>
@@ -37,4 +37,4 @@ function RightMenu (props) {
     </Menu>
   )
 }
-export default RightMenu
+export default MainMenu

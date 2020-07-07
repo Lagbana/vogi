@@ -3,7 +3,7 @@ import { Layout, Menu } from 'antd'
 import {
   SettingOutlined,
   PlusOutlined,
-  TeamOutlined,
+  UnorderedListOutlined,
   UserOutlined
 } from '@ant-design/icons'
 
@@ -30,7 +30,11 @@ function VolunteerSidebar () {
         <Menu.Item key='2' icon={<PlusOutlined />}>
           New Project
         </Menu.Item>
-        <SubMenu key='sub1' icon={<TeamOutlined />} title='Active Projects'>
+        <SubMenu
+          key='sub1'
+          icon={<UnorderedListOutlined />}
+          title='Active Projects'
+        >
           <Menu.Item key='3'>Project 1</Menu.Item>
           <Menu.Item key='4'>Project 2</Menu.Item>
         </SubMenu>

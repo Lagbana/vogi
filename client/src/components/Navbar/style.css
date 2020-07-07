@@ -34,7 +34,7 @@
 
 .menuCon .rightMenu {
   float: right;
-  margin-right: 5rem;
+  margin-right: 1rem;
 }
 .barsMenu {
   float: right;
@@ -84,7 +84,6 @@
   .barsMenu {
     display: inline-block;
   }
-  .leftMenu,
   .rightMenu {
     display: none;
   }

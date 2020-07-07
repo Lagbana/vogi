@@ -1,10 +1,11 @@
 // Import React dependencies
 import React, { useState } from 'react'
-// Import Ant Design components
+import { Link } from 'react-router-dom'
+// Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
 
-// Left Menu Component
-function LeftMenu(props) {
+// Right Menu component
+function AuthMenu (props) {
   const { order } = props
   const [current, setCurrent] = useState('mail')
 
@@ -14,14 +15,11 @@ function LeftMenu(props) {
   }
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode= {order}>
+    <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
       <Menu.Item key='volunteers'>
-        <a href='/'>Volunteers</a>
-      </Menu.Item>
-      <Menu.Item key='partners'>
-        <a href='/'>Partners</a>
+        <Link to='/'>Logout</Link>
       </Menu.Item>
     </Menu>
   )
 }
-export default LeftMenu
+export default AuthMenu

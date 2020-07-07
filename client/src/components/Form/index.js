@@ -29,8 +29,7 @@ function Form ({ buttonName, page }) {
       })
         .then(form.resetFields())
         .catch(err => console.log(err))
-    }
-    if (page === 'volunteerSignup') {
+    } else if (page === 'volunteerSignup') {
       API.saveVolunteer({
         username: values.username,
         password: values.password

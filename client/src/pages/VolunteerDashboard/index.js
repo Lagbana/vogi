@@ -1,7 +1,7 @@
 import React from 'react'
 import Navbar from '../../components/Navbar'
 import { Layout } from 'antd'
-import VolunteerSidebar from '../../components/PartnerSidebar'
+import VolunteerSidebar from '../../components/VolunteerSidebar'
 
 const { Header, Content, Footer } = Layout
 const styling = {
@@ -31,7 +31,7 @@ const styling = {
 function VolunteerDashboard () {
   return (
     <>
-      <Navbar />
+      <Navbar authenticated='true' />
       <Layout style={styling.layout}>
         <VolunteerSidebar />
         <Layout>

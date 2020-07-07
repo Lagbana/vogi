@@ -31,10 +31,7 @@
 .menuCon .ant-menu-horizontal {
   border-bottom: none;
 }
-.menuCon .leftMenu {
-  float: left;
-  margin-left: 8rem;
-}
+
 .menuCon .rightMenu {
   float: right;
   margin-right: 5rem;

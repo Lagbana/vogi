@@ -25,10 +25,10 @@ function App () {
         <Route exact path='/signup/partner'>
           <PartnerSignup />
         </Route>
-        <Route exact path='/auth/partner/dashboard'>
+        <Route exact path='/partner/dashboard'>
           <PartnerDashboard />
         </Route>
-        <Route exact path='/auth/volunteer/dashboard'>
+        <Route exact path='/volunteer/dashboard'>
           <VolunteerDashboard />
         </Route>
       </Router>

@@ -1,4 +1,3 @@
 module.exports = {
-  PartnerDao: require('./partnerDao'),
-  VolunteerDao: require('./volunteerDao')
+  UserDao: require('./userDao')
 }

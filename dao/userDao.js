@@ -1,11 +1,11 @@
 // Require volunteer model
-const { Volunteer } = require('../models')
+const { User } = require('../models')
 
-// Volunteer Dao Class with database querying methods
-class VolunteerDao {
+// User Dao Class with database querying methods
+class UserDao {
   constructor (options = {}) {
     this.options = options
-    this.user = Volunteer
+    this.user = new User()
   }
 
   /*
@@ -14,7 +14,7 @@ class VolunteerDao {
   */
   async getUser(context) {
     try {
-      const user = await this.user.findOne(context)
+      const user = await this.user.findOneAndUpdate(context)
       return user
     } catch (err) {
       throw err
@@ -35,4 +35,4 @@ class VolunteerDao {
   }
 }
 
-module.exports = VolunteerDao
+module.exports = UserDao

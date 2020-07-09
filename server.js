@@ -57,7 +57,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
-
 /*
     Create new authentication instance and pass the initialized express in to the AuthService option parameter object
     Initialize authentication for volunteer and partner sign up and login
@@ -68,7 +67,7 @@ authService.initialize()
 // Send every other request to the React app
 // Define any API routes before this runs
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + './client/build/index.html'))
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 
 initializeRoutes(app)

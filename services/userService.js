@@ -19,6 +19,15 @@ class UserService extends UserDao {
       throw err
     }
   }
+
+  async createUser (context) {
+    try {
+      const user = await this.newUser(context)
+      return user
+    } catch (err) {
+      throw err
+    }
+  }
 }
 
 module.exports = UserService

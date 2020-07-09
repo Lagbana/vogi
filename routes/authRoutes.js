@@ -7,16 +7,19 @@ class AuthRoute {
   }
 
   initialize () {
-    // Github Auth Strategy
+    // Github Auth Sign up / Login
     this.router.get(
       '/auth/github',
-      passport.authenticate('github', { scope: ['user:email'] })
+      passport.authenticate('github', { scope: ['user:email'] }),
+      (req, res) => res.end()
     )
+
     this.router.get(
       '/auth/github/callback',
       passport.authenticate('github', { failureRedirect: '/login' }),
-      (_, res) => res.redirect('http://127.0.0.1:3000/')
-      // (_, res) => res.redirect('http://www.vogi.ca/')
+      (req, res) => {
+        res.redirect('http://127.0.0.1:3000/user/dashboard')
+      }
     )
 
     // Local Auth Strategy
@@ -24,6 +27,7 @@ class AuthRoute {
     this.router.post('/auth', passport.authenticate('local'), (req, res) =>
       this.createAuth(req, res)
     )
+    this.router.delete('/auth', (req, res) => this.logoutAuth(req, res))
   }
 
   async auth (req, res) {
@@ -52,12 +56,21 @@ class AuthRoute {
     }
   }
 
+  async logoutAuth (req, res) {
+    try {
+      req.logout()
+      req.session.destroy()
+      req.json({
+        message: 'You have been successfully logged out'
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+
   async getCurrentUser (req, _) {
-    // I'm picking only the specific fields its OK for the audience to see publicly
-    // never send the whole user object in the response, and only show things it's OK
-    // for others to read (like ID, name, email address, etc.)
-    const user = req.user
-    return res.json(user)
+    const { id, username } = req.user
+    return res.json({ id, username })
   }
 }
 

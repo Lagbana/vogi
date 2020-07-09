@@ -150,7 +150,7 @@ class AuthService {
               url,
               name,
               email,
-              username: login,
+              githubName: login,
               userId: user.id,
               accessToken,
               refreshToken

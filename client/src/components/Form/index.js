@@ -80,7 +80,10 @@ function Form ({ buttonName, page }) {
           style={styling.githubButton}
           type='primary'
           shape='round'
-          htmlType='submit'
+          htmlType='button'
+          onClick={() =>
+            window.open('http://localhost:8080/v1/api/auth/github/', '_self')
+          }
         >
           <GithubOutlined />
           Continue with GitHub

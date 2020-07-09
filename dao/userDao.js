@@ -25,7 +25,7 @@ class UserDao {
       *method to create new user with the create query
       context = req.body, to be inserted in the associated route handler
   */
-  async createUser (context) {
+  async newUser (context) {
     try {
       const newUser = await this.user.create(context)
       return newUser

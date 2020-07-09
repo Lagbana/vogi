@@ -1,5 +1,4 @@
 module.exports = {
   AuthService: require('./authService'),
-  PartnerService: require('./partnerService'),
-  VolunteerService: require('./volunteerService')
+  UserService: require('./userService')
 }

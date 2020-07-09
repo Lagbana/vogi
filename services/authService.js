@@ -6,8 +6,7 @@ const LocalStrategy = require('passport-local').Strategy
 const GitHubStrategy = require('passport-github2').Strategy
 
 // Import Dao's
-const { PartnerDao } = require('../dao')
-const { VolunteerDao } = require('../dao')
+const { UserDao } = require('../dao')
 
 /*
     AuthService extends Dao's to access it's methods
@@ -15,29 +14,22 @@ const { VolunteerDao } = require('../dao')
 */
 class AuthService {
   constructor (options = {}) {
-    super()
     this.options = options
     this.app = options.app
-    this.VolunteerDao = VolunteerDao
-    this.PartnerDao = PartnerDao
+    this.UserDao = new UserDao()
   }
 
-  // Set conditions and dependencies needed to use for volunteer authentication
+  // Set conditions and dependencies needed to use for user authentication
   initialize () {
     const config = this.sessionConfig()
     this.app.use(session(config))
     this.app.use(cookieparser())
 
-    // Serialize volunteer and partner session
-    passport.serialize((user, done) => this.serialize(user, done))
+    // Serialize user session
+    passport.serializeUser((user, done) => this.serialize(user, done))
 
-    // Deserialize session based on the 'partner' OR 'volunteer' flag
-    passport.deserializeUser((userId, done) =>
-      this.deSerialize(userId, done, 'partner')
-    )
-    passport.deserializeUser((userId, done) =>
-      this.deSerialize(userId, done, 'volunteer')
-    )
+    // Deserialize session
+    passport.deserializeUser((userId, done) => this.deSerialize(userId, done))
 
     // Register passport strategies
     passport.use(this.localStrategy())
@@ -52,7 +44,7 @@ class AuthService {
   sessionConfig () {
     return {
       // We need to modify the secret below with encrypted values for the production build
-      secret: 'Two full stack developers walked in to a remote bar....',
+      secret: process.env.SECRET,
       resave: false,
       saveUninitialized: false,
       // rolling: true => automatically extends the session age on each request.
@@ -78,19 +70,14 @@ class AuthService {
    back into the original User record from our Mongo database
    making the User ID available on each authenticated request via the req.user property
   */
-  async deSerialize (userId, done, flag) {
+  async deSerialize (userId, done) {
     try {
-      if (flag === 'volunteer') {
-        const VolunteerDao = this.VolunteerDao
-        const volunteer = await VolunteerDao.getUser({ _id: userId })
-        return done(null, volunteer)
-      } else {
-        const PartnerDao = this.PartnerDao
-        const partner = await PartnerDao.getPartner({ _id: userId })
-        return done(null, partner)
-      }
+      const UserDao = this.UserDao
+      const user = await UserDao.getUser({ _id: userId })
+      console.log(userId)
+      return done(null, user)
     } catch (err) {
-      console.error(err)
+      console.error(err.response.body.err)
       done(err)
     }
   }
@@ -129,17 +116,57 @@ class AuthService {
         callbackURL: 'http://127.0.0.1:8080/v1/api/auth/github/callback'
         // callbackURL: 'https://www.vogi.ca/v1/api/auth/github/callback'
       },
-      async (accessToken, refreshToken, profile, cb) => {
-        let user = await this.VolunteerDao.getUser({ githubId: profile.id })
-        if (!user) {
-          const { id, login } = profile['_json']
-          user = await this.createUser({
-            githubId: id,
-            username: login
-          })
+      async (accessToken, refreshToken, profile, done) => {
+        let user
+  
+        try {
+          // first, try to find the user that is connected to this twitter user
+          // i'm using findOneAndUpdate so that if the membership already exists,
+          // we just update their access token which will periodically expire
+          user = await this.UserDao.getUser(
+            {
+              githubId: profile.id
+            },
+            {
+              accessToken, // you'll typically want to encrypt these before storing db
+              refreshToken
+            }
+          )
+            // need the fully populated user for this membership, this is important!
+            .populate('userId')
+        } catch (err) {
+          return done(err, null)
         }
-        return cb(null, user)
+
+        if (!user) {
+          try {
+            // no user with this github account is on file,
+            // so create a new user and membership for this github user
+            const { id, login, avatar_url, name, email, url } = profile['_json']
+
+            user = await db.SocialMediaMembership.create({
+              githubId: id,
+              avatar: avatar_url,
+              url,
+              name,
+              email,
+              username: login,
+              userId: user.id,
+              accessToken,
+              refreshToken
+            })
+          } catch (err) {
+            return done(err, null)
+          }
+        } else {
+          // get the user from the membership
+          user = user.userId
+        }
+
+        // tell the strategy we found the user
+        done(null, user)
       }
+
     )
   }
 }

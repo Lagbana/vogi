@@ -1,11 +1,11 @@
-// Require volunteer dao
-const { VolunteerDao } = require('../dao')
+// Require user dao
+const { UserDao } = require('../dao')
 
 /*
-    PostService extends PostDao to access it's methods
+    User service extends UserDao to access it's methods
 */
 
-class VolunteerService extends VolunteerDao {
+class UserService extends UserDao {
   constructor (options = {}) {
     super()
     this.options = options
@@ -21,4 +21,4 @@ class VolunteerService extends VolunteerDao {
   }
 }
 
-module.exports = VolunteerService
+module.exports = UserService

@@ -11,7 +11,7 @@ class VolunteerService extends VolunteerDao {
     this.options = options
   }
 
-  async retrieveUser(context) {
+  async retrieveUser (context) {
     try {
       const user = await this.getUser(context)
       return user
@@ -19,7 +19,6 @@ class VolunteerService extends VolunteerDao {
       throw err
     }
   }
-
 }
 
 module.exports = VolunteerService

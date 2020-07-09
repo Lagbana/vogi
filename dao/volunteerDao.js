@@ -12,7 +12,7 @@ class VolunteerDao {
       *method to get the user using the findOne query
       context = req.body, to be inserted in the associated route handler
   */
-  async getUser (context) {
+  async getUser(context) {
     try {
       const user = await this.user.findOne(context)
       return user

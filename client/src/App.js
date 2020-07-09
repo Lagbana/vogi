@@ -6,6 +6,8 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import VolunteerSignup from './pages/VolunteerSignup'
 import PartnerSignup from './pages/PartnerSignup'
+import VolunteerDashboard from './pages/VolunteerDashboard'
+import PartnerDashboard from './pages/PartnerDashboard'
 
 function App () {
   return (
@@ -22,6 +24,12 @@ function App () {
         </Route>
         <Route exact path='/signup/partner'>
           <PartnerSignup />
+        </Route>
+        <Route exact path='/partner/dashboard'>
+          <PartnerDashboard />
+        </Route>
+        <Route exact path='/volunteer/dashboard'>
+          <VolunteerDashboard />
         </Route>
       </Router>
     </div>

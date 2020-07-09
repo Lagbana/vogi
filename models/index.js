@@ -1,4 +1,3 @@
 module.exports = {
-  Partner: require('./partner'),
-  Volunteer: require('./volunteer')
+  User: require('./user')
 }

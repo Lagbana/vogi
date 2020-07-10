@@ -18,7 +18,8 @@ const styling = {
   }
 }
 
-function VolunteerSignup () {
+function VolunteerSignup() {
+  
   return (
     <>
       <Navbar />

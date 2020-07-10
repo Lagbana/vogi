@@ -1,19 +1,17 @@
 import axios from 'axios'
+// import { json } from 'body-parser'
 
 export default {
-  // Gets all books
-  getPartner: function () {
-    return axios.get('/api/partners')
+  getUser: function () {
+    return axios.get('/v1/api/user')
   },
-  // Saves a book to the database
-  savePartner: function (partnerData) {
-    return axios.post('/api/partners', partnerData)
+
+  logOut: function () {
+    localStorage.removeItem('tokens')
+    return axios.delete('/v1/api/auth')
   },
-  getVolunteer: function () {
-    return axios.get('/api/volunteers')
-  },
-  // Saves a book to the database
-  saveVolunteer: function (volunteerData) {
-    return axios.post('/api/volunteers', volunteerData)
+
+  createUser: function (volunteerData) {
+    return axios.post('/v1/api/users', volunteerData)
   }
 }

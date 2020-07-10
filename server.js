@@ -12,8 +12,9 @@ const cors = require('cors')
 const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
-const initializeRoutes = require('./routes')
 const compression = require('compression')
+const { AuthService } = require('./services')
+const initializeRoutes = require('./routes')
 
 // Initialize the express app
 const app = express()
@@ -51,22 +52,25 @@ app.use(
 )
 app.use(bodyParser.json())
 
-// initializeRoutes(app)
-
 // Handling and rendering of static files
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'))
 }
 
-// API routes
-app.use(initializeRoutes)
+/*
+    Create new authentication instance and pass the initialized express in to the AuthService option parameter object
+    Initialize authentication for volunteer and partner sign up and login
+*/
+const authService = new AuthService({ app })
+authService.initialize()
 
 // Send every other request to the React app
 // Define any API routes before this runs
-
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + './client/build/index.html'))
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
+
+initializeRoutes(app)
 
 /*
   Set's the PORT to 3000 when in local development OR to the PORT set by Heroku's environment when deployed

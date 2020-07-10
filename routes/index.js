@@ -1,8 +1,26 @@
-const path = require('path')
-const router = require('express').Router()
-const apiRoutes = require('./api')
+const Router = require('express').Router()
 
-// API Routes
-router.use('/api', apiRoutes)
+// Require all Routes
+const UserRoute = require('../routes/userRoutes')
+const AuthRoute = require('../routes/authRoutes')
 
-module.exports = router
+// Require all Services
+const { UserService } = require('../services')
+
+/*
+    *Function: 
+    Initialize all routes
+*/
+const initializeRoutes = app => {
+  const routesArray = [
+    new UserRoute({ UserService, Router }),
+    new AuthRoute({ Router })
+  ]
+
+  routesArray.forEach(route => {
+    route.initialize()
+    app.use(process.env.PREFIX, route.router)
+  })
+}
+
+module.exports = initializeRoutes

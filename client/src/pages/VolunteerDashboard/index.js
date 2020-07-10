@@ -28,7 +28,8 @@ const styling = {
   }
 }
 
-function VolunteerDashboard () {
+function VolunteerDashboard() {
+
   return (
     <>
       <Navbar authenticated='true' />

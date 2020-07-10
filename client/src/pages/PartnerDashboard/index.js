@@ -1,22 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
-import { Layout } from 'antd'
+import { Layout, Card } from 'antd'
 import PartnerSidebar from '../../components/PartnerSidebar'
 
-const { Header, Content, Footer } = Layout
+const { Content, Footer } = Layout
 const styling = {
   layout: {
     minHeight: '100vh'
   },
   header: {
-    padding: 0,
-    backgroundColor: '#E6F7FF',
-    marginTop: '16px',
-    marginLeft: '16px',
-    marginRight: '16px'
+    backgroundColor: '#E6F7FF'
   },
   content: {
-    margin: '0 16px'
+    margin: '16px'
   },
   contentDiv: {
     padding: 24,
@@ -29,15 +25,22 @@ const styling = {
 }
 
 function PartnerDashboard () {
+  const [title, setTitle] = useState('Organization Information')
+
+  const contentHandler = title => {
+    setTitle(title)
+  }
+
   return (
     <>
       <Navbar authenticated='true' />
       <Layout style={styling.layout}>
-        <PartnerSidebar />
+        <PartnerSidebar contentHandler={contentHandler} />
         <Layout>
-          <Header style={styling.header}>Title</Header>
           <Content style={styling.content}>
-            <div style={styling.contentDiv}>The content goes here</div>
+            <Card title={title} headStyle={styling.header}>
+              The content goes here
+            </Card>
           </Content>
           <Footer style={styling.footer}>
             Ant Design ©2018 Created by Ant UED

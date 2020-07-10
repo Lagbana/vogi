@@ -18,10 +18,10 @@ import PartnerDashboard from './pages/PartnerDashboard'
 import { AuthContext, useAuth } from './utils/auth'
 import API from './utils/API'
 // import { withUser, update } from './utils/withUser'
-function App () {
+function App (props) {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
-  const [user, setUser] = useState('')
+  const [user, setUser] = useState('Volunteer')
 
   const setTokens = data => {
     if (Object.keys(data).length > 0)
@@ -33,18 +33,16 @@ function App () {
     const res = await API.getUser()
     setTokens(res.data)
     setUser(res.data.role)
-    // setUser('Volunteer')
     // setUser('Partner')
+    // setUser('Volunteer')
   }, [])
 
   const renderDashboard = () => {
     switch (user) {
-      case '':
-        return <div />
       case 'Volunteer':
-        return <VolunteerDashboard />
+        return VolunteerDashboard
       case 'Partner':
-        return <PartnerDashboard />
+        return PartnerDashboard
     }
   }
 
@@ -66,9 +64,11 @@ function App () {
             <Route exact path='/signup/partner'>
               <PartnerSignup />
             </Route>
-            <ProtectedRoute exact path='/user/dashboard'>
-              {renderDashboard()}
-            </ProtectedRoute>
+            <ProtectedRoute
+              exact
+              path='/user/dashboard'
+              component={renderDashboard()}
+            />
           </Switch>
         </Router>
       </AuthContext.Provider>

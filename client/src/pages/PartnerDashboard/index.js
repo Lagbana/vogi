@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import { Layout, Card } from 'antd'
 import PartnerSidebar from '../../components/PartnerSidebar'
-import NewProject from '../../dashboard-content/NewProject'
-import OrganizationInfo from '../../dashboard-content/OrganizationInfo'
+import NewProject from '../../dashboard-content/partner/NewProject'
+import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
 
 const { Content, Footer } = Layout
 const styling = {

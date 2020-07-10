@@ -18,7 +18,7 @@ import PartnerDashboard from './pages/PartnerDashboard'
 import { AuthContext, useAuth } from './utils/auth'
 import API from './utils/API'
 // import { withUser, update } from './utils/withUser'
-function App (props) {
+function App () {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
   const [user, setUser] = useState('')
@@ -32,8 +32,7 @@ function App (props) {
   useEffect(async () => {
     const res = await API.getUser()
     setTokens(res.data)
-    setUser('Partner')
-    // setUser(res.data.role)
+    setUser(res.data.role)
   }, [])
 
   const renderDashboard = () => {

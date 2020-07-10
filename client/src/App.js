@@ -2,7 +2,12 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import 'antd/dist/antd.css'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  Redirect
+} from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -16,6 +21,7 @@ import API from './utils/API'
 function App (props) {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
+  const [user, setUser] = useState('')
 
   const setTokens = data => {
     if (Object.keys(data).length > 0)
@@ -26,40 +32,45 @@ function App (props) {
   useEffect(async () => {
     const res = await API.getUser()
     setTokens(res.data)
+    setUser('Partner')
+    // setUser(res.data.role)
   }, [])
 
+  const renderDashboard = () => {
+    switch (user) {
+      case '':
+        return <div />
+      case 'Volunteer':
+        return <VolunteerDashboard />
+      case 'Partner':
+        return <PartnerDashboard />
+    }
+  }
 
   return (
     <div className='App'>
-        {/* <AuthContext.Provider value={true}> */}
-          <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
-          <Router>
-            <Switch>
-              <Route exact path='/'>
-                <Landing />
-              </Route>
-              <Route exact path='/login'>
-                <Login />
-              </Route>
-              <Route exact path='/signup/volunteer'>
-                <VolunteerSignup />
-              </Route>
-              <Route exact path='/signup/partner'>
-                <PartnerSignup />
-              </Route>
-              <ProtectedRoute
-                exact
-                path='/user/dashboard'
-                component={PartnerDashboard}
-              />
-              <ProtectedRoute
-                exact
-                path='/user/dashboard'
-                component={VolunteerDashboard}
-              />
-            </Switch>
-          </Router>
-        </AuthContext.Provider>
+      {/* <AuthContext.Provider value={true}> */}
+      <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
+        <Router>
+          <Switch>
+            <Route exact path='/'>
+              <Landing />
+            </Route>
+            <Route exact path='/login'>
+              <Login />
+            </Route>
+            <Route exact path='/signup/volunteer'>
+              <VolunteerSignup />
+            </Route>
+            <Route exact path='/signup/partner'>
+              <PartnerSignup />
+            </Route>
+            <ProtectedRoute exact path='/user/dashboard'>
+              {renderDashboard()}
+            </ProtectedRoute>
+          </Switch>
+        </Router>
+      </AuthContext.Provider>
     </div>
   )
 }

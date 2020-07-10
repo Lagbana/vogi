@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import Navbar from '../../components/Navbar'
 import { Layout, Card } from 'antd'
 import PartnerSidebar from '../../components/PartnerSidebar'
+import NewProject from '../../dashboard-content/NewProject'
+import OrganizationInfo from '../../dashboard-content/OrganizationInfo'
 
 const { Content, Footer } = Layout
 const styling = {
@@ -31,6 +33,15 @@ function PartnerDashboard () {
     setTitle(title)
   }
 
+  const renderContent = () => {
+    switch (title) {
+      case 'Organization Information':
+        return <OrganizationInfo />
+      case 'Create New Project':
+        return <NewProject />
+    }
+  }
+
   return (
     <>
       <Navbar authenticated='true' />
@@ -39,7 +50,7 @@ function PartnerDashboard () {
         <Layout>
           <Content style={styling.content}>
             <Card title={title} headStyle={styling.header}>
-              The content goes here
+              {renderContent()}
             </Card>
           </Content>
           <Footer style={styling.footer}>

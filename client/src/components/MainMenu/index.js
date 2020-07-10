@@ -18,10 +18,10 @@ function MainMenu (props) {
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
       <Menu.Item key='volunteers'>
-        <Link href='/'>Volunteers</Link>
+        <Link to='/'>Volunteers</Link>
       </Menu.Item>
       <Menu.Item key='partners'>
-        <Link href='/'>Partners</Link>
+        <Link to='/'>Partners</Link>
       </Menu.Item>
       <SubMenu title='Sign up'>
         <Menu.Item key='partnerSignup'>

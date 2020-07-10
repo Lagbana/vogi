@@ -6,7 +6,7 @@ import React from 'react'
 // retain the currently logged in user if the user does a manual refresh
 // in their browser. if we don't back the user by something that remains
 // between refreshes, the user will "lose" their logged in state.
-const stateFromStore = sessionStorage.getItem('volunteer')
+const stateFromStore = sessionStorage.getItem('user')
 let state = stateFromStore ? JSON.parse(stateFromStore) : null
 
 const subscribers = []
@@ -26,7 +26,7 @@ export const withUser = Component => {
       this.unsubscribe = subscribe(this.forceUpdate.bind(this))
     }
     render () {
-      const newProps = { ...this.props, volunteer: state }
+      const newProps = { ...this.props, user: state }
       return <Component {...newProps} />
     }
     componentWillUnmount () {
@@ -39,6 +39,6 @@ export const update = newState => {
   state = newState
   // update the "user" key in the session storage with whatever the new state value is
   // Remember to stringify the state object because sessionStorage can only store strings
-  sessionStorage.setItem('volunteer', state ? JSON.stringify(state) : null)
+  sessionStorage.setItem('user', state ? JSON.stringify(state) : null)
   subscribers.forEach(subscriber => subscriber())
 }

@@ -5,7 +5,7 @@ const { User } = require('../models')
 class UserDao {
   constructor (options = {}) {
     this.options = options
-    this.user = new User()
+    this.user = User
   }
 
   /*
@@ -14,7 +14,7 @@ class UserDao {
   */
   async getUser(context) {
     try {
-      const user = await this.user.findOneAndUpdate(context)
+      const user = await this.user.findOne(context)
       return user
     } catch (err) {
       throw err

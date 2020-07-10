@@ -10,13 +10,14 @@ class AuthRoute {
     // Github Auth Sign up / Login
     this.router.get(
       '/auth/github',
-      passport.authenticate('github', { scope: ['user:email'] }),
-      (req, res) => res.end()
+      passport.authenticate('github', { scope: ['user:email'] })
     )
 
     this.router.get(
       '/auth/github/callback',
-      passport.authenticate('github', { failureRedirect: '/login' }),
+      passport.authenticate('github', {
+        failureRedirect: 'http://127.0.0.1:3000/login'
+      }),
       (req, res) => {
         res.redirect('http://127.0.0.1:3000/user/dashboard')
       }
@@ -30,6 +31,7 @@ class AuthRoute {
     this.router.delete('/auth', (req, res) => this.logoutAuth(req, res))
   }
 
+  // GET to /auth will return current logged in user info
   async auth (req, res) {
     try {
       if (!req.user) {
@@ -60,7 +62,7 @@ class AuthRoute {
     try {
       req.logout()
       req.session.destroy()
-      req.json({
+      res.json({
         message: 'You have been successfully logged out'
       })
     } catch (err) {
@@ -69,8 +71,8 @@ class AuthRoute {
   }
 
   async getCurrentUser (req, _) {
-    const { id, username } = req.user
-    return res.json({ id, username })
+    const user = req.user
+    return res.json(user)
   }
 }
 

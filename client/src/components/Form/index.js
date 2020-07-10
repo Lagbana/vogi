@@ -1,7 +1,9 @@
-import React from 'react'
+import React, { useState } from 'react'
+import {Redirect} from 'react-router-dom'
 import { Form as AntForm, Input, Button, Divider } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
 import API from '../../utils/API'
+import { useAuth } from '../../utils/auth'
 
 const styling = {
   formLayout: {
@@ -18,26 +20,51 @@ const styling = {
   }
 }
 
-function Form ({ buttonName, page }) {
+function Form (props) {
+  const { setAuthTokens } = useAuth()
+  const { buttonName, history } = props
   const [form] = AntForm.useForm()
 
-  const onFinish = values => {
-    if (page === 'partnerSignup') {
-      API.savePartner({
-        username: values.username,
-        password: values.password
-      })
-        .then(form.resetFields())
-        .catch(err => console.log(err))
-    } else if (page === 'volunteerSignup') {
-      API.saveVolunteer({
-        username: values.username,
-        password: values.password
-      })
-        .then(form.resetFields())
-        .catch(err => console.log(err))
-    }
+  const [newUser, setNewUser] = useState({
+    username: '',
+    password: '',
+    error: ''
+  })
+
+  const isAuthenticated = localStorage.getItem('tokens')
+  if (isAuthenticated) return <Redirect to='/user/dashboard' />
+
+  const handleInputChanged = event => {
+    const { name, value } = event.target
+
+    setNewUser({
+      [name]: value
+    })
   }
+
+  // const handleLogin = async event => {
+  //   event.preventDefault()
+
+  //   const { username, password } = newUser
+
+  //   // clear any previous errors
+  //   setNewUser({ error: '' })
+
+  //   if (!username || !password) {
+  //     setNewUser({ error: 'A username and password is required' })
+  //     return
+  //   }
+
+  //   try {
+  //     // POST an auth request to create new user (using local strategy)
+  //     await API.createUser({ username, password })
+  //     history.push('/dashboard')
+  //   } catch (err) {
+  //     setNewUser({
+  //       error: err.response.data.message || err.message
+  //     })
+  //   }
+  // }
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
@@ -47,30 +74,33 @@ function Form ({ buttonName, page }) {
       form={form}
       name='basic'
       initialValues={{ remember: true }}
-      onFinish={onFinish}
+      // onFinish={handleLogin}
       onFinishFailed={onFinishFailed}
     >
       <AntForm.Item
         {...styling.formLayout}
         label='Username'
-        name='username'
         rules={[{ required: true, message: 'Please input your username!' }]}
         colon={false}
       >
-        <Input />
+        <Input name='username' onChange={handleInputChanged} />
       </AntForm.Item>
 
       <AntForm.Item
         {...styling.formLayout}
         label='Password'
-        name='password'
         rules={[{ required: true, message: 'Please input your password!' }]}
         colon={false}
       >
-        <Input.Password />
+        <Input.Password name='password' onChange={handleInputChanged} />
       </AntForm.Item>
       <AntForm.Item>
-        <Button type='primary' shape='round' htmlType='submit'>
+        <Button
+          type='primary'
+          shape='round'
+          htmlType='submit'
+          // onClick={handleLogin}
+        >
           {buttonName}
         </Button>
       </AntForm.Item>

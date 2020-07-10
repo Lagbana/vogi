@@ -71,15 +71,10 @@ class AuthService {
    making the User ID available on each authenticated request via the req.user property
   */
   async deSerialize (userId, done) {
-    try {
       const UserDao = this.UserDao
-      const user = await UserDao.getUser({ _id: userId })
-      console.log(userId)
+    const user = await UserDao.getUser({ _id: userId })
+    console.log(user)
       return done(null, user)
-    } catch (err) {
-      console.error(err.response.body.err)
-      done(err)
-    }
   }
 
   localStrategy () {
@@ -108,7 +103,8 @@ class AuthService {
     })
   }
 
-  githubStrategy () {
+  githubStrategy() {
+
     return new GitHubStrategy(
       {
         clientID: process.env.CLIENT_ID,
@@ -117,26 +113,7 @@ class AuthService {
         // callbackURL: 'https://www.vogi.ca/v1/api/auth/github/callback'
       },
       async (accessToken, refreshToken, profile, done) => {
-        let user
-  
-        try {
-          // first, try to find the user that is connected to this twitter user
-          // i'm using findOneAndUpdate so that if the membership already exists,
-          // we just update their access token which will periodically expire
-          user = await this.UserDao.getUser(
-            {
-              githubId: profile.id
-            },
-            {
-              accessToken, // you'll typically want to encrypt these before storing db
-              refreshToken
-            }
-          )
-            // need the fully populated user for this membership, this is important!
-            .populate('userId')
-        } catch (err) {
-          return done(err, null)
-        }
+        let user = await this.UserDao.getUser({ githubId: profile.id })
 
         if (!user) {
           try {
@@ -144,29 +121,24 @@ class AuthService {
             // so create a new user and membership for this github user
             const { id, login, avatar_url, name, email, url } = profile['_json']
 
-            user = await db.SocialMediaMembership.create({
+            user = await this.UserDao.newUser({
               githubId: id,
               avatar: avatar_url,
               url,
               name,
               email,
-              githubName: login,
-              userId: user.id,
-              accessToken,
-              refreshToken
+              username: login,
+              accessToken
+              // refreshToken
             })
           } catch (err) {
+            console.error(err)
             return done(err, null)
           }
-        } else {
-          // get the user from the membership
-          user = user.userId
         }
-
         // tell the strategy we found the user
-        done(null, user)
+        return done(null, user)
       }
-
     )
   }
 }

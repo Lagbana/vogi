@@ -12,7 +12,7 @@ class UserRoute {
   initialize () {
     this.router.get('/user', (req, res) => this.retrieveUser(req, res))
     this.router.post('/users', (req, res) => this.createUser(req, res, next))
-    this.router.get('/stuff', mustBeLoggedIn, (req, res) => this.getRestricted(req, res))
+    // this.router.get('/stuff', mustBeLoggedIn, (req, res) => this.getRestricted(req, res))
     this.router.get('/users', (req, res) => this.retrieveUsers(req, res))
   }
 
@@ -20,7 +20,7 @@ class UserRoute {
     try {
       // return res.send(req.user)
       // console.log(req.sessionStore.sessions)
-      console.log(req.user)
+      // console.log(req.user)
       const _id = this._getUser(req)
       if (!_id) return res.send({})
       const user = await this.UserService.retrieveUser({ _id })

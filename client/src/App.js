@@ -33,6 +33,8 @@ function App () {
     const res = await API.getUser()
     setTokens(res.data)
     setUser(res.data.role)
+    // setUser('Volunteer')
+    // setUser('Partner')
   }, [])
 
   const renderDashboard = () => {

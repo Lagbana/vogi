@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Layout, Menu } from 'antd'
 import {
   SettingOutlined,
@@ -6,6 +6,7 @@ import {
   RiseOutlined,
   UserOutlined
 } from '@ant-design/icons'
+import API from '../../utils/API'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -14,6 +15,23 @@ function PartnerSidebar ({ contentHandler }) {
   const [collapsed, setCollapsed] = useState(false)
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
+  }
+
+  const [projects, setProjects] = useState([])
+  useEffect(() => {
+    API.getProjects().then(res => {
+      const projectNames = res.data.map(item => item.name)
+      setProjects(projectNames)
+      return res.data
+    })
+  }, [])
+
+  const renderProjects = () => {
+    return projects.map(project => (
+      <Menu.Item onClick={() => contentHandler(project + ' Progress')}>
+        {project}
+      </Menu.Item>
+    ))
   }
   return (
     <Sider
@@ -39,18 +57,7 @@ function PartnerSidebar ({ contentHandler }) {
           Create New Project
         </Menu.Item>
         <SubMenu key='sub1' icon={<RiseOutlined />} title='Current Progress'>
-          <Menu.Item
-            onClick={() => contentHandler('Project 1 Progress')}
-            key='3'
-          >
-            Project 1
-          </Menu.Item>
-          <Menu.Item
-            onClick={() => contentHandler('Project 2 Progress')}
-            key='4'
-          >
-            Project 2
-          </Menu.Item>
+          {renderProjects()}
         </SubMenu>
         <SubMenu key='sub2' icon={<SettingOutlined />} title='Settings'>
           <Menu.Item onClick={() => contentHandler('Setting 1')} key='5'>

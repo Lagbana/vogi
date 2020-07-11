@@ -1,3 +1,4 @@
 module.exports = {
-  UserDao: require('./userDao')
+  UserDao: require('./userDao'),
+  ProjectDao: require('./projectDao')
 }

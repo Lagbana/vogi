@@ -10,7 +10,7 @@ import {
 const { Sider } = Layout
 const { SubMenu } = Menu
 
-function VolunteerSidebar () {
+function VolunteerSidebar ({ contentHandler }) {
   const [collapsed, setCollapsed] = useState(false)
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
@@ -24,10 +24,18 @@ function VolunteerSidebar () {
     >
       <div />
       <Menu defaultSelectedKeys={['1']} mode='inline'>
-        <Menu.Item key='1' icon={<UserOutlined />}>
+        <Menu.Item
+          onClick={() => contentHandler('Profile')}
+          key='1'
+          icon={<UserOutlined />}
+        >
           Profile
         </Menu.Item>
-        <Menu.Item key='2' icon={<PlusOutlined />}>
+        <Menu.Item
+          onClick={() => contentHandler('Join a New Project')}
+          key='2'
+          icon={<PlusOutlined />}
+        >
           New Project
         </Menu.Item>
         <SubMenu
@@ -35,12 +43,20 @@ function VolunteerSidebar () {
           icon={<UnorderedListOutlined />}
           title='Active Projects'
         >
-          <Menu.Item key='3'>Project 1</Menu.Item>
-          <Menu.Item key='4'>Project 2</Menu.Item>
+          <Menu.Item onClick={() => contentHandler('Project 1')} key='3'>
+            Project 1
+          </Menu.Item>
+          <Menu.Item onClick={() => contentHandler('Project 2')} key='4'>
+            Project 2
+          </Menu.Item>
         </SubMenu>
         <SubMenu key='sub2' icon={<SettingOutlined />} title='Settings'>
-          <Menu.Item key='5'>Setting 1</Menu.Item>
-          <Menu.Item key='6'>Setting 2</Menu.Item>
+          <Menu.Item onClick={() => contentHandler('Setting 1')} key='5'>
+            Setting 1
+          </Menu.Item>
+          <Menu.Item onClick={() => contentHandler('Setting 2')} key='6'>
+            Setting 2
+          </Menu.Item>
         </SubMenu>
       </Menu>
     </Sider>

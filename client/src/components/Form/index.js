@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button, Divider } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
-import API from '../../utils/API'
-import { useAuth } from '../../utils/auth'
+// import { useAuth } from '../../utils/auth'
 
 const styling = {
   formLayout: {
@@ -21,8 +20,8 @@ const styling = {
 }
 
 function Form (props) {
-  const { setAuthTokens } = useAuth()
-  const { buttonName, history } = props
+  // const { setAuthTokens } = useAuth()
+  const { buttonName } = props
   const [form] = AntForm.useForm()
 
   const [newUser, setNewUser] = useState({
@@ -42,32 +41,8 @@ function Form (props) {
     })
   }
 
-  // const handleLogin = async event => {
-  //   event.preventDefault()
-
-  //   const { username, password } = newUser
-
-  //   // clear any previous errors
-  //   setNewUser({ error: '' })
-
-  //   if (!username || !password) {
-  //     setNewUser({ error: 'A username and password is required' })
-  //     return
-  //   }
-
-  //   try {
-  //     // POST an auth request to create new user (using local strategy)
-  //     await API.createUser({ username, password })
-  //     history.push('/dashboard')
-  //   } catch (err) {
-  //     setNewUser({
-  //       error: err.response.data.message || err.message
-  //     })
-  //   }
-  // }
-
   const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo)
+    // console.log('Failed:', errorInfo)
   }
   return (
     <AntForm

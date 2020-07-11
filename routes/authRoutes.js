@@ -62,6 +62,7 @@ class AuthRoute {
     try {
       req.logout()
       req.session.destroy()
+      res.clearCookie(process.env.COOKIE_NAME)
       res.json({
         message: 'You have been successfully logged out'
       })

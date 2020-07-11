@@ -24,16 +24,20 @@ function Navbar ({ authenticated }) {
       <div className='menuCon'>
         <div className='rightMenu'>
           {authenticated ? (
-            <AuthMenu order='horizontal' />
+            <div>
+              <AuthMenu order='horizontal' />
+              </div>
           ) : (
-            <MainMenu order='horizontal' />
+              <div>
+                <MainMenu order='horizontal' />
+                </div>
           )}
         </div>
         <div className='barsMenu'>
           <MenuOutlined onClick={showDrawer} />
         </div>
         <Drawer
-          title='Basic Drawer'
+          // title='Vogi Menu Items'
           placement='right'
           closable={true}
           onClose={onClose}
@@ -41,9 +45,9 @@ function Navbar ({ authenticated }) {
           keyboard={true}
         >
           {authenticated ? (
-            <AuthMenu order='horizontal' />
+            <AuthMenu order='inline'/>
           ) : (
-            <MainMenu order='horizontal' />
+            <MainMenu order='inline'/>
           )}
         </Drawer>
       </div>

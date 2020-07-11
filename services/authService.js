@@ -50,7 +50,7 @@ class AuthService {
       // rolling: true => automatically extends the session age on each request.
       // Allows user's activity to extend their session
       rolling: true,
-      name: 'cookie-monster',
+      name: process.env.COOKIE_NAME,
       cookie: {
         httpOnly: true,
         maxAge: 20 * 60 * 1000 // 20 minutes per active cookie (in milliseconds)
@@ -73,7 +73,6 @@ class AuthService {
   async deSerialize (userId, done) {
       const UserDao = this.UserDao
     const user = await UserDao.getUser({ _id: userId })
-    console.log(user)
       return done(null, user)
   }
 

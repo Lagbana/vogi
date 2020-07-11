@@ -3,6 +3,7 @@ const Router = require('express').Router()
 // Require all Routes
 const UserRoute = require('../routes/userRoutes')
 const AuthRoute = require('../routes/authRoutes')
+const ProjectRoute = require('../')
 
 // Require all Services
 const { UserService } = require('../services')

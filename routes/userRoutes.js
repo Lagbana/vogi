@@ -18,13 +18,7 @@ class UserRoute {
 
   async retrieveUser (req, res) {
     try {
-      // return res.send(req.user)
-      // console.log(req.sessionStore.sessions)
-      // console.log(req.user)
-      const _id = this._getUser(req)
-      if (!_id) return res.send({})
-      const user = await this.UserService.retrieveUser({ _id })
-      res.send(user)
+      res.send(req.user)
     } catch (err) {
       console.error(error.response.body.err)
       throw err
@@ -58,7 +52,6 @@ class UserRoute {
     }
   }
 
-
   // Get request for multiple data
   async retrieveUsers (req, res) {
     try {
@@ -67,18 +60,6 @@ class UserRoute {
       throw err
     }
 
-  }
-
-  _getUser (req) {
-    const sessions = req.sessionStore.sessions
-    const key = Object.keys(sessions)[0]
-    let context = sessions[key]
-    if (!context) return
-    context = JSON.parse(context)
-    const {
-      passport: { user }
-    } = context
-    return user
   }
 }
 

@@ -2,11 +2,7 @@
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import 'antd/dist/antd.css'
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -20,6 +16,7 @@ import API from './utils/API'
 function App () {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
+  const [user, setUser] = useState('Volunteer')
 
   const setTokens = data => {
     if (Object.keys(data).length > 0)
@@ -30,9 +27,21 @@ function App () {
   useEffect(() => {
     API.getUser().then(res => {
       console.log(res.data)
+      // setUser('Partner')
+      setUser(res.data.role)
       return setTokens(res.data)
     })
   }, [])
+
+  const renderDashboard = () => {
+    switch (user) {
+      case 'Volunteer':
+        return VolunteerDashboard
+      case 'Partner':
+        return PartnerDashboard
+    }
+    // return user === 'Volunteer' ? VolunteerDashboard : PartnerDashboard
+  }
 
   return (
     <div className='App'>
@@ -55,12 +64,7 @@ function App () {
             <ProtectedRoute
               exact
               path='/user/dashboard'
-              component={PartnerDashboard}
-            />
-            <ProtectedRoute
-              exact
-              path='/user/dashboard'
-              component={VolunteerDashboard}
+              component={renderDashboard()}
             />
           </Switch>
         </Router>
@@ -70,4 +74,3 @@ function App () {
 }
 
 export default App
-// export default withUser(App)

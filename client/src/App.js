@@ -27,7 +27,7 @@ function App () {
   useEffect(() => {
     API.getUser().then(res => {
       setUser(res.data.role)
-      // setUser('Partner')
+      setUser('Partner')
       return setTokens(res.data)
     })
   }, [])

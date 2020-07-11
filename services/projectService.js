@@ -1,33 +1,33 @@
 // Require user dao
-const { UserDao } = require('../dao')
+const { ProjectDao } = require('../dao')
 
 /*
     User service extends UserDao to access it's methods
 */
 
-class UserService extends UserDao {
+class ProjectService extends ProjectDao {
   constructor (options = {}) {
     super()
     this.options = options
   }
 
-  async retrieveUser (context) {
+  async retrieveProjects () {
     try {
-      const user = await this.getUser(context)
-      return user
+      const projects = await this.getProjects()
+      return projects
     } catch (err) {
       throw err
     }
   }
 
-  async createUser (context) {
+  async createProject (context) {
     try {
-      const user = await this.newUser(context)
-      return user
+      const project = await this.newProject(context)
+      return project
     } catch (err) {
       throw err
     }
   }
 }
 
-module.exports = UserService
+module.exports = ProjectService

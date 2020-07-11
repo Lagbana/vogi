@@ -21,7 +21,7 @@ import API from './utils/API'
 function App (props) {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
-  const [user, setUser] = useState('Volunteer')
+  const [user, setUser] = useState('Partner')
 
   const setTokens = data => {
     if (Object.keys(data).length > 0)
@@ -32,7 +32,7 @@ function App (props) {
   useEffect(async () => {
     const res = await API.getUser()
     setTokens(res.data)
-    setUser(res.data.role)
+    // setUser(res.data.role)
     // setUser('Partner')
     // setUser('Volunteer')
   }, [])

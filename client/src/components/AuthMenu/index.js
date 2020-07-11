@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom'
 // Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
 import API from '../../utils/API'
-import { update } from '../../utils/withUser'
+
 
 // Right Menu component
 function AuthMenu (props) {
-  const { order, user } = props
+  const { order } = props
   const [current, setCurrent] = useState('mail')
 
   const handleClick = e => {
@@ -27,7 +27,9 @@ function AuthMenu (props) {
   return (
     <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
       <Menu.Item key='volunteers'>
-        <Link to='/' onClick={handleLogout}>Logout</Link>
+        <Link to='/' onClick={handleLogout}>
+          Logout
+        </Link>
       </Menu.Item>
     </Menu>
   )

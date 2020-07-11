@@ -1,9 +1,8 @@
 import React, { useState } from 'react'
-import {Redirect} from 'react-router-dom'
+import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button, Divider } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
-import API from '../../utils/API'
-import { useAuth } from '../../utils/auth'
+// import { useAuth } from '../../utils/auth'
 
 const styling = {
   formLayout: {
@@ -21,8 +20,8 @@ const styling = {
 }
 
 function Form (props) {
-  const { setAuthTokens } = useAuth()
-  const { buttonName, history } = props
+  // const { setAuthTokens } = useAuth()
+  const { buttonName } = props
   const [form] = AntForm.useForm()
 
   const [newUser, setNewUser] = useState({
@@ -41,9 +40,6 @@ function Form (props) {
       [name]: value
     })
   }
-
-
-
 
   const onFinishFailed = errorInfo => {
     // console.log('Failed:', errorInfo)

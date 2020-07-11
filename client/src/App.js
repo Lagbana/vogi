@@ -5,8 +5,7 @@ import 'antd/dist/antd.css'
 import {
   BrowserRouter as Router,
   Switch,
-  Route,
-  Redirect
+  Route
 } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import Landing from './pages/Landing'
@@ -15,10 +14,10 @@ import VolunteerSignup from './pages/VolunteerSignup'
 import PartnerSignup from './pages/PartnerSignup'
 import VolunteerDashboard from './pages/VolunteerDashboard'
 import PartnerDashboard from './pages/PartnerDashboard'
-import { AuthContext, useAuth } from './utils/auth'
+import { AuthContext } from './utils/auth'
 import API from './utils/API'
 // import { withUser, update } from './utils/withUser'
-function App (props) {
+function App () {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
 

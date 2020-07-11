@@ -12,7 +12,7 @@ function AuthMenu (props) {
   const [current, setCurrent] = useState('mail')
 
   const handleClick = e => {
-    console.log('click ', e)
+    // console.log('click ', e)
     setCurrent({ current: e.key })
   }
 

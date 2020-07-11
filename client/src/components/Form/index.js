@@ -42,32 +42,11 @@ function Form (props) {
     })
   }
 
-  // const handleLogin = async event => {
-  //   event.preventDefault()
 
-  //   const { username, password } = newUser
 
-  //   // clear any previous errors
-  //   setNewUser({ error: '' })
-
-  //   if (!username || !password) {
-  //     setNewUser({ error: 'A username and password is required' })
-  //     return
-  //   }
-
-  //   try {
-  //     // POST an auth request to create new user (using local strategy)
-  //     await API.createUser({ username, password })
-  //     history.push('/dashboard')
-  //   } catch (err) {
-  //     setNewUser({
-  //       error: err.response.data.message || err.message
-  //     })
-  //   }
-  // }
 
   const onFinishFailed = errorInfo => {
-    console.log('Failed:', errorInfo)
+    // console.log('Failed:', errorInfo)
   }
   return (
     <AntForm

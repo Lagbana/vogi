@@ -11,11 +11,12 @@ function MainMenu (props) {
   const [current, setCurrent] = useState('mail')
 
   const handleClick = e => {
-    console.log('click ', e)
+    // console.log('click ', e)
     setCurrent({ current: e.key })
   }
 
   return (
+
     <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
       <Menu.Item key='volunteers'>
         <Link to='/'>Volunteers</Link>

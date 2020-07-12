@@ -20,6 +20,7 @@ function NewProject () {
     API.createProject(values).then(res => {
       console.log(res)
       form.resetFields()
+      window.location.reload()
       return res
     })
   }

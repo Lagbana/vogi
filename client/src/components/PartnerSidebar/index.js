@@ -19,14 +19,9 @@ function PartnerSidebar ({ contentHandler }) {
 
   const projects = useContext(ProjectContext)
 
-  useEffect(() => {}, [projects])
-
   const renderProjects = () => {
     return projects.map(project => (
-      <Menu.Item
-        key={project._id}
-        onClick={() => contentHandler(project.name + ' Progress')}
-      >
+      <Menu.Item key={project._id} onClick={() => contentHandler(project.name)}>
         {project.name}
       </Menu.Item>
     ))

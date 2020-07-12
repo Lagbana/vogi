@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useContext, useEffect } from 'react'
 import { Layout, Menu } from 'antd'
 import {
   SettingOutlined,
@@ -6,7 +6,7 @@ import {
   RiseOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import API from '../../utils/API'
+import ProjectContext from '../../utils/ProjectContext'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -17,19 +17,17 @@ function PartnerSidebar ({ contentHandler }) {
     setCollapsed(collapsed)
   }
 
-  const [projects, setProjects] = useState([])
-  useEffect(() => {
-    API.getProjects().then(res => {
-      const projectNames = res.data.map(item => item.name)
-      setProjects(projectNames)
-      return res.data
-    })
-  }, [])
+  const projects = useContext(ProjectContext)
+
+  useEffect(() => {}, [projects])
 
   const renderProjects = () => {
     return projects.map(project => (
-      <Menu.Item onClick={() => contentHandler(project + ' Progress')}>
-        {project}
+      <Menu.Item
+        key={project._id}
+        onClick={() => contentHandler(project.name + ' Progress')}
+      >
+        {project.name}
       </Menu.Item>
     ))
   }

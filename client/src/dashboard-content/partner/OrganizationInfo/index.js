@@ -31,8 +31,8 @@ function OrganizationInfo () {
           label='Type of Organization'
         >
           <Radio.Group>
-            <Radio.Button value='a'>Non-Profit</Radio.Button>
-            <Radio.Button value='b'>Start-Up</Radio.Button>
+            <Radio.Button value='non-profit'>Non-Profit</Radio.Button>
+            <Radio.Button value='start-up'>Start-Up</Radio.Button>
           </Radio.Group>
         </Form.Item>
         <Form.Item

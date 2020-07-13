@@ -12,17 +12,23 @@ const styling = {
   }
 }
 
-function NewProject () {
+function NewProject ({ onFinish, form }) {
   return (
     <>
-      <Form>
-        <Form.Item {...styling.formLayout} colon={false} label='Project Name'>
+      <Form onFinish={onFinish} form={form}>
+        <Form.Item
+          {...styling.formLayout}
+          colon={false}
+          label='Project Name'
+          name='name'
+        >
           <Input />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
           colon={false}
           label='Project Description'
+          name='description'
         >
           <Input.TextArea />
         </Form.Item>
@@ -30,14 +36,25 @@ function NewProject () {
           {...styling.formLayout}
           colon={false}
           label='Skills Required'
+          name='skills'
         >
           <Input />
         </Form.Item>
-        <Form.Item {...styling.formLayout} colon={false} label='Team'>
+        <Form.Item
+          {...styling.formLayout}
+          colon={false}
+          label='Team'
+          name='team'
+        >
           <Input />
         </Form.Item>
         <Form.Item>
-          <Button type='primary' shape='round' style={styling.button}>
+          <Button
+            type='primary'
+            shape='round'
+            style={styling.button}
+            htmlType='submit'
+          >
             Create
           </Button>
         </Form.Item>

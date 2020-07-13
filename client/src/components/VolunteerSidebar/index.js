@@ -32,7 +32,7 @@ function VolunteerSidebar ({ contentHandler }) {
           Profile
         </Menu.Item>
         <Menu.Item
-          onClick={() => contentHandler('Join a New Project')}
+          onClick={() => contentHandler('New Project')}
           key='2'
           icon={<PlusOutlined />}
         >

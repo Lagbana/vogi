@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import './App.css'
 import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import ProtectedRoute from './utils/ProtectedRoute'
+import ProtectedRoute from './utils/ProtectedRoute.js'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
@@ -26,7 +26,7 @@ function App () {
     const role = localStorage.getItem('role')
     if (!localStorage.getItem('tokens')) {
       API.updateUser(role).then(res => {
-        console.log(`😍 I got here fool`)
+        console.log(`😍 I got here fool, ${res.data}`)
         setUser(res.data.role)
         return setTokens(res.data)
       })
@@ -45,7 +45,7 @@ function App () {
   return (
     <div className='App'>
       {/* <AuthContext.Provider value={true}> */}
-      <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
+        {/* <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}> */}
         <Router>
           <Switch>
             <Route exact path='/'>
@@ -57,6 +57,9 @@ function App () {
             <Route exact path='/login'>
               <Login />
             </Route>
+            {/* <ProtectedRoute path='/user/dashboard' component={renderDashboard()} /> */}
+              
+           
             <ProtectedRoute
               exact
               path='/user/dashboard'
@@ -64,7 +67,7 @@ function App () {
             />
           </Switch>
         </Router>
-      </AuthContext.Provider>
+      {/* </AuthContext.Provider> */}
     </div>
   )
 }

@@ -1,5 +1,4 @@
 import axios from 'axios'
-// import { json } from 'body-parser'
 
 export default {
   updateUser: function (role) {
@@ -18,6 +17,12 @@ export default {
 
   createUser: function (userCredentials) {
     return axios.post('/v1/api/users', userCredentials)
-  }
+  },
 
+  createProject: function (projectData) {
+    return axios.post('/v1/api/projects', projectData)
+  },
+  getProjects: function () {
+    return axios.get('/v1/api/projects')
+  }
 }

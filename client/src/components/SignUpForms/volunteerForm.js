@@ -27,7 +27,9 @@ function VolunteerSignUp () {
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    API.createUser({ ...values, role: 'Volunteer' }).then(res => {
+    const { email, password } = values
+    API.createUser({ username: email, password, role: 'Volunteer' }).then(res => {
+    
       form.resetFields()
       const user = res.data
       setNewUser(user)

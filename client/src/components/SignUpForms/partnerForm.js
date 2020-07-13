@@ -27,7 +27,8 @@ function PartnerSignUp () {
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    API.createUser({ ...values, role: 'Partner' }).then(res => {
+    const { email, password } = values
+    API.createUser({ username: email, password, role: 'Partner' }).then(res => {
       form.resetFields()
       const user = res.data
       setNewUser(user)
@@ -91,7 +92,7 @@ function PartnerSignUp () {
           }}
         >
           <GithubOutlined />
-          Continue with GitHub P
+          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

@@ -71,15 +71,15 @@ class AuthService {
    making the User ID available on each authenticated request via the req.user property
   */
   async deSerialize (userId, done) {
-      const UserDao = this.UserDao
+    const UserDao = this.UserDao
     const user = await UserDao.getUser({ _id: userId })
-      return done(null, user)
+    return done(null, user)
   }
 
   localStrategy () {
     return new LocalStrategy(async (username, password, done) => {
       const errorMsg = 'Invalid username or password'
-      this.getUser({ username })
+     this.UserDao.getUser({ username })
         .then(user => {
           // if no matching user was found...
           if (!user) {
@@ -102,8 +102,7 @@ class AuthService {
     })
   }
 
-  githubStrategy() {
-
+  githubStrategy () {
     return new GitHubStrategy(
       {
         clientID: process.env.CLIENT_ID,
@@ -121,6 +120,7 @@ class AuthService {
             const { id, login, avatar_url, name, email, url } = profile['_json']
 
             user = await this.UserDao.newUser({
+              // role: 'Volunteer',
               githubId: id,
               avatar: avatar_url,
               url,

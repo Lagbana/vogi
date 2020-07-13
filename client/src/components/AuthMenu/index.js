@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom'
 import { Menu } from 'antd'
 import API from '../../utils/API'
 
-
 // Right Menu component
 function AuthMenu (props) {
   const { order } = props

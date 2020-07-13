@@ -16,7 +16,6 @@ function PartnerSidebar ({ contentHandler }) {
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
   }
-
   const projects = useContext(ProjectContext)
 
   const renderProjects = () => {

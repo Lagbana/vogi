@@ -16,7 +16,7 @@ import API from './utils/API'
 function App () {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
-  const [user, setUser] = useState('Volunteer')
+  const [user, setUser] = useState('')
 
   const setTokens = data => {
     if (Object.keys(data).length > 0)
@@ -26,15 +26,16 @@ function App () {
 
   useEffect(() => {
     API.getUser().then(res => {
-      console.log(res.data)
-      // setUser('Partner')
       setUser(res.data.role)
+      setUser('Partner')
       return setTokens(res.data)
     })
   }, [])
 
   const renderDashboard = () => {
     switch (user) {
+      case '':
+        return () => <div />
       case 'Volunteer':
         return VolunteerDashboard
       case 'Partner':

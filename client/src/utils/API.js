@@ -13,5 +13,11 @@ export default {
 
   createUser: function (volunteerData) {
     return axios.post('/v1/api/users', volunteerData)
+  },
+  createProject: function (projectData) {
+    return axios.post('/v1/api/projects', projectData)
+  },
+  getProjects: function () {
+    return axios.get('/v1/api/projects')
   }
 }

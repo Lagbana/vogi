@@ -3,9 +3,10 @@ const Router = require('express').Router()
 // Require all Routes
 const UserRoute = require('../routes/userRoutes')
 const AuthRoute = require('../routes/authRoutes')
+const ProjectRoute = require('../routes/projectRoutes')
 
 // Require all Services
-const { UserService } = require('../services')
+const { UserService, ProjectService } = require('../services')
 
 /*
     *Function: 
@@ -14,7 +15,8 @@ const { UserService } = require('../services')
 const initializeRoutes = app => {
   const routesArray = [
     new UserRoute({ UserService, Router }),
-    new AuthRoute({ Router })
+    new AuthRoute({ Router }),
+    new ProjectRoute({ ProjectService, Router })
   ]
 
   routesArray.forEach(route => {

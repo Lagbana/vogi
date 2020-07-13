@@ -13,17 +13,7 @@ const styling = {
   }
 }
 
-function NewProject () {
-  const [form] = Form.useForm()
-  const onFinish = values => {
-    console.log('Success:', values)
-    API.createProject(values).then(res => {
-      console.log(res)
-      form.resetFields()
-      window.location.reload()
-      return res
-    })
-  }
+function NewProject ({ onFinish, form }) {
   return (
     <>
       <Form onFinish={onFinish} form={form}>

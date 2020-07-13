@@ -1,7 +1,7 @@
 // Import from the react library
 import React, { useState, useEffect } from 'react'
 // Import from AntDesign
-import { Layout, Card } from 'antd'
+import { Layout, Card, Form } from 'antd'
 // Import Componentes
 import Navbar from '../../components/Navbar'
 import PartnerSidebar from '../../components/PartnerSidebar'
@@ -34,6 +34,7 @@ const styling = {
 
 function PartnerDashboard () {
   const [title, setTitle] = useState('Organization Information')
+  const [form] = Form.useForm()
   const [projects, setProjects] = useState([
     {
       _id: '',
@@ -43,6 +44,16 @@ function PartnerDashboard () {
       team: ''
     }
   ])
+
+  useEffect(() => {}, [projects])
+
+  const onFinish = values => {
+    API.createProject(values).then(res => {
+      form.resetFields()
+      setProjects([...projects, res.data])
+      return res
+    })
+  }
 
   const contentHandler = title => {
     setTitle(title)
@@ -71,7 +82,7 @@ function PartnerDashboard () {
       case 'Organization Information':
         return <OrganizationInfo />
       case 'Create New Project':
-        return <NewProject />
+        return <NewProject onFinish={onFinish} form={form} />
     }
   }
 

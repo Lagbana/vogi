@@ -18,6 +18,7 @@ function PartnerSidebar ({ contentHandler }) {
   }
 
   const projects = useContext(ProjectContext)
+  useEffect(() => {}, [projects])
 
   const renderProjects = () => {
     return projects.map(project => (

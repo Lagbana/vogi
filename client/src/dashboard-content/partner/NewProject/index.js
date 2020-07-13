@@ -1,6 +1,5 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
-import API from '../../../utils/API'
 
 const styling = {
   formLayout: {

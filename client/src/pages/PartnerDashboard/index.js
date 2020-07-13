@@ -33,8 +33,8 @@ const styling = {
 }
 
 function PartnerDashboard () {
-  const [title, setTitle] = useState('Organization Information')
   const [form] = Form.useForm()
+  const [title, setTitle] = useState('Organization Information')
   const [projects, setProjects] = useState([
     {
       _id: '',
@@ -44,8 +44,6 @@ function PartnerDashboard () {
       team: ''
     }
   ])
-
-  useEffect(() => {}, [projects])
 
   const onFinish = values => {
     API.createProject(values).then(res => {
@@ -83,6 +81,8 @@ function PartnerDashboard () {
         return <OrganizationInfo />
       case 'Create New Project':
         return <NewProject onFinish={onFinish} form={form} />
+      default:
+        return <div />
     }
   }
 

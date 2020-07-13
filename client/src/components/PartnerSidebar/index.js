@@ -16,9 +16,7 @@ function PartnerSidebar ({ contentHandler }) {
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
   }
-
   const projects = useContext(ProjectContext)
-  useEffect(() => {}, [projects])
 
   const renderProjects = () => {
     return projects.map(project => (

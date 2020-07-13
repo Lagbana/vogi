@@ -33,6 +33,19 @@ class UserDao {
       throw err
     }
   }
+
+  /*
+      *method to update existing user with the create query
+      context = req.body, to be inserted in the associated route handler
+  */
+  async update(context) {
+    try {
+      const updatedUser = await this.user.findOneAndUpdate({_id: context.id}, context, {new: true})
+      return updatedUser
+    } catch (err) {
+      throw err
+    }
+  }
 }
 
 module.exports = UserDao

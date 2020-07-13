@@ -1,4 +1,3 @@
-// import axios from 'axios'
 import React, { useEffect, useState } from 'react'
 import './App.css'
 import 'antd/dist/antd.css'
@@ -6,13 +5,12 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import ProtectedRoute from './utils/ProtectedRoute'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
-import VolunteerSignup from './pages/VolunteerSignup'
-import PartnerSignup from './pages/PartnerSignup'
+import SignUp from './pages/Signup'
 import VolunteerDashboard from './pages/VolunteerDashboard'
 import PartnerDashboard from './pages/PartnerDashboard'
 import { AuthContext } from './utils/auth'
 import API from './utils/API'
-// import { withUser, update } from './utils/withUser'
+
 function App () {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
@@ -25,12 +23,14 @@ function App () {
   }
 
   useEffect(() => {
-    API.getUser().then(res => {
-      console.log(res.data)
-      // setUser('Partner')
-      setUser(res.data.role)
-      return setTokens(res.data)
-    })
+    const role = localStorage.getItem('role')
+    if (!localStorage.getItem('tokens')) {
+      API.updateUser(role).then(res => {
+        console.log(`😍 I got here fool`)
+        setUser(res.data.role)
+        return setTokens(res.data)
+      })
+    }
   }, [])
 
   const renderDashboard = () => {
@@ -40,7 +40,6 @@ function App () {
       case 'Partner':
         return PartnerDashboard
     }
-    // return user === 'Volunteer' ? VolunteerDashboard : PartnerDashboard
   }
 
   return (
@@ -52,14 +51,11 @@ function App () {
             <Route exact path='/'>
               <Landing />
             </Route>
+            <Route exact path='/signup'>
+              <SignUp />
+            </Route>
             <Route exact path='/login'>
               <Login />
-            </Route>
-            <Route exact path='/signup/volunteer'>
-              <VolunteerSignup />
-            </Route>
-            <Route exact path='/signup/partner'>
-              <PartnerSignup />
             </Route>
             <ProtectedRoute
               exact

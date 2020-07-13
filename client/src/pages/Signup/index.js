@@ -1,6 +1,6 @@
 import React from 'react'
-import PartnerForm from '../../components/LogInForms/partnerForm'
-import VolunteerForm from '../../components/LogInForms/volunteerForm'
+import PartnerForm from '../../components/SignUpForms/partnerForm'
+import VolunteerForm from '../../components/SignUpForms/volunteerForm'
 import { Layout, Card, Row, Col, Space } from 'antd'
 import Navbar from '../../components/Navbar'
 
@@ -29,7 +29,7 @@ const styling = {
   }
 }
 
-function Login () {
+function SignUp () {
   return (
     <>
       <Navbar />
@@ -54,7 +54,7 @@ function Login () {
               <Col span={48}>
                 <Card
                   shape='round'
-                  title='Volunteer Login'
+                  title='Volunteer Sign Up'
                   headStyle={styling.header}
                   style={styling.volunteerCard}
                 >
@@ -67,7 +67,7 @@ function Login () {
               <Col span={48}>
                 <Card
                   shape='round'
-                  title='Partner Login'
+                  title='Partner Sign Up'
                   headStyle={styling.header}
                   style={styling.partnerCard}
                 >
@@ -84,4 +84,4 @@ function Login () {
   )
 }
 
-export default Login
+export default SignUp

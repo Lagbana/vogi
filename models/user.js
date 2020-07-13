@@ -2,7 +2,6 @@ const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const WORK_FACTOR = 10
 
-
 const Schema = mongoose.Schema
 
 const UserSchema = new Schema(
@@ -23,7 +22,7 @@ const UserSchema = new Schema(
     },
     url: String,
     email: {
-      type: String,
+      type: String
       // required: true
     },
     // githubName: {
@@ -82,7 +81,6 @@ UserSchema.methods.validatePassword = function (candidatePassword) {
     })
   })
 }
-
 
 const User = mongoose.model('User', UserSchema)
 module.exports = User

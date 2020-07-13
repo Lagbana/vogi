@@ -1,9 +1,15 @@
-import React, { useState } from 'react'
-import Navbar from '../../components/Navbar'
+// Import from the react library
+import React, { useState, useEffect } from 'react'
+// Import from AntDesign
 import { Layout, Card } from 'antd'
+// Import Componentes
+import Navbar from '../../components/Navbar'
 import PartnerSidebar from '../../components/PartnerSidebar'
 import NewProject from '../../dashboard-content/partner/NewProject'
 import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
+// Import React Context API
+import ProjectContext from '../../utils/ProjectContext'
+import API from '../../utils/API'
 
 const { Content, Footer } = Layout
 const styling = {
@@ -28,10 +34,37 @@ const styling = {
 
 function PartnerDashboard () {
   const [title, setTitle] = useState('Organization Information')
+  const [projects, setProjects] = useState([
+    {
+      _id: '',
+      name: '',
+      description: '',
+      skills: '',
+      team: ''
+    }
+  ])
 
   const contentHandler = title => {
     setTitle(title)
   }
+
+  useEffect(() => {
+    API.getProjects().then(res => {
+      const projectNames = res.data.map(
+        ({ _id, name, description, skills, team }) => {
+          return {
+            _id,
+            name,
+            description,
+            skills,
+            team
+          }
+        }
+      )
+      setProjects(projectNames)
+      return res.data
+    })
+  }, [])
 
   const renderContent = () => {
     switch (title) {
@@ -44,20 +77,22 @@ function PartnerDashboard () {
 
   return (
     <>
-      <Navbar authenticated='true' />
-      <Layout style={styling.layout}>
-        <PartnerSidebar contentHandler={contentHandler} />
-        <Layout>
-          <Content style={styling.content}>
-            <Card title={title} headStyle={styling.header}>
-              {renderContent()}
-            </Card>
-          </Content>
-          <Footer style={styling.footer}>
-            Ant Design ©2018 Created by Ant UED
-          </Footer>
+      <ProjectContext.Provider value={projects}>
+        <Navbar authenticated='true' />
+        <Layout style={styling.layout}>
+          <PartnerSidebar contentHandler={contentHandler} />
+          <Layout>
+            <Content style={styling.content}>
+              <Card title={title} headStyle={styling.header}>
+                {renderContent()}
+              </Card>
+            </Content>
+            <Footer style={styling.footer}>
+              Ant Design ©2018 Created by Ant UED
+            </Footer>
+          </Layout>
         </Layout>
-      </Layout>
+      </ProjectContext.Provider>
     </>
   )
 }

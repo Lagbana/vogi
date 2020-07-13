@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button, Divider } from 'antd'
 import { GithubOutlined } from '@ant-design/icons'
-// import { useAuth } from '../../utils/auth'
+import API from '../../utils/API'
 
 const styling = {
   formLayout: {
@@ -19,64 +19,63 @@ const styling = {
   }
 }
 
-function Form (props) {
-  // const { setAuthTokens } = useAuth()
-  const { buttonName } = props
+function PartnerSignUp () {
   const [form] = AntForm.useForm()
 
-  const [newUser, setNewUser] = useState({
-    username: '',
-    password: '',
-    error: ''
-  })
-
   const isAuthenticated = localStorage.getItem('tokens')
+  const [newUser, setNewUser] = useState({})
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
-  const handleInputChanged = event => {
-    const { name, value } = event.target
-
-    setNewUser({
-      [name]: value
+  const onFinish = values => {
+    const { email, password } = values
+    API.createUser({ username: email, password, role: 'Partner' }).then(res => {
+      form.resetFields()
+      const user = res.data
+      setNewUser(user)
+      localStorage.setItem('tokens', JSON.stringify(user))
+      window.location.reload()
     })
   }
 
   const onFinishFailed = errorInfo => {
-    // console.log('Failed:', errorInfo)
+    console.log('Failed:', errorInfo)
   }
+
   return (
     <AntForm
       form={form}
-      name='basic'
-      initialValues={{ remember: true }}
-      // onFinish={handleLogin}
+      name='partner form'
+      initialValues={{ email: '', password: '', remember: true }}
+      onFinish={onFinish}
       onFinishFailed={onFinishFailed}
     >
       <AntForm.Item
         {...styling.formLayout}
-        label='Username'
-        rules={[{ required: true, message: 'Please input your username!' }]}
+        label='E-mail'
+        rules={[
+          {
+            type: 'email',
+            message: 'The input is not valid E-mail!'
+          },
+          { required: true, message: 'Please input your E-mail!' }
+        ]}
         colon={false}
+        name='email'
       >
-        <Input name='username' onChange={handleInputChanged} />
+        <Input />
       </AntForm.Item>
-
       <AntForm.Item
         {...styling.formLayout}
         label='Password'
         rules={[{ required: true, message: 'Please input your password!' }]}
         colon={false}
+        name='password'
       >
-        <Input.Password name='password' onChange={handleInputChanged} />
+        <Input.Password />
       </AntForm.Item>
       <AntForm.Item>
-        <Button
-          type='primary'
-          shape='round'
-          htmlType='submit'
-          // onClick={handleLogin}
-        >
-          {buttonName}
+        <Button type='primary' shape='round' htmlType='submit'>
+          Sign Up
         </Button>
       </AntForm.Item>
       <Divider>or</Divider>
@@ -86,9 +85,11 @@ function Form (props) {
           type='primary'
           shape='round'
           htmlType='button'
-          onClick={() =>
-            window.open('http://localhost:8080/v1/api/auth/github/', '_self')
-          }
+          onClick={() => {
+            // window.open('http://localhost:3000/v1/api/auth/github/', '_self')
+            localStorage.setItem('role', 'Partner')
+            window.open('http://127.0.0.1:8080/v1/api/auth/github', '_self')
+          }}
         >
           <GithubOutlined />
           Continue with GitHub
@@ -97,5 +98,4 @@ function Form (props) {
     </AntForm>
   )
 }
-
-export default Form
+export default PartnerSignUp

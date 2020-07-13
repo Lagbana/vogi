@@ -8,6 +8,7 @@ class AuthRoute {
 
   initialize () {
     // Github Auth Sign up / Login
+
     this.router.get(
       '/auth/github',
       passport.authenticate('github', { scope: ['user:email'] })
@@ -19,15 +20,20 @@ class AuthRoute {
         failureRedirect: 'http://127.0.0.1:3000/login'
       }),
       (req, res) => {
+        // res.redirect('http://127.0.0.1:3000/login')
         res.redirect('http://127.0.0.1:3000/user/dashboard')
       }
     )
 
     // Local Auth Strategy
     this.router.get('/auth', (req, res) => this.auth(req, res))
-    this.router.post('/auth', passport.authenticate('local'), (req, res) =>
-      this.createAuth(req, res)
+    // Login with passport local route handler
+    this.router.post(
+      '/auth/users',
+      passport.authenticate('local', { failureRedirect: '/login' }),
+      (req, res) => this.createAuth(req, res)
     )
+    // Logout route handler
     this.router.delete('/auth', (req, res) => this.logoutAuth(req, res))
   }
 
@@ -71,7 +77,7 @@ class AuthRoute {
     }
   }
 
-  async getCurrentUser (req, _) {
+  async getCurrentUser (req, res) {
     const user = req.user
     return res.json(user)
   }

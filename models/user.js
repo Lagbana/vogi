@@ -7,33 +7,24 @@ const Schema = mongoose.Schema
 const UserSchema = new Schema(
   {
     role: {
-      type: String,
-      default: 'Volunteer'
+      type: String
     },
     githubId: {
-      type: String,
-      required: true
+      type: String
     },
     accessToken: String,
     refreshToken: String,
     avatar: {
-      type: String,
-      required: true
+      type: String
     },
     url: String,
-    email: {
-      type: String
-      // required: true
-    },
-    // githubName: {
-    //   type: String
-    // },
     name: {
       type: String
     },
     username: {
       type: String,
-      required: true
+      required: true,
+      unique: true
     },
     password: String
   },

@@ -42,7 +42,8 @@ app.use(compression())
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/vogiDB', {
   useCreateIndex: true,
   useNewUrlParser: true,
-  useUnifiedTopology: true
+  useUnifiedTopology: true,
+  useFindAndModify: false
 })
 
 app.use(

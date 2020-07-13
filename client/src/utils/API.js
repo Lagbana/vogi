@@ -1,19 +1,24 @@
 import axios from 'axios'
-// import { json } from 'body-parser'
 
 export default {
-  getUser: function () {
-    return axios.get('/v1/api/user')
+  updateUser: function (role) {
+    return axios.put(`/v1/api/users/?role=${role}`)
   },
 
   logOut: function () {
     localStorage.removeItem('tokens')
+    localStorage.removeItem('role')
     return axios.delete('/v1/api/auth')
   },
 
-  createUser: function (volunteerData) {
-    return axios.post('/v1/api/users', volunteerData)
+  logIn: function (userCredentials) {
+    return axios.post('/v1/api/auth/users', userCredentials)
   },
+
+  createUser: function (userCredentials) {
+    return axios.post('/v1/api/users', userCredentials)
+  },
+
   createProject: function (projectData) {
     return axios.post('/v1/api/projects', projectData)
   },

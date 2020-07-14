@@ -27,12 +27,10 @@ function PartnerSignUp () {
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    const { email, password } = values
-    API.createUser({ username: email, password, role: 'Partner' }).then(res => {
+    API.createUser({ ...values, role: 'Partner' }).then(res => {
       form.resetFields()
-      const user = res.data
-      setNewUser(user)
-      localStorage.setItem('tokens', JSON.stringify(user))
+      localStorage.setItem('role', 'Partner')
+      localStorage.setItem('tokens', JSON.stringify(res.data))
       window.location.reload()
     })
   }
@@ -86,9 +84,8 @@ function PartnerSignUp () {
           shape='round'
           htmlType='button'
           onClick={() => {
-            // window.open('http://localhost:3000/v1/api/auth/github/', '_self')
-            localStorage.setItem('role', 'Partner')
             window.open('http://127.0.0.1:8080/v1/api/auth/github', '_self')
+            localStorage.setItem('role', 'Partner')
           }}
         >
           <GithubOutlined />

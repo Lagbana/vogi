@@ -23,17 +23,13 @@ function VolunteerSignUp () {
   const [form] = AntForm.useForm()
 
   const isAuthenticated = localStorage.getItem('tokens')
-  const [newUser, setNewUser] = useState({})
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    const { email, password } = values
-    API.createUser({ username: email, password, role: 'Volunteer' }).then(res => {
-    
+    API.createUser({ ...values, role: 'Volunteer' }).then(res => {
       form.resetFields()
-      const user = res.data
-      setNewUser(user)
-      localStorage.setItem('tokens', JSON.stringify(user))
+      localStorage.setItem('tokens', JSON.stringify(res.data))
+      localStorage.setItem('role', 'Volunteer')
       window.location.reload()
     })
   }

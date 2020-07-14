@@ -6,15 +6,13 @@ import ProtectedRoute from './utils/ProtectedRoute.js'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
-import VolunteerDashboard from './pages/VolunteerDashboard'
-import PartnerDashboard from './pages/PartnerDashboard'
+import UserDashboard from './pages/UserDashboard'
 import { AuthContext } from './utils/auth'
 import API from './utils/API'
 
 function App () {
   const existingTokens = JSON.parse(localStorage.getItem('tokens'))
   const [authTokens, setAuthTokens] = useState(existingTokens)
-  const [user, setUser] = useState('Volunteer')
 
   const setTokens = data => {
     if (Object.keys(data).length > 0)
@@ -24,49 +22,36 @@ function App () {
 
   useEffect(() => {
     const role = localStorage.getItem('role')
-    if (!localStorage.getItem('tokens')) {
-      API.updateUser(role).then(res => {
-        console.log(`😍 I got here fool, ${res.data}`)
-        setUser(res.data.role)
-        return setTokens(res.data)
-      })
-    }
+    API.updateUser(role).then(res => {
+      console.log(res.data)
+      return setTokens(res.data)
+    })
   }, [])
-
-  const renderDashboard = () => {
-    switch (user) {
-      case 'Volunteer':
-        return VolunteerDashboard
-      case 'Partner':
-        return PartnerDashboard
-    }
-  }
 
   return (
     <div className='App'>
       {/* <AuthContext.Provider value={true}> */}
-        {/* <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}> */}
-        <Router>
-          <Switch>
-            <Route exact path='/'>
-              <Landing />
-            </Route>
-            <Route exact path='/signup'>
-              <SignUp />
-            </Route>
-            <Route exact path='/login'>
-              <Login />
-            </Route>
-            {/* <ProtectedRoute path='/user/dashboard' component={renderDashboard()} /> */}
-              
-           
-            <ProtectedRoute
-              exact
-              path='/user/dashboard'
-              component={renderDashboard()}
-            />
-          </Switch>
-        </Router>
+      {/* <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}> */}
+      <Router>
+        <Switch>
+          <Route exact path='/'>
+            <Landing />
+          </Route>
+          <Route exact path='/signup'>
+            <SignUp />
+          </Route>
+          <Route exact path='/login'>
+            <Login />
+          </Route>
+          {/* <ProtectedRoute path='/user/dashboard' component={renderDashboard()} /> */}
+
+          <ProtectedRoute
+            exact
+            path='/user/dashboard'
+            component={UserDashboard}
+          />
+        </Switch>
+      </Router>
       {/* </AuthContext.Provider> */}
     </div>
   )

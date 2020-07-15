@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import VolunteerDashboard from '../VolunteerDashboard'
 import PartnerDashboard from '../PartnerDashboard'
+import UserContext from '../../utils/UserContext'
 import API from '../../utils/API'
 
 function UserDashboard () {
+  const [userRole, setUserRole] = useState()
   const [user, setUser] = useState()
   useEffect(() => {
     API.getUser().then(res => {
-      console.log(res.data)
-      setUser(res.data.role)
+      setUserRole(res.data.role)
+      setUser(res.data)
     })
   }, [])
   const renderDashboard = () => {
-    switch (user) {
+    switch (userRole) {
       case 'Volunteer':
         return <VolunteerDashboard />
       case 'Partner':
@@ -21,7 +23,13 @@ function UserDashboard () {
         return <div />
     }
   }
-  return <>{renderDashboard()}</>
+  return (
+    <>
+      <UserContext.Provider value={user}>
+        {renderDashboard()}
+      </UserContext.Provider>
+    </>
+  )
 }
 
 export default UserDashboard

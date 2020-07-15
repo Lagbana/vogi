@@ -1,5 +1,5 @@
 // Import from the react library
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 // Import from AntDesign
 import { Layout, Card, Form } from 'antd'
 // Import Componentes
@@ -9,6 +9,7 @@ import NewProject from '../../dashboard-content/partner/NewProject'
 import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
 // Import React Context API
 import ProjectContext from '../../utils/ProjectContext'
+import UserContext from '../../utils/UserContext'
 import API from '../../utils/API'
 
 const { Content, Footer } = Layout
@@ -35,6 +36,7 @@ const styling = {
 function PartnerDashboard () {
   const [form] = Form.useForm()
   const [title, setTitle] = useState('Organization Information')
+  const user = useContext(UserContext)
   const [projects, setProjects] = useState([
     {
       _id: '',
@@ -46,7 +48,8 @@ function PartnerDashboard () {
   ])
 
   const onFinish = values => {
-    API.createProject(values).then(res => {
+    console.log(user._id)
+    API.createProject({ ...values, userID: user._id }).then(res => {
       form.resetFields()
       setProjects([...projects, res.data])
       return res

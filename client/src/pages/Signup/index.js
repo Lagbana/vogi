@@ -47,7 +47,7 @@ function SignUp () {
           {/* </Col> */}
           {/* <Col xs={22} sm={20} md={14} lg={12} xl={10}> */}
           <Row justify='center'>
-            <Col xl={10} lg={10} md={20} sm={22} xs={24}>
+            <Col xl={10} lg={10} md={20} sm={20} xs={20}>
               <Card
                 title='Volunteer Sign Up'
                 headStyle={styling.header}
@@ -62,7 +62,7 @@ function SignUp () {
                 style={{ borderColor: 'darkGray', minHeight: '60vh' }}
               ></Divider>
             </Col>
-            <Col xl={10} lg={10} md={20} sm={22} xs={24}>
+            <Col xl={10} lg={10} md={20} sm={20} xs={20}>
               <Card
                 shape='round'
                 title='Partner Sign Up'

@@ -1,8 +1,8 @@
 import axios from 'axios'
 
 export default {
-  updateUser: function (role) {
-    return axios.put(`/v1/api/users/?role=${role}`)
+  getUser: function () {
+    return axios.get('/v1/api/users/')
   },
 
   logOut: function () {

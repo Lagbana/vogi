@@ -54,7 +54,7 @@ function Login () {
               <Col span={48}>
                 <Card
                   shape='round'
-                  title='Volunteer Login'
+                  title='Volunteer Log In'
                   headStyle={styling.header}
                   style={styling.volunteerCard}
                 >
@@ -67,7 +67,7 @@ function Login () {
               <Col span={48}>
                 <Card
                   shape='round'
-                  title='Partner Login'
+                  title='Partner Log In'
                   headStyle={styling.header}
                   style={styling.partnerCard}
                 >

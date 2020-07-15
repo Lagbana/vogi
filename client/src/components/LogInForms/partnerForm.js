@@ -72,7 +72,7 @@ function PartnerLoginForm () {
       </AntForm.Item>
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>
-          Login
+          Log In
         </Button>
       </AntForm.Item>
     </AntForm>

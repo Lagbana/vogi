@@ -24,12 +24,15 @@ function VolunteerSignUp () {
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    API.createUser({ ...values, role: 'Volunteer' }).then(res => {
-      form.resetFields()
-      localStorage.setItem('tokens', JSON.stringify(res.data))
-      localStorage.setItem('role', 'Volunteer')
-      window.location.reload()
-    })
+    const { email, password } = values
+    API.createUser({ username: email, password, role: 'Volunteer' }).then(
+      res => {
+        form.resetFields()
+        localStorage.setItem('tokens', JSON.stringify(res.data))
+        localStorage.setItem('role', 'Volunteer')
+        window.location.reload()
+      }
+    )
   }
 
   const onFinishFailed = errorInfo => {

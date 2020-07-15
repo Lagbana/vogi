@@ -7,24 +7,6 @@ class AuthRoute {
   }
 
   initialize () {
-    // Github Auth Sign up / Login
-
-    this.router.get(
-      '/auth/github',
-      passport.authenticate('github', { scope: ['user:email'] })
-    )
-
-    this.router.get(
-      '/auth/github/callback',
-      passport.authenticate('github', {
-        failureRedirect: 'http://127.0.0.1:3000/login'
-      }),
-      (req, res) => {
-        // res.redirect('http://127.0.0.1:3000/login')
-        res.redirect('http://127.0.0.1:3000/user/dashboard')
-      }
-    )
-
     // Local Auth Strategy
     this.router.get('/auth', (req, res) => this.auth(req, res))
     // Login with passport local route handler

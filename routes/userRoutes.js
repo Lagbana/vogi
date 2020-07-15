@@ -11,9 +11,9 @@ class UserRoute {
 
   initialize () {
     this.router.put('/users', (req, res) => this.updateUser(req, res))
-    this.router.post('/users', (req, res, next) =>
+    this.router.post('/users', (req, res, next) => {
       this.createUser(req, res, next)
-    )
+    })
     this.router.get('/users', (req, res) => this.retrieveUsers(req, res))
   }
 
@@ -49,10 +49,9 @@ class UserRoute {
     try {
       const newUser = await this.UserService.createUser({
         ...req.body,
-        username: req.body.email
+        username: req.body.username
       })
       const { _id, username, role } = newUser
-      console.log(newUser)
       req.login(newUser, err => {
         if (err) console.log(err)
         return res.json({ _id, username, role })

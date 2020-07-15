@@ -24,7 +24,8 @@ function PartnerSignUp () {
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    API.createUser({ ...values, role: 'Partner' }).then(res => {
+    const { email, password } = values
+    API.createUser({ username: email, password, role: 'Partner' }).then(res => {
       form.resetFields()
       localStorage.setItem('role', 'Partner')
       localStorage.setItem('tokens', JSON.stringify(res.data))

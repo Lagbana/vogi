@@ -24,10 +24,11 @@ function PartnerLoginForm () {
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    API.logIn({ ...values }).then(res => {
+    const { email, password } = values
+    API.logIn({ username: email, password }).then(res => {
       form.resetFields()
       localStorage.setItem('tokens', JSON.stringify(res.data))
-      localStorage.setItem('role', 'Volunteer')
+      localStorage.setItem('role', 'Partner')
       window.location.reload()
     })
   }

@@ -3,6 +3,7 @@ class ProjectRoute {
     this.options = options
     this.router = options.Router
     this.ProjectService = new options.ProjectService()
+    this.GithubService = new options.GithubService()
   }
 
   initialize () {
@@ -13,12 +14,16 @@ class ProjectRoute {
   async createProject (req, res) {
     try {
       const newProject = await this.ProjectService.newProject(req.body)
+      const newRepo = this.GithubService.newRepo(newProject)
       res.json(newProject)
     } catch (err) {
-      console.error(error.response.body.err)
+      console.error(err)
       throw err
     }
   }
+
+
+
   async retrieveProjects (req, res) {
     try {
       const projects = await this.ProjectService.retrieveProjects()

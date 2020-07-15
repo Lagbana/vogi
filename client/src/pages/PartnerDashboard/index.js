@@ -61,8 +61,8 @@ function PartnerDashboard () {
   }
 
   useEffect(() => {
-    API.getProjects().then(res => {
-      const projectNames = res.data.map(
+    API.getUser().then(res => {
+      const projectNames = res.data.projects.map(
         ({ _id, name, description, skills, team }) => {
           return {
             _id,
@@ -74,7 +74,6 @@ function PartnerDashboard () {
         }
       )
       setProjects(projectNames)
-      return res.data
     })
   }, [])
 

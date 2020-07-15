@@ -15,9 +15,7 @@ class UserDao {
   */
   async getUser (context) {
     try {
-      const user = await this.user.findOne(context)
-      // const populatedUser = await user.populate('projects')
-      console.log(user)
+      const user = await this.user.findOne(context).populate('projects')
       return user
     } catch (err) {
       throw err

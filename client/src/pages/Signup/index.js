@@ -1,12 +1,13 @@
 import React from 'react'
 import PartnerForm from '../../components/SignUpForms/partnerForm'
 import VolunteerForm from '../../components/SignUpForms/volunteerForm'
-import { Layout, Card, Row, Col, Space } from 'antd'
+import { Layout, Card, Row, Col, Space, Divider } from 'antd'
 import Navbar from '../../components/Navbar'
 
 const { Content } = Layout
 
 const styling = {
+  wrapper: {},
   header: {
     border: 'none',
     color: '#1890ff',
@@ -19,13 +20,16 @@ const styling = {
   },
   volunteerCard: {
     width: '100%',
-    marginLeft: '0rem'
-    // marginLeft: '8rem',
+    marginLeft: '0rem',
+    border: '1px darkGray solid',
+    marginTop: '10%'
   },
+
   partnerCard: {
     width: '100%',
-    marginLeft: '0rem'
-    // marginLeft: '12rem'
+    marginLeft: '0rem',
+    border: '1px darkGray solid',
+    marginTop: '10%'
   }
 }
 
@@ -42,40 +46,33 @@ function SignUp () {
             </Card> */}
           {/* </Col> */}
           {/* <Col xs={22} sm={20} md={14} lg={12} xl={10}> */}
-          <Space
-            direction='vertical'
-            // direction='horizontal'
-            align='center'
-            size='large'
-            style={{ width: '100%' }}
-            // style={{ width: '85%' }}
-          >
-            <Row>
-              <Col span={48}>
-                <Card
-                  shape='round'
-                  title='Volunteer Sign Up'
-                  headStyle={styling.header}
-                  style={styling.volunteerCard}
-                >
-                  <VolunteerForm />
-                </Card>
-              </Col>
-            </Row>
-
-            <Row>
-              <Col span={48}>
-                <Card
-                  shape='round'
-                  title='Partner Sign Up'
-                  headStyle={styling.header}
-                  style={styling.partnerCard}
-                >
-                  <PartnerForm />
-                </Card>
-              </Col>
-            </Row>
-          </Space>
+          <Row justify='center'>
+            <Col xl={10} lg={10} md={20} sm={22} xs={24}>
+              <Card
+                title='Volunteer Sign Up'
+                headStyle={styling.header}
+                style={styling.volunteerCard}
+              >
+                <VolunteerForm />
+              </Card>
+            </Col>
+            <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
+              <Divider
+                type='vertical'
+                style={{ borderColor: 'darkGray', minHeight: '60vh' }}
+              ></Divider>
+            </Col>
+            <Col xl={10} lg={10} md={20} sm={22} xs={24}>
+              <Card
+                shape='round'
+                title='Partner Sign Up'
+                headStyle={styling.header}
+                style={styling.partnerCard}
+              >
+                <PartnerForm />
+              </Card>
+            </Col>
+          </Row>
           {/* </Col> */}
           {/* </Row> */}
         </Content>

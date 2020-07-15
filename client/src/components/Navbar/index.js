@@ -17,7 +17,7 @@ function Navbar ({ authenticated }) {
     setVisible(false)
   }
   return (
-    <nav className='menuBar'>
+    <nav className='menuBar' style={{ borderBottom: '1px solid darkGray' }}>
       <div className='logo'>
         <Link to='/'>VOGI</Link>
       </div>
@@ -26,11 +26,11 @@ function Navbar ({ authenticated }) {
           {authenticated ? (
             <div>
               <AuthMenu order='horizontal' />
-              </div>
+            </div>
           ) : (
-              <div>
-                <MainMenu order='horizontal' />
-                </div>
+            <div>
+              <MainMenu order='horizontal' />
+            </div>
           )}
         </div>
         <div className='barsMenu'>
@@ -45,9 +45,9 @@ function Navbar ({ authenticated }) {
           keyboard={true}
         >
           {authenticated ? (
-            <AuthMenu order='inline'/>
+            <AuthMenu order='inline' />
           ) : (
-            <MainMenu order='inline'/>
+            <MainMenu order='inline' />
           )}
         </Drawer>
       </div>

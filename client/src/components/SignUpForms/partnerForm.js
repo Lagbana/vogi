@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button, Divider } from 'antd'
-import { GithubOutlined } from '@ant-design/icons'
+import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
 
 const styling = {
@@ -21,13 +20,12 @@ const styling = {
 
 function PartnerSignUp () {
   const [form] = AntForm.useForm()
-
   const isAuthenticated = localStorage.getItem('tokens')
-  const [newUser, setNewUser] = useState({})
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    API.createUser({ ...values, role: 'Partner' }).then(res => {
+    const { email, password } = values
+    API.createUser({ username: email, password, role: 'Partner' }).then(res => {
       form.resetFields()
       localStorage.setItem('role', 'Partner')
       localStorage.setItem('tokens', JSON.stringify(res.data))
@@ -74,22 +72,6 @@ function PartnerSignUp () {
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>
           Sign Up
-        </Button>
-      </AntForm.Item>
-      <Divider>or</Divider>
-      <AntForm.Item>
-        <Button
-          style={styling.githubButton}
-          type='primary'
-          shape='round'
-          htmlType='button'
-          onClick={() => {
-            window.open('http://127.0.0.1:8080/v1/api/auth/github', '_self')
-            localStorage.setItem('role', 'Partner')
-          }}
-        >
-          <GithubOutlined />
-          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

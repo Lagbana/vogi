@@ -1,11 +1,18 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import VolunteerDashboard from '../VolunteerDashboard'
 import PartnerDashboard from '../PartnerDashboard'
+import API from '../../utils/API'
 
 function UserDashboard () {
+  const [user, setUser] = useState()
+  useEffect(() => {
+    API.getUser().then(res => {
+      console.log(res.data)
+      setUser(res.data.role)
+    })
+  }, [])
   const renderDashboard = () => {
-    const role = localStorage.getItem('role')
-    switch (role) {
+    switch (user) {
       case 'Volunteer':
         return <VolunteerDashboard />
       case 'Partner':

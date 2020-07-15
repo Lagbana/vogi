@@ -33,7 +33,6 @@ class AuthService {
 
     // Register passport strategies
     passport.use(this.localStrategy())
-    passport.use(this.githubStrategy())
 
     this.app.use(passport.initialize())
 
@@ -79,7 +78,7 @@ class AuthService {
   localStrategy () {
     return new LocalStrategy(async (username, password, done) => {
       const errorMsg = 'Invalid username or password'
-     this.UserDao.getUser({ username })
+      this.UserDao.getUser({ username })
         .then(user => {
           // if no matching user was found...
           if (!user) {
@@ -100,45 +99,6 @@ class AuthService {
         })
         .catch(done)
     })
-  }
-
-  githubStrategy () {
-    return new GitHubStrategy(
-      {
-        clientID: process.env.CLIENT_ID,
-        clientSecret: process.env.CLIENT_SECRET,
-        callbackURL: 'http://127.0.0.1:8080/v1/api/auth/github/callback'
-        // callbackURL: 'https://www.vogi.ca/v1/api/auth/github/callback'
-      },
-      async (accessToken, refreshToken, profile, done) => {
-        let user = await this.UserDao.getUser({ githubId: profile.id })
-
-        if (!user) {
-          try {
-            // no user with this github account is on file,
-            // so create a new user and membership for this github user
-            const { id, login, avatar_url, name, email, url } = profile['_json']
-
-            user = await this.UserDao.newUser({
-              // role: 'Volunteer',
-              githubId: id,
-              avatar: avatar_url,
-              url,
-              name,
-              email,
-              username: login,
-              accessToken
-              // refreshToken
-            })
-          } catch (err) {
-            console.error(err)
-            return done(err, null)
-          }
-        }
-        // tell the strategy we found the user
-        return done(null, user)
-      }
-    )
   }
 }
 

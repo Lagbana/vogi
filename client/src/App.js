@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import './App.css'
 import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
@@ -7,27 +7,8 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
 import UserDashboard from './pages/UserDashboard'
-import { AuthContext } from './utils/auth'
-import API from './utils/API'
 
 function App () {
-  const existingTokens = JSON.parse(localStorage.getItem('tokens'))
-  const [authTokens, setAuthTokens] = useState(existingTokens)
-
-  const setTokens = data => {
-    if (Object.keys(data).length > 0)
-      localStorage.setItem('tokens', JSON.stringify(data))
-    setAuthTokens(data)
-  }
-
-  useEffect(() => {
-    const role = localStorage.getItem('role')
-    API.updateUser(role).then(res => {
-      console.log(res.data)
-      return setTokens(res.data)
-    })
-  }, [])
-
   return (
     <div className='App'>
       {/* <AuthContext.Provider value={true}> */}

@@ -87,6 +87,7 @@ class UserRoute {
   // Get request for multiple data
   async retrieveUsers (req, res) {
     try {
+      res.send(req.user)
     } catch (err) {
       console.error(error.response.body.err)
       throw err

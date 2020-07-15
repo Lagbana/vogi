@@ -1,7 +1,6 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button, Divider } from 'antd'
-import { GithubOutlined } from '@ant-design/icons'
+import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
 
 const styling = {
@@ -21,19 +20,16 @@ const styling = {
 
 function VolunteerLogIn () {
   const [form] = AntForm.useForm()
-
   const isAuthenticated = localStorage.getItem('tokens')
-  const [newUser, setNewUser] = useState({})
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
-    const { email, password } = values
-    API.logIn({ username: email, password }).then(res => {
-      console.log(`😍 I got to the client`)
+    console.log(values)
+    API.logIn({ ...values }).then(res => {
+      console.log(res)
       form.resetFields()
-      const user = res.data
-      setNewUser(user)
-      localStorage.setItem('tokens', JSON.stringify(user))
+      localStorage.setItem('tokens', JSON.stringify(res.data))
+      localStorage.setItem('role', 'Volunteer')
       window.location.reload()
     })
   }
@@ -78,21 +74,6 @@ function VolunteerLogIn () {
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>
           Log In
-        </Button>
-      </AntForm.Item>
-      <Divider>or</Divider>
-      <AntForm.Item>
-        <Button
-          style={styling.githubButton}
-          type='primary'
-          shape='round'
-          htmlType='button'
-          onClick={() => {
-            window.open('http://localhost:8080/v1/api/auth/github/', '_self')
-          }}
-        >
-          <GithubOutlined />
-          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

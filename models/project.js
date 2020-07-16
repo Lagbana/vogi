@@ -16,10 +16,12 @@ const ProjectSchema = new Schema(
       type: String,
       required: true
     },
-    team: {
-      type: String,
-      required: true
-    }
+    team: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ]
   },
   {
     timestamps: true

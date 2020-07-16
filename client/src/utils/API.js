@@ -22,7 +22,10 @@ export default {
   createProject: function (projectData) {
     return axios.post('/v1/api/projects', projectData)
   },
-  getProjects: function () {
+  getAvailableProjects: function () {
     return axios.get('/v1/api/projects')
+  },
+  joinProject: function (projectData) {
+    return axios.put('/v1/api/projects', projectData)
   }
 }

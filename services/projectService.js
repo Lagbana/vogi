@@ -11,10 +11,13 @@ class ProjectService extends ProjectDao {
     this.options = options
   }
 
-  async retrieveProjects () {
+  async retrieveProjects (context) {
     try {
-      const projects = await this.getProjects()
-      return projects
+      const projects = await this.getAvailableProjects()
+      const filteredProjects = projects.filter(project => {
+        return !project.team.includes(context.userID)
+      })
+      return filteredProjects
     } catch (err) {
       throw err
     }
@@ -32,6 +35,14 @@ class ProjectService extends ProjectDao {
   async createProject (context) {
     try {
       const project = await this.newProject(context)
+      return project
+    } catch (err) {
+      throw err
+    }
+  }
+  async updateProject (context) {
+    try {
+      const project = await this.joinProject(context)
       return project
     } catch (err) {
       throw err

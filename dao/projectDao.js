@@ -13,7 +13,7 @@ class ProjectDao {
       *method to get the user using the findOne query
       context = req.body, to be inserted in the associated route handler
   */
-  async getProjects () {
+  async getAvailableProjects (context) {
     try {
       const projects = await this.project.find({})
       return projects
@@ -49,6 +49,25 @@ class ProjectDao {
     try {
       const res = await this.project.deleteOne(context)
       return res.deletedCount
+    } catch (err) {
+      throw err
+    }
+  }
+  async joinProject (context) {
+    console.log(context)
+    try {
+      const updatedProject = await this.project.findOneAndUpdate(
+        { _id: context.projectID },
+        { $push: { team: context.userID } },
+        { new: true }
+      )
+
+      const updatedUser = await this.user.findOneAndUpdate(
+        { _id: context.userID },
+        { $push: { projects: context.projectID } },
+        { new: true }
+      )
+      return updatedProject
     } catch (err) {
       throw err
     }

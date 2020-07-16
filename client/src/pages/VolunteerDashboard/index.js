@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import Navbar from '../../components/Navbar'
 import { Layout, Card } from 'antd'
 import VolunteerSidebar from '../../components/VolunteerSidebar'
 import Profile from '../../dashboard-content/volunteer/Profile'
 import NewProject from '../../dashboard-content/volunteer/NewProject'
 import API from '../../utils/API'
+import UserContext from '../../utils/UserContext'
 // Import React Context API
 import ProjectContext from '../../utils/ProjectContext'
 
@@ -31,15 +32,9 @@ const styling = {
 
 function VolunteerDashboard () {
   const [title, setTitle] = useState('Profile')
-  const [projects, setProjects] = useState([
-    {
-      _id: '',
-      name: '',
-      description: '',
-      skills: '',
-      team: ''
-    }
-  ])
+  const [availableProjects, setAvailableProjects] = useState()
+  const [currentProjects, setCurrentProjects] = useState()
+  const user = useContext(UserContext)
 
   useEffect(() => {
     API.getProjects().then(res => {
@@ -54,13 +49,22 @@ function VolunteerDashboard () {
           }
         }
       )
-      setProjects(fetchedProjects)
+      setAvailableProjects(fetchedProjects)
       return res.data
     })
+  }, [])
+  useEffect(() => {
+    API.getUser().then(res => {})
   }, [])
 
   const contentHandler = title => {
     setTitle(title)
+  }
+
+  const joinProjectHandler = id => {
+    // API.joinProject(id, {userID: user._id}).then(res=> {
+    //   console.log(res.data)
+    // })
   }
 
   const renderContent = () => {
@@ -68,14 +72,14 @@ function VolunteerDashboard () {
       case 'Profile':
         return <Profile />
       case 'New Project':
-        return <NewProject />
+        return <NewProject joinProjectHandler={joinProjectHandler} />
       default:
         return <div />
     }
   }
   return (
     <>
-      <ProjectContext.Provider value={projects}>
+      <ProjectContext.Provider value={availableProjects}>
         <Navbar authenticated='true' />
         <Layout style={styling.layout}>
           <VolunteerSidebar contentHandler={contentHandler} />

@@ -72,9 +72,24 @@ function VolunteerDashboard () {
   const contentHandler = title => {
     setTitle(title)
   }
+
   const joinProjectHandler = id => {
     API.joinProject({ userID: user._id, projectID: id }).then(res => {
       setCurrentProjects([...currentProjects, res.data])
+    })
+    API.getAvailableProjects().then(res => {
+      const fetchedProjects = res.data.map(
+        ({ _id, name, description, skills }) => {
+          return {
+            _id,
+            name,
+            description,
+            skills
+          }
+        }
+      )
+      setAvailableProjects(fetchedProjects)
+      return res.data
     })
   }
 

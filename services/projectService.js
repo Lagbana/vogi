@@ -11,10 +11,13 @@ class ProjectService extends ProjectDao {
     this.options = options
   }
 
-  async retrieveProjects () {
+  async retrieveProjects (context) {
     try {
-      const projects = await this.getProjects()
-      return projects
+      const projects = await this.getAvailableProjects(context)
+      const filteredProjects = projects.filter(project => {
+        return !project.team.includes(context)
+      })
+      return filteredProjects
     } catch (err) {
       throw err
     }

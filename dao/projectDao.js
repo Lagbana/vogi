@@ -13,7 +13,7 @@ class ProjectDao {
       *method to get the user using the findOne query
       context = req.body, to be inserted in the associated route handler
   */
-  async getProjects () {
+  async getAvailableProjects (context) {
     try {
       const projects = await this.project.find({})
       return projects

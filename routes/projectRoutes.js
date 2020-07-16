@@ -28,10 +28,10 @@ class ProjectRoute {
 
   async retrieveProjects (req, res) {
     try {
-      const projects = await this.ProjectService.retrieveProjects()
+      const projects = await this.ProjectService.retrieveProjects(req.user._id)
       res.json(projects)
     } catch (err) {
-      console.error(err.response.body.err)
+      console.log(err)
       throw err
     }
   }

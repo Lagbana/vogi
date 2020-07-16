@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import PartnerSidebar from '../../components/PartnerSidebar'
 import NewProject from '../../dashboard-content/partner/NewProject'
 import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
+import CurrentProject from '../../dashboard-content/partner/CurrentProgress'
 // Import React Context API
 import ProjectContext from '../../utils/ProjectContext'
 import API from '../../utils/API'
@@ -48,6 +49,7 @@ function PartnerDashboard () {
     API.createProject(values).then(res => {
       form.resetFields()
       setProjects([...projects, res.data])
+      console.log(projects)
       return res
     })
   }
@@ -80,7 +82,7 @@ function PartnerDashboard () {
       case 'Create New Project':
         return <NewProject onFinish={onFinish} form={form} />
       default:
-        return <div />
+        return <CurrentProject getprojects={projects}/>
     }
   }
 

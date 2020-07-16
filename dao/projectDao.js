@@ -40,6 +40,19 @@ class ProjectDao {
       throw err
     }
   }
+
+  /*
+      *method to delete a project with the delete query
+      context = req.body, to be inserted in the associated route handler
+  */
+  async eraseProject (context) {
+    try {
+      const res = await this.project.deleteOne(context)
+      return res.deletedCount
+    } catch (err) {
+      throw err
+    }
+  }
 }
 
 module.exports = ProjectDao

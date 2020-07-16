@@ -13,7 +13,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
 const compression = require('compression')
-const { AuthService } = require('./services')
+const { AuthService} = require('./services')
 const initializeRoutes = require('./routes')
 
 // Initialize the express app

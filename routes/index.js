@@ -6,7 +6,7 @@ const AuthRoute = require('../routes/authRoutes')
 const ProjectRoute = require('../routes/projectRoutes')
 
 // Require all Services
-const { UserService, ProjectService } = require('../services')
+const { UserService, ProjectService, GithubService } = require('../services')
 
 /*
     *Function: 
@@ -16,7 +16,7 @@ const initializeRoutes = app => {
   const routesArray = [
     new UserRoute({ UserService, Router }),
     new AuthRoute({ Router }),
-    new ProjectRoute({ ProjectService, Router })
+    new ProjectRoute({ ProjectService, GithubService, Router })
   ]
 
   routesArray.forEach(route => {

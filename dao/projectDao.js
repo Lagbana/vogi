@@ -53,6 +53,25 @@ class ProjectDao {
       throw err
     }
   }
+  async joinProject (context) {
+    console.log(context)
+    try {
+      const updatedProject = await this.project.findOneAndUpdate(
+        { _id: context.projectID },
+        { $push: { team: context.userID } },
+        { new: true }
+      )
+
+      const updatedUser = await this.user.findOneAndUpdate(
+        { _id: context.userID },
+        { $push: { projects: context.projectID } },
+        { new: true }
+      )
+      return updatedProject
+    } catch (err) {
+      throw err
+    }
+  }
 }
 
 module.exports = ProjectDao

@@ -37,6 +37,14 @@ class ProjectService extends ProjectDao {
       throw err
     }
   }
+  async updateProject (context) {
+    try {
+      const project = await this.joinProject(context)
+      return project
+    } catch (err) {
+      throw err
+    }
+  }
 }
 
 module.exports = ProjectService

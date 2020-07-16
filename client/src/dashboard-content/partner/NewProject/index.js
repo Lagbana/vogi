@@ -40,14 +40,6 @@ function NewProject ({ onFinish, form }) {
         >
           <Input />
         </Form.Item>
-        <Form.Item
-          {...styling.formLayout}
-          colon={false}
-          label='Team'
-          name='team'
-        >
-          <Input />
-        </Form.Item>
         <Form.Item>
           <Button
             type='primary'

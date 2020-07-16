@@ -1,9 +1,9 @@
 import React, { useContext } from 'react'
 import { Card, Button, Descriptions, List } from 'antd'
-import ProjectContext from '../../../utils/ProjectContext'
+import AvailableProjectContext from '../../../utils/AvailableProjectContext'
 
 function NewProject ({ joinProjectHandler }) {
-  const projects = useContext(ProjectContext)
+  const projects = useContext(AvailableProjectContext)
   return (
     <List>
       {projects.map(project => (
@@ -15,7 +15,6 @@ function NewProject ({ joinProjectHandler }) {
             <Descriptions.Item label='Required Skills'>
               {project.skills}
             </Descriptions.Item>
-            <Descriptions.Item label='Team'>{project.team}</Descriptions.Item>
           </Descriptions>
           <Button
             id={project._id}

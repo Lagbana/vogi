@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { Layout, Menu } from 'antd'
 import {
   SettingOutlined,
@@ -6,6 +6,7 @@ import {
   UnorderedListOutlined,
   UserOutlined
 } from '@ant-design/icons'
+import JoinedProjectContext from '../../utils/JoinedProjectContext'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -15,6 +16,16 @@ function VolunteerSidebar ({ contentHandler }) {
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
   }
+  const joinedProjects = useContext(JoinedProjectContext)
+
+  const renderProjects = () => {
+    return joinedProjects.map(project => (
+      <Menu.Item key={project._id} onClick={() => contentHandler(project.name)}>
+        {project.name}
+      </Menu.Item>
+    ))
+  }
+
   return (
     <Sider
       theme='light'
@@ -43,12 +54,7 @@ function VolunteerSidebar ({ contentHandler }) {
           icon={<UnorderedListOutlined />}
           title='Active Projects'
         >
-          <Menu.Item onClick={() => contentHandler('Project 1')} key='3'>
-            Project 1
-          </Menu.Item>
-          <Menu.Item onClick={() => contentHandler('Project 2')} key='4'>
-            Project 2
-          </Menu.Item>
+          {renderProjects()}
         </SubMenu>
         <SubMenu key='sub2' icon={<SettingOutlined />} title='Settings'>
           <Menu.Item onClick={() => contentHandler('Setting 1')} key='5'>

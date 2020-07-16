@@ -8,7 +8,7 @@ import PartnerSidebar from '../../components/PartnerSidebar'
 import NewProject from '../../dashboard-content/partner/NewProject'
 import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
 // Import React Context API
-import ProjectContext from '../../utils/ProjectContext'
+import CreatedProjectContext from '../../utils/CreatedProjectContext'
 import UserContext from '../../utils/UserContext'
 import API from '../../utils/API'
 
@@ -90,7 +90,7 @@ function PartnerDashboard () {
 
   return (
     <>
-      <ProjectContext.Provider value={projects}>
+      <CreatedProjectContext.Provider value={projects}>
         <Navbar authenticated='true' />
         <Layout style={styling.layout}>
           <PartnerSidebar contentHandler={contentHandler} />
@@ -105,7 +105,7 @@ function PartnerDashboard () {
             </Footer>
           </Layout>
         </Layout>
-      </ProjectContext.Provider>
+      </CreatedProjectContext.Provider>
     </>
   )
 }

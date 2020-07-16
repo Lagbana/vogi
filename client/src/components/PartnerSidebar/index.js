@@ -6,7 +6,7 @@ import {
   RiseOutlined,
   UserOutlined
 } from '@ant-design/icons'
-import ProjectContext from '../../utils/ProjectContext'
+import CreatedProjectContext from '../../utils/CreatedProjectContext'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
@@ -16,7 +16,7 @@ function PartnerSidebar ({ contentHandler }) {
   const onCollapse = collapsed => {
     setCollapsed(collapsed)
   }
-  const projects = useContext(ProjectContext)
+  const projects = useContext(CreatedProjectContext)
 
   const renderProjects = () => {
     return projects.map(project => (

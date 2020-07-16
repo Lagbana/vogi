@@ -7,7 +7,8 @@ import NewProject from '../../dashboard-content/volunteer/NewProject'
 import API from '../../utils/API'
 import UserContext from '../../utils/UserContext'
 // Import React Context API
-import ProjectContext from '../../utils/ProjectContext'
+import AvailableProjectContext from '../../utils/AvailableProjectContext'
+import JoinedProjectContext from '../../utils/JoinedProjectContext'
 
 const { Content, Footer } = Layout
 const styling = {
@@ -32,39 +33,49 @@ const styling = {
 
 function VolunteerDashboard () {
   const [title, setTitle] = useState('Profile')
-  const [availableProjects, setAvailableProjects] = useState()
-  const [currentProjects, setCurrentProjects] = useState()
+  const [availableProjects, setAvailableProjects] = useState([])
+  const [currentProjects, setCurrentProjects] = useState([])
   const user = useContext(UserContext)
 
+  // Get Available Projects to Join
   useEffect(() => {
-    API.getProjects().then(res => {
+    API.getAvailableProjects().then(res => {
       const fetchedProjects = res.data.map(
-        ({ _id, name, description, skills, team }) => {
+        ({ _id, name, description, skills }) => {
           return {
             _id,
             name,
             description,
-            skills,
-            team
+            skills
           }
         }
       )
       setAvailableProjects(fetchedProjects)
       return res.data
     })
-  }, [])
-  useEffect(() => {
-    API.getUser().then(res => {})
+    // Get Current Projects
+    API.getUser().then(res => {
+      const joinedProjects = res.data.projects.map(
+        ({ _id, name, description, skills }) => {
+          return {
+            _id,
+            name,
+            description,
+            skills
+          }
+        }
+      )
+      setCurrentProjects(joinedProjects)
+    })
   }, [])
 
   const contentHandler = title => {
     setTitle(title)
   }
-
   const joinProjectHandler = id => {
-    // API.joinProject(id, {userID: user._id}).then(res=> {
-    //   console.log(res.data)
-    // })
+    API.joinProject({ userID: user._id, projectID: id }).then(res => {
+      setCurrentProjects([...currentProjects, res.data])
+    })
   }
 
   const renderContent = () => {
@@ -79,22 +90,24 @@ function VolunteerDashboard () {
   }
   return (
     <>
-      <ProjectContext.Provider value={availableProjects}>
-        <Navbar authenticated='true' />
-        <Layout style={styling.layout}>
-          <VolunteerSidebar contentHandler={contentHandler} />
-          <Layout>
-            <Content style={styling.content}>
-              <Card title={title} headStyle={styling.header}>
-                {renderContent()}
-              </Card>
-            </Content>
-            <Footer style={styling.footer}>
-              Ant Design ©2018 Created by Ant UED
-            </Footer>
+      <AvailableProjectContext.Provider value={availableProjects}>
+        <JoinedProjectContext.Provider value={currentProjects}>
+          <Navbar authenticated='true' />
+          <Layout style={styling.layout}>
+            <VolunteerSidebar contentHandler={contentHandler} />
+            <Layout>
+              <Content style={styling.content}>
+                <Card title={title} headStyle={styling.header}>
+                  {renderContent()}
+                </Card>
+              </Content>
+              <Footer style={styling.footer}>
+                Ant Design ©2018 Created by Ant UED
+              </Footer>
+            </Layout>
           </Layout>
-        </Layout>
-      </ProjectContext.Provider>
+        </JoinedProjectContext.Provider>
+      </AvailableProjectContext.Provider>
     </>
   )
 }

@@ -9,6 +9,7 @@ class ProjectRoute {
   initialize () {
     this.router.post('/projects', (req, res) => this.createProject(req, res))
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
+    this.router.put('/projects', (req, res) => this.updateProject(req, res))
     this.router.delete('/projects', (req, res) => this.deleteProject(req, res))
   }
 
@@ -30,7 +31,7 @@ class ProjectRoute {
       const projects = await this.ProjectService.retrieveProjects()
       res.json(projects)
     } catch (err) {
-      console.error(error.response.body.err)
+      console.error(err.response.body.err)
       throw err
     }
   }
@@ -43,11 +44,21 @@ class ProjectRoute {
 
       // Delete project in DB
       const projectID = req.body._id
-      const deletedProject = await this.ProjectService.deleteProject({_id: projectID})
+      const deletedProject = await this.ProjectService.deleteProject({
+        _id: projectID
+      })
       res.json(deletedProject)
-
     } catch (err) {
       console.error(err)
+      throw err
+    }
+  }
+  async updateProject (req, res) {
+    try {
+      const project = await this.ProjectService.updateProject(req.body)
+      res.json(project)
+    } catch (err) {
+      console.log(err)
       throw err
     }
   }

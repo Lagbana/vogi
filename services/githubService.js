@@ -33,14 +33,6 @@ class GithubService {
           has_issues: true,
           has_projects: true,
           auto_init: true
-        },
-        function (error, result, request) {
-          //     console.log({
-          //       id: result.id,
-          //       project_Name: result.name,
-          //       repo_URL: result.html_url,
-          //       project_Decription: result.description
-          //   })
         }
       )
       return context.name

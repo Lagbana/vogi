@@ -15,10 +15,6 @@ const ProjectSchema = new Schema(
     skills: {
       type: String,
       required: true
-    },
-    team: {
-      type: String,
-      required: true
     }
   },
   {

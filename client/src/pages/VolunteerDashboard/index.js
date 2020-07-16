@@ -53,6 +53,9 @@ function VolunteerDashboard () {
       setAvailableProjects(fetchedProjects)
       return res.data
     })
+  }, [currentProjects])
+
+  useEffect(() => {
     // Get Current Projects
     API.getUser().then(res => {
       const joinedProjects = res.data.projects.map(
@@ -76,20 +79,6 @@ function VolunteerDashboard () {
   const joinProjectHandler = id => {
     API.joinProject({ userID: user._id, projectID: id }).then(res => {
       setCurrentProjects([...currentProjects, res.data])
-    })
-    API.getAvailableProjects().then(res => {
-      const fetchedProjects = res.data.map(
-        ({ _id, name, description, skills }) => {
-          return {
-            _id,
-            name,
-            description,
-            skills
-          }
-        }
-      )
-      setAvailableProjects(fetchedProjects)
-      return res.data
     })
   }
 

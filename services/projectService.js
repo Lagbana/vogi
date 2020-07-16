@@ -20,6 +20,15 @@ class ProjectService extends ProjectDao {
     }
   }
 
+  async deleteProject (context) {
+    try {
+      const projects = await this.eraseProject(context)
+      return projects
+    } catch (err) {
+      throw err
+    }
+  }
+
   async createProject (context) {
     try {
       const project = await this.newProject(context)

@@ -24,10 +24,24 @@ class GithubService {
             id: result.id,
             project_Name: result.name,
             repo_URL: result.html_url,
-            project_Decription: result.description,
+            project_Decription: result.description
           })
         }
       )
+    } catch (err) {
+      console.error(error.response.body.err)
+      throw err
+    }
+  }
+
+  deleteRepo (context) {
+    try {
+      const repo = this.getRepo(context)
+      repo.deleteRepo(function (error, result, request) {
+        console.log(result)
+        return result
+      })
+      console.log(repo)
     } catch (err) {
       console.error(error.response.body.err)
       throw err
@@ -42,6 +56,16 @@ class GithubService {
 
     const Vogi = gh.getOrganization('vogiPartner')
     return Vogi
+  }
+
+  getRepo (repo_Name) {
+    const gh = new GitHub({
+      username: process.env.GITHUB_USER,
+      password: process.env.GITHUB_PASS
+    })
+
+    const repo = gh.getRepo('vogiPartner', repo_Name)
+    return repo
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useLayoutEffect, useState, useContext, useEffect } from 'react'
 import { Layout, Menu } from 'antd'
 import {
   SettingOutlined,
@@ -7,15 +7,22 @@ import {
   UserOutlined
 } from '@ant-design/icons'
 import CreatedProjectContext from '../../utils/CreatedProjectContext'
+import useWindowSize from '../../utils/useWindowSize'
 
 const { Sider } = Layout
 const { SubMenu } = Menu
 
 function PartnerSidebar ({ contentHandler }) {
+  const [width, height] = useWindowSize()
   const [collapsed, setCollapsed] = useState(false)
-  const onCollapse = collapsed => {
-    setCollapsed(collapsed)
-  }
+  // const onCollapse = collapsed => {
+  //   setCollapsed(collapsed)
+  // }
+
+  useEffect(() => {
+    width < 767 ? setCollapsed(true) : setCollapsed(false)
+  }, [width])
+
   const projects = useContext(CreatedProjectContext)
 
   const renderProjects = () => {
@@ -28,9 +35,9 @@ function PartnerSidebar ({ contentHandler }) {
   return (
     <Sider
       theme='light'
-      collapsible
+      // collapsible
       collapsed={collapsed}
-      onCollapse={onCollapse}
+      // onCollapse={onCollapse}
     >
       <div />
       <Menu defaultSelectedKeys={['1']} mode='inline'>

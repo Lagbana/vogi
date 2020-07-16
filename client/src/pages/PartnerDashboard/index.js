@@ -48,8 +48,7 @@ function PartnerDashboard () {
   ])
 
   const onFinish = values => {
-    console.log(user._id)
-    API.createProject({ ...values, userID: user._id }).then(res => {
+    API.createProject(values).then(res => {
       form.resetFields()
       setProjects([...projects, res.data])
       return res

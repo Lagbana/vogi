@@ -64,7 +64,7 @@ class GithubService {
     }
   }
 
-  newIssue (repoName, issueTitle, issueBody) {
+  async newIssue (repoName, issueTitle, issueBody) {
     try {
       const issue = new Issue(
         `vogiPartner/${repoName}`,
@@ -74,20 +74,67 @@ class GithubService {
         },
         'https://api.github.com'
       )
-        issue.createIssue(
-          {
-            title: issueTitle,
-            body: issueBody
-          },
-          function (error, result, request) {
-            console.log(result)
-          }
-        )
+      const newIssue = await issue.createIssue({
+        title: issueTitle,
+        body: issueBody
+      })
+      return newIssue.statusText
     } catch (err) {
       console.error(err)
       throw err
     }
   }
+
+  async listIssues (repoName) {
+    try {
+      const issue = new Issue(
+        `vogiPartner/${repoName}`,
+        {
+          username: process.env.GITHUB_USER,
+          password: process.env.GITHUB_PASS
+        },
+        'https://api.github.com'
+      )
+      const response = await issue.listIssues({
+        state: 'all'
+      })
+      const array = response.data
+      let closedIssues = 0
+      const issues = array.map(context => {
+        if (context.state === 'closed') closedIssues++
+        let data = {}
+        data['title'] = context.title
+        data['body'] = context.body
+        data['state'] = context.state
+        return data
+      })
+
+      const progress = { closedIssues: closedIssues, totalIssues: issues.length }
+      return [issues, progress]
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
+  }
+  //   async newMilestone (repoName, title, body) {
+  //     try {
+  //       const issue = new Issue(
+  //         `vogiPartner/${repoName}`,
+  //         {
+  //           username: process.env.GITHUB_USER,
+  //           password: process.env.GITHUB_PASS
+  //         },
+  //         'https://api.github.com'
+  //       )
+  //       const newMilestone = await issue.createMilestone({
+  //         title: title,
+  //         description: body
+  //       })
+  //     } catch (err) {
+  //       console.error(err)
+  //       throw err
+  //     }
+  //   }
 }
 
 module.exports = GithubService

@@ -11,13 +11,19 @@ class ProjectRoute {
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
     this.router.delete('/projects', (req, res) => this.deleteProject(req, res))
     this.router.post(`/projects/newissue`, (req, res) => this.createIssue(req, res))
+    this.router.get(`/projects/issues`, (req, res) => this.trackIssues(req, res))
+
   }
 
   async createProject (req, res) {
     try {
+      // Create project in database
       const newProject = await this.ProjectService.newProject(req.body)
       // Create new repository for each project
       const newRepo = this.GithubService.newRepo(newProject)
+      // Create milestone within the repo
+      // const {name, description} = req.body
+      // this.GithubService.newMilestone(newRepo, name, description)
       res.json(newProject)
     } catch (err) {
       console.error(err)
@@ -55,8 +61,22 @@ class ProjectRoute {
   async createIssue (req, res) {
     try {
       const { repoName, title, body } = req.body
-      const newIssue = this.GithubService.createIssue(repoName, title, body)
-      
+      // const milestone = this.GithubService.new
+      const newIssue = this.GithubService.newIssue(repoName, title, body)
+      res.json(newIssue)
+
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
+  }
+
+  async trackIssues (req, res) {
+    try {
+      const { repoName } = req.body
+      // const milestone = this.GithubService.new
+      const newIssue = await this.GithubService.listIssues(repoName)
+      res.json(newIssue)
 
     } catch (err) {
       console.error(err)

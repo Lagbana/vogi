@@ -10,12 +10,12 @@ class ProjectRoute {
     this.router.post('/projects', (req, res) => this.createProject(req, res))
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
     this.router.delete('/projects', (req, res) => this.deleteProject(req, res))
+    this.router.post(`/projects/newissue`, (req, res) => this.createIssue(req, res))
   }
 
   async createProject (req, res) {
     try {
       const newProject = await this.ProjectService.newProject(req.body)
-      console.log(newProject)
       // Create new repository for each project
       const newRepo = this.GithubService.newRepo(newProject)
       res.json(newProject)
@@ -45,6 +45,18 @@ class ProjectRoute {
       const projectID = req.body._id
       const deletedProject = await this.ProjectService.deleteProject({_id: projectID})
       res.json(deletedProject)
+
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
+  }
+
+  async createIssue (req, res) {
+    try {
+      const { repoName, title, body } = req.body
+      const newIssue = this.GithubService.createIssue(repoName, title, body)
+      
 
     } catch (err) {
       console.error(err)

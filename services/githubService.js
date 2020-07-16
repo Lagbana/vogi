@@ -1,9 +1,24 @@
-const Organization = require('github-api')
 const GitHub = require('github-api')
+const Issue = require('github-api/dist/components/Issue')
+
+const gh = new GitHub({
+  username: process.env.GITHUB_USER,
+  password: process.env.GITHUB_PASS
+})
 
 class GithubService {
   constructor (options = {}) {
     this.options = options
+  }
+
+  getOrganization () {
+    const Vogi = gh.getOrganization('vogiPartner')
+    return Vogi
+  }
+
+  getRepo (repo_Name) {
+    const repo = gh.getRepo('vogiPartner', repo_Name)
+    return repo
   }
 
   newRepo (context) {
@@ -20,16 +35,17 @@ class GithubService {
           auto_init: true
         },
         function (error, result, request) {
-          console.log({
-            id: result.id,
-            project_Name: result.name,
-            repo_URL: result.html_url,
-            project_Decription: result.description
-          })
+          //     console.log({
+          //       id: result.id,
+          //       project_Name: result.name,
+          //       repo_URL: result.html_url,
+          //       project_Decription: result.description
+          //   })
         }
       )
+      return context.name
     } catch (err) {
-      console.error(error.response.body.err)
+      console.error(err)
       throw err
     }
   }
@@ -43,29 +59,34 @@ class GithubService {
       })
       console.log(repo)
     } catch (err) {
-      console.error(error.response.body.err)
+      console.error(err)
       throw err
     }
   }
 
-  getOrganization () {
-    const gh = new GitHub({
-      username: process.env.GITHUB_USER,
-      password: process.env.GITHUB_PASS
-    })
-
-    const Vogi = gh.getOrganization('vogiPartner')
-    return Vogi
-  }
-
-  getRepo (repo_Name) {
-    const gh = new GitHub({
-      username: process.env.GITHUB_USER,
-      password: process.env.GITHUB_PASS
-    })
-
-    const repo = gh.getRepo('vogiPartner', repo_Name)
-    return repo
+  newIssue (repoName, issueTitle, issueBody) {
+    try {
+      const issue = new Issue(
+        `vogiPartner/${repoName}`,
+        {
+          username: process.env.GITHUB_USER,
+          password: process.env.GITHUB_PASS
+        },
+        'https://api.github.com'
+      )
+        issue.createIssue(
+          {
+            title: issueTitle,
+            body: issueBody
+          },
+          function (error, result, request) {
+            console.log(result)
+          }
+        )
+    } catch (err) {
+      console.error(err)
+      throw err
+    }
   }
 }
 

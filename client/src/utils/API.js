@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export default {
+
   getUser: function () {
     return axios.get('/v1/api/users/')
   },
@@ -22,6 +23,7 @@ export default {
   createProject: function (projectData) {
     return axios.post('/v1/api/projects', projectData)
   },
+
   getProjects: function () {
     return axios.get('/v1/api/projects')
   }

@@ -22,9 +22,6 @@ export default {
   createProject: function (projectData) {
     return axios.post('/v1/api/projects', projectData)
   },
-  // getAvailableProjects: function () {
-  //   return axios.get('/v1/api/projects')
-  // },
   getAvailableProjects: function () {
     return axios.get('/v1/api/projects')
   },

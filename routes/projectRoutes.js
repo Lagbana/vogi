@@ -15,7 +15,10 @@ class ProjectRoute {
 
   async createProject (req, res) {
     try {
-      const newProject = await this.ProjectService.newProject(req.body)
+      const newProject = await this.ProjectService.newProject({
+        ...req.body,
+        userID: req.user._id
+      })
       console.log(newProject)
       // Create new repository for each project
       const newRepo = this.GithubService.newRepo(newProject)
@@ -28,7 +31,9 @@ class ProjectRoute {
 
   async retrieveProjects (req, res) {
     try {
-      const projects = await this.ProjectService.retrieveProjects(req.user._id)
+      const projects = await this.ProjectService.retrieveProjects({
+        userID: req.user._id
+      })
       res.json(projects)
     } catch (err) {
       console.log(err)

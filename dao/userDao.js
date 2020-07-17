@@ -24,13 +24,17 @@ class UserDao {
   async modifyVolunteer (context) {
     const { first, last, skills, about, id } = context
     try {
-      const updatedVolunteer = await this.user.findOneAndUpdate({
-        id: id,
-        volunteerFirstName: first,
-        volunteerLastName: last,
-        volunteerSkills: skills,
-        volunteerAbout: about
-      })
+      const updatedVolunteer = await this.user.findOneAndUpdate(
+        {
+          _id: id
+        },
+        {
+          volunteerFirstName: first,
+          volunteerLastName: last,
+          volunteerSkills: skills,
+          volunteerAbout: about
+        }
+      )
       return updatedVolunteer
     } catch (err) {
       throw err
@@ -39,12 +43,16 @@ class UserDao {
   async modifyPartner (context) {
     const { id, name, type, about } = context
     try {
-      const updatedVolunteer = await this.user.findOneAndUpdate({
-        id: id,
-        organizationType: type,
-        organizationName: name,
-        organizationAbout: about
-      })
+      const updatedVolunteer = await this.user.findOneAndUpdate(
+        {
+          _id: id
+        },
+        {
+          organizationType: type,
+          organizationName: name,
+          organizationAbout: about
+        }
+      )
       return updatedVolunteer
     } catch (err) {
       throw err

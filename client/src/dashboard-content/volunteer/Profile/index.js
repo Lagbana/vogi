@@ -21,15 +21,16 @@ const styling = {
 }
 
 function Profile () {
+  const [form] = Form.useForm()
   const onFinish = values => {
     API.updateVolunteer(values).then(res => {
-      console.log(res.data)
+      form.resetFields()
       return res.data
     })
   }
   return (
     <>
-      <Form onFinish={onFinish}>
+      <Form onFinish={onFinish} form={form}>
         <Form.Item
           {...styling.formLayout}
           name='first'

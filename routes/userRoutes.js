@@ -78,6 +78,7 @@ class UserRoute {
   }
 
   async createUser (req, res, next) {
+    console.log('hi')
     try {
       const newUser = await this.UserService.createUser({
         ...req.body,
@@ -93,7 +94,7 @@ class UserRoute {
       // We can nicely redirect to the signup screen with this message
 
       if (err.code === 11000) {
-        res.status(400).json({ message: 'Username already in use.' })
+        res.status(400).json({ message: 'That email already exists.' })
       }
       next(err)
     }

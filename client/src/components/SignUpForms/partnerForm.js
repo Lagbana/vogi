@@ -25,19 +25,30 @@ function PartnerSignUp () {
 
   const onFinish = values => {
     const { email, password } = values
-    API.createUser({ username: email, password, role: 'Partner' }).then(res => {
-      form.resetFields()
-      localStorage.setItem('role', 'Partner')
-      localStorage.setItem('tokens', JSON.stringify(res.data))
-      window.location.reload()
-    })
+    API.createUser({ username: email, password, role: 'Partner' })
+      .then(res => {
+        form.resetFields()
+        localStorage.setItem('role', 'Partner')
+        localStorage.setItem('tokens', JSON.stringify(res.data))
+        window.location.reload()
+      })
+      .catch(e => {
+        if (e.response && e.response.data) {
+          form.setFields([
+            {
+              name: 'email',
+              errors: [e.response.data.message]
+            }
+          ])
+        }
+      })
   }
 
   const lengthValidator = (rule, value) => {
     if (value.length > 6) {
       return Promise.resolve()
     }
-    return Promise.reject('Must be at least 6 characters.')
+    return Promise.reject('Password must be at least 6 characters.')
   }
 
   const onFinishFailed = errorInfo => {
@@ -65,16 +76,19 @@ function PartnerSignUp () {
         colon={false}
         name='email'
       >
-        <Input />
+        <Input placeholder='Enter your email...' />
       </AntForm.Item>
       <AntForm.Item
         {...styling.formLayout}
         label='Password'
-        rules={[{ validator: lengthValidator }]}
+        rules={[
+          { validator: lengthValidator },
+          { required: true, message: ' ' }
+        ]}
         colon={false}
         name='password'
       >
-        <Input.Password />
+        <Input.Password placeholder='Choose a password...' />
       </AntForm.Item>
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>

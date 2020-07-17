@@ -28,7 +28,7 @@ class AuthRoute {
     // Login with passport local route handler
     this.router.post(
       '/auth/users',
-      passport.authenticate('local', { failureRedirect: '/login' }),
+      passport.authenticate('local'),
       (req, res) => this.createAuth(req, res)
     )
     // Logout route handler
@@ -52,7 +52,7 @@ class AuthRoute {
   async createAuth (req, res) {
     try {
       if (!req.user) {
-        return res.status(401).json({
+        res.status(401).json({
           message: 'Invalid username or password.'
         })
       }

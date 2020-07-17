@@ -78,7 +78,6 @@ class UserRoute {
   }
 
   async createUser (req, res, next) {
-    console.log('hi')
     try {
       const newUser = await this.UserService.createUser({
         ...req.body,

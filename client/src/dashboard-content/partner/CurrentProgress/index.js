@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 // import CreatedProjectContext from '../../../utils/CreatedProjectContext'
-import { Layout, Card, Row, Col, Divider } from 'antd'
+import { Layout, Card, Row, Col, Form as AntForm, Input, Button } from 'antd'
+import API from '../../../utils/API'
 
 const { Content } = Layout
+const { TextArea } = Input
 
 const styling = {
   wrapper: {},
@@ -12,27 +14,50 @@ const styling = {
     fontSize: '22px'
   },
   content: {
-    padding: 24,
+    padding: 0,
     margin: 0,
     minHeight: '100vh'
   },
-  volunteerCard: {
+  card: {
     width: '100%',
-    marginLeft: '0rem',
-    // border: '1px darkGray solid',
-    marginTop: '10%'
-  },
-
-  partnerCard: {
-    width: '100%',
-    marginLeft: '0rem',
-    // border: '1px darkGray solid',
-    marginTop: '10%'
+    // marginLeft: '3rem',
+    marginTop: '3%'
   }
 }
 
 function CurrentProject ({ currentProjectData }) {
   const dataObject = currentProjectData()
+  const [form] = AntForm.useForm()
+
+  const [issue, setIssue] = useState([
+    {
+      id: dataObject._id,
+      repoName: dataObject.name,
+      title: '',
+      body: ''
+    }
+  ])
+
+  const onFinish = values => {
+    const { title, body } = values
+    API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
+      form.resetFields()
+      setIssue([...issue, res.data])
+    })
+  }
+
+  const onDelete = () => {
+    console.log(dataObject)
+    API.deleteProject({ repo: dataObject.name, _id: dataObject._id }).then(
+      res => {
+        console.log(res)
+      }
+    )
+  }
+
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <>
@@ -42,28 +67,72 @@ function CurrentProject ({ currentProjectData }) {
             <Card
               title='Project Feature Issues'
               headStyle={styling.header}
-              style={styling.volunteerCard}
+              style={styling.card}
             >
               <div>
                 <p>Project name: {dataObject.name}</p>
                 <p>Project Description: {dataObject.description}</p>
                 <p>Project Skills: {dataObject.skills}</p>
               </div>
+              <AntForm
+                form={form}
+                name='issue form'
+                initialValues={{ title: '', body: '' }}
+                onFinish={onFinish}
+                onFinishFailed={onFinishFailed}
+              >
+                <AntForm.Item
+                  // {...styling.formLayout}
+                  label='title'
+                  rules={[
+                    { required: true, message: 'Please input the issue title!' }
+                  ]}
+                  colon={false}
+                  name='title'
+                >
+                  <Input />
+                </AntForm.Item>
+                <AntForm.Item
+                  // {...styling.formLayout}
+                  label='description'
+                  rules={[
+                    {
+                      required: true,
+                      message: 'Please enter the issue description!'
+                    }
+                  ]}
+                  colon={false}
+                  name='body'
+                >
+                  <TextArea rows={4} />
+                </AntForm.Item>
+                <AntForm.Item>
+                  <Button type='primary' shape='round' htmlType='submit'>
+                    Add Project Issue
+                  </Button>
+                </AntForm.Item>
+              </AntForm>
             </Card>
           </Col>
-          <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
-          </Col>
+          <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
               title='Project Status'
               headStyle={styling.header}
-              style={styling.partnerCard}
+              style={styling.card}
             >
-              <div>
-                <p>Project name: {dataObject.name}</p>
-                <p>Project Description: {dataObject.description}</p>
-                <p>Project Skills: {dataObject.skills}</p>
-              </div>
+              <AntForm form={form} name='delete project form'>
+                <AntForm.Item>
+                  <Button
+                    type='primary'
+                    shape='round'
+                    danger
+                    onClick={onDelete}
+                  >
+                    Delete Project
+                  </Button>
+                </AntForm.Item>
+              </AntForm>
             </Card>
           </Col>
         </Row>

@@ -24,17 +24,15 @@ class GithubService {
   newRepo (context) {
     try {
       const Vogi = this.getOrganization()
-      Vogi.createRepo(
-        {
-          name: context.name,
-          description: context.description,
-          private: true,
-          visibility: 'private',
-          has_issues: true,
-          has_projects: true,
-          auto_init: true
-        }
-      )
+      Vogi.createRepo({
+        name: context.name,
+        description: context.description,
+        private: true,
+        visibility: 'private',
+        has_issues: true,
+        has_projects: true,
+        auto_init: true
+      })
       return context.name
     } catch (err) {
       console.error(err)
@@ -101,7 +99,10 @@ class GithubService {
         return data
       })
 
-      const progress = { closedIssues: closedIssues, totalIssues: issues.length }
+      const progress = {
+        closedIssues: closedIssues,
+        totalIssues: issues.length
+      }
       return [issues, progress]
     } catch (err) {
       console.error(err)

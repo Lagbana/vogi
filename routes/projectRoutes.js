@@ -9,13 +9,10 @@ class ProjectRoute {
   }
 
   initialize () {
-    this.router.post(
-      '/projects',
-      (req, res) => this.createProject(req, res)
-    )
+    this.router.post('/projects', (req, res) => this.createProject(req, res))
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
     this.router.put('/projects', (req, res) => this.updateProject(req, res))
-    this.router.delete('/projects', (req, res) => this.deleteProject(req, res))
+    this.router.delete('/projects/:id', (req, res) => this.deleteProject(req, res))
     this.router.post(`/projects/newissue`, (req, res) =>
       this.createIssue(req, res)
     )
@@ -57,12 +54,14 @@ class ProjectRoute {
 
   async deleteProject (req, res) {
     try {
+      console.log(req.params)
+      const projectID = req.params.id
+      const repoName = req.query.repo
+   
       // Delete repository
-      const repo_name = req.body.name
-      this.GithubService.deleteRepo(repo_name)
+      this.GithubService.deleteRepo(repoName)
 
       // Delete project in DB
-      const projectID = req.body._id
       const deletedProject = await this.ProjectService.deleteProject({
         _id: projectID
       })

@@ -58,14 +58,13 @@ function PartnerSidebar ({ contentHandler }) {
         <SubMenu key='sub1' icon={<RiseOutlined />} title='Current Progress'>
           {renderProjects()}
         </SubMenu>
-        <SubMenu key='sub2' icon={<SettingOutlined />} title='Settings'>
-          <Menu.Item onClick={() => contentHandler('Setting 1')} key='5'>
-            Setting 1
-          </Menu.Item>
-          <Menu.Item onClick={() => contentHandler('Setting 2')} key='6'>
-            Setting 2
-          </Menu.Item>
-        </SubMenu>
+        <Menu.Item
+          onClick={() => contentHandler('Settings')}
+          key='4'
+          icon={<SettingOutlined />}
+        >
+          Settings
+        </Menu.Item>
       </Menu>
     </Sider>
   )

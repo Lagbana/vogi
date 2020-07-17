@@ -1,6 +1,7 @@
 import axios from 'axios'
 
 export default {
+
   getUser: function () {
     return axios.get('/v1/api/users/')
   },

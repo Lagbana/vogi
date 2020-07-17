@@ -1,7 +1,7 @@
 import React from 'react'
 import PartnerForm from '../../components/SignUpForms/partnerForm'
 import VolunteerForm from '../../components/SignUpForms/volunteerForm'
-import { Layout, Card, Row, Col, Space, Divider } from 'antd'
+import { Layout, Card, Row, Col, Divider } from 'antd'
 import Navbar from '../../components/Navbar'
 
 const { Content } = Layout
@@ -21,14 +21,14 @@ const styling = {
   volunteerCard: {
     width: '100%',
     marginLeft: '0rem',
-    border: '1px darkGray solid',
+    // border: '1px darkGray solid',
     marginTop: '10%'
   },
 
   partnerCard: {
     width: '100%',
     marginLeft: '0rem',
-    border: '1px darkGray solid',
+    // border: '1px darkGray solid',
     marginTop: '10%'
   }
 }
@@ -39,13 +39,7 @@ function SignUp () {
       <Navbar />
       <Layout>
         <Content style={styling.content}>
-          {/* <Row justify='center'> */}
-          {/* <Col xs={22} sm={20} md={14} lg={12} xl={10}> */}
-          {/* <Card shape='round' title='Login' headStyle={styling.header}>
-              <Form buttonName='Login' />
-            </Card> */}
-          {/* </Col> */}
-          {/* <Col xs={22} sm={20} md={14} lg={12} xl={10}> */}
+
           <Row justify='center'>
             <Col xl={10} lg={10} md={20} sm={20} xs={20}>
               <Card
@@ -59,12 +53,11 @@ function SignUp () {
             <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
               <Divider
                 type='vertical'
-                style={{ borderColor: 'darkGray', minHeight: '60vh' }}
+                style={{ borderColor: '#c4c4c4', minHeight: '60vh' }}
               ></Divider>
             </Col>
             <Col xl={10} lg={10} md={20} sm={20} xs={20}>
               <Card
-                shape='round'
                 title='Partner Sign Up'
                 headStyle={styling.header}
                 style={styling.partnerCard}
@@ -73,8 +66,6 @@ function SignUp () {
               </Card>
             </Col>
           </Row>
-          {/* </Col> */}
-          {/* </Row> */}
         </Content>
       </Layout>
     </>

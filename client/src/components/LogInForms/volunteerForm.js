@@ -25,13 +25,28 @@ function VolunteerLogIn () {
 
   const onFinish = values => {
     const { email, password } = values
-    API.logIn({ username: email, password }).then(res => {
-      console.log(res)
-      form.resetFields()
-      localStorage.setItem('tokens', JSON.stringify(res.data))
-      localStorage.setItem('role', 'Volunteer')
-      window.location.reload()
-    })
+    API.logIn({ username: email, password })
+      .then(res => {
+        console.log(res)
+        form.resetFields()
+        localStorage.setItem('tokens', JSON.stringify(res.data))
+        localStorage.setItem('role', 'Volunteer')
+        window.location.reload()
+      })
+      .catch(e => {
+        if (e.response.status === 401) {
+          form.setFields([
+            {
+              name: 'password',
+              errors: ['Invalid email or password.']
+            },
+            {
+              name: 'email',
+              errors: [' ']
+            }
+          ])
+        }
+      })
   }
 
   const onFinishFailed = errorInfo => {
@@ -59,7 +74,7 @@ function VolunteerLogIn () {
         colon={false}
         name='email'
       >
-        <Input />
+        <Input placeholder='Enter your email...' />
       </AntForm.Item>
 
       <AntForm.Item
@@ -69,7 +84,7 @@ function VolunteerLogIn () {
         colon={false}
         name='password'
       >
-        <Input.Password />
+        <Input.Password placeholder='Enter your password...' />
       </AntForm.Item>
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>

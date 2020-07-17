@@ -20,6 +20,24 @@ class UserService extends UserDao {
     }
   }
 
+  async changePartner (context) {
+    try {
+      const updatedPartner = await this.modifyPartner(context)
+      return updatedPartner
+    } catch (err) {
+      throw err
+    }
+  }
+
+  async changeVolunteer (context) {
+    try {
+      const updatedVolunteer = await this.modifyVolunteer(context)
+      return updatedVolunteer
+    } catch (err) {
+      throw err
+    }
+  }
+
   async createUser (context) {
     try {
       const user = await this.newUser(context)

@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button, Radio } from 'antd'
+import API from '../../../utils/API'
 
 const styling = {
   formLayout: {
@@ -20,23 +21,54 @@ const styling = {
 }
 
 function Profile () {
+  const onFinish = values => {
+    API.updateVolunteer(values).then(res => {
+      console.log(res.data)
+      return res.data
+    })
+  }
   return (
     <>
-      <Form>
-        <Form.Item {...styling.formLayout} colon={false} label='First Name'>
+      <Form onFinish={onFinish}>
+        <Form.Item
+          {...styling.formLayout}
+          name='first'
+          colon={false}
+          label='First Name'
+        >
           <Input />
         </Form.Item>
-        <Form.Item {...styling.formLayout} colon={false} label='Last Name'>
+        <Form.Item
+          {...styling.formLayout}
+          name='last'
+          colon={false}
+          label='Last Name'
+        >
           <Input />
         </Form.Item>
-        <Form.Item {...styling.formLayout} colon={false} label='Skills'>
+        <Form.Item
+          {...styling.formLayout}
+          name='skills'
+          colon={false}
+          label='Skills'
+        >
           <Input />
         </Form.Item>
-        <Form.Item {...styling.formLayout} colon={false} label='About'>
+        <Form.Item
+          {...styling.formLayout}
+          name='about'
+          colon={false}
+          label='About'
+        >
           <Input.TextArea />
         </Form.Item>
         <Form.Item>
-          <Button type='primary' shape='round' style={styling.button}>
+          <Button
+            type='primary'
+            htmlType='submit'
+            shape='round'
+            style={styling.button}
+          >
             Save
           </Button>
         </Form.Item>

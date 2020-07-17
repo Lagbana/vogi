@@ -4,7 +4,12 @@ export default {
   getUser: function () {
     return axios.get('/v1/api/users/')
   },
-
+  updateVolunteer: function (volunteerData) {
+    return axios.put('/v1/api/users/volunteer', volunteerData)
+  },
+  updatePartner: function (partnerData) {
+    return axios.put('/v1/api/users/partner', partnerData)
+  },
   logOut: function () {
     localStorage.removeItem('tokens')
     localStorage.removeItem('role')

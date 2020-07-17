@@ -25,7 +25,7 @@ function PartnerLoginForm () {
 
   const onFinish = values => {
     const { email, password } = values
-    API.logIn({ username: email, password })
+    API.logIn({ username: email, password, role: 'Partner' })
       .then(res => {
         form.resetFields()
         localStorage.setItem('tokens', JSON.stringify(res.data))

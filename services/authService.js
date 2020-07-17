@@ -35,7 +35,6 @@ class AuthService {
     passport.use(this.localStrategy())
     passport.use(this.githubStrategy())
 
-
     this.app.use(passport.initialize())
 
     // this adds passport from middleware
@@ -103,7 +102,7 @@ class AuthService {
     })
   }
 
-    githubStrategy () {
+  githubStrategy () {
     return new GitHubStrategy(
       {
         clientID: process.env.CLIENT_ID,
@@ -141,7 +140,6 @@ class AuthService {
       }
     )
   }
-
 }
 
 module.exports = AuthService

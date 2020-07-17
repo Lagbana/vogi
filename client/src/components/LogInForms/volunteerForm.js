@@ -25,7 +25,7 @@ function VolunteerLogIn () {
 
   const onFinish = values => {
     const { email, password } = values
-    API.logIn({ username: email, password })
+    API.logIn({ username: email, password, role: 'Volunteer' })
       .then(res => {
         console.log(res)
         form.resetFields()
@@ -34,6 +34,7 @@ function VolunteerLogIn () {
         window.location.reload()
       })
       .catch(e => {
+        console.log(e.response.data.message)
         if (e.response.status === 401) {
           form.setFields([
             {

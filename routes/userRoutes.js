@@ -11,9 +11,12 @@ class UserRoute {
 
   initialize () {
     this.router.put('/users', (req, res) => this.updateUser(req, res))
-    this.router.post('/users', (req, res, next) => {
-      this.createUser(req, res, next)
-    })
+    this.router.post(
+      '/users',
+      (req, res, next) => {
+        this.createUser(req, res, next)
+      }
+    )
     this.router.get('/users', (req, res) => this.retrieveUsers(req, res))
   }
 
@@ -40,7 +43,7 @@ class UserRoute {
     try {
       res.send(req.user)
     } catch (err) {
-      console.error(error.response.body.err)
+      console.error(err)
       throw err
     }
   }

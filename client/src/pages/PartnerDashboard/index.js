@@ -7,6 +7,7 @@ import Navbar from '../../components/Navbar'
 import PartnerSidebar from '../../components/PartnerSidebar'
 import NewProject from '../../dashboard-content/partner/NewProject'
 import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
+import CurrentProject from '../../dashboard-content/partner/CurrentProgress'
 // Import React Context API
 import CreatedProjectContext from '../../utils/CreatedProjectContext'
 import UserContext from '../../utils/UserContext'
@@ -42,8 +43,7 @@ function PartnerDashboard () {
       _id: '',
       name: '',
       description: '',
-      skills: '',
-      team: ''
+      skills: ''
     }
   ])
 
@@ -51,6 +51,7 @@ function PartnerDashboard () {
     API.createProject(values).then(res => {
       form.resetFields()
       setProjects([...projects, res.data])
+      console.log(projects)
       return res
     })
   }
@@ -76,14 +77,21 @@ function PartnerDashboard () {
     })
   }, [])
 
+  const currentProjectData = () => {
+    const [result] = projects.filter(project => project.name === title)
+    return result
+  }
+
   const renderContent = () => {
     switch (title) {
       case 'Organization Information':
         return <OrganizationInfo />
       case 'Create New Project':
         return <NewProject onFinish={onFinish} form={form} />
-      default:
+      case 'Settings':
         return <div />
+      default:
+        return <CurrentProject currentProjectData={currentProjectData} />
     }
   }
 
@@ -99,9 +107,7 @@ function PartnerDashboard () {
                 {renderContent()}
               </Card>
             </Content>
-            <Footer style={styling.footer}>
-              Ant Design ©2018 Created by Ant UED
-            </Footer>
+            <Footer style={styling.footer}>Vogi ©2020</Footer>
           </Layout>
         </Layout>
       </CreatedProjectContext.Provider>

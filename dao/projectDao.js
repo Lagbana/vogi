@@ -53,6 +53,7 @@ class ProjectDao {
       throw err
     }
   }
+  
   async joinProject (context) {
     console.log(context)
     try {

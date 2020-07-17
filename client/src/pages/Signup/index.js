@@ -1,7 +1,7 @@
 import React from 'react'
 import PartnerForm from '../../components/SignUpForms/partnerForm'
 import VolunteerForm from '../../components/SignUpForms/volunteerForm'
-import { Layout, Card, Row, Col, Space, Divider } from 'antd'
+import { Layout, Card, Row, Col, Divider } from 'antd'
 import Navbar from '../../components/Navbar'
 
 const { Content } = Layout

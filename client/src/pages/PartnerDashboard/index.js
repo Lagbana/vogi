@@ -43,7 +43,7 @@ function PartnerDashboard () {
       _id: '',
       name: '',
       description: '',
-      skills: '',
+      skills: ''
     }
   ])
 
@@ -77,14 +77,21 @@ function PartnerDashboard () {
     })
   }, [])
 
+  const currentProjectData = () => {
+    const [result] = projects.filter(project => project.name === title)
+    return result
+  }
+
   const renderContent = () => {
     switch (title) {
       case 'Organization Information':
         return <OrganizationInfo />
       case 'Create New Project':
         return <NewProject onFinish={onFinish} form={form} />
+      case 'Settings':
+        return <div />
       default:
-        return <CurrentProject />
+        return <CurrentProject currentProjectData={currentProjectData} />
     }
   }
 
@@ -100,9 +107,7 @@ function PartnerDashboard () {
                 {renderContent()}
               </Card>
             </Content>
-            <Footer style={styling.footer}>
-              Vogi ©2020
-            </Footer>
+            <Footer style={styling.footer}>Vogi ©2020</Footer>
           </Layout>
         </Layout>
       </CreatedProjectContext.Provider>

@@ -1,12 +1,18 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import CreatedProjectContext from '../../../utils/CreatedProjectContext'
 
-function currentProject () {
-  return (
-    <>
-          <p>Client Project 2, Client Project 2, Client Project 2</p>
-          
-    </>
-  )
-}
+function CurrentProject ({currentProjectData}) {
+   const dataObject = currentProjectData()
 
-export default currentProject
+    return  (
+      <div>
+        <p>Project name: {dataObject.name}</p>
+        <p>Project Description: {dataObject.description}</p>
+        <p>Project Skills: {dataObject.skills}</p>
+      </div>
+    )
+  }
+
+
+
+export default CurrentProject

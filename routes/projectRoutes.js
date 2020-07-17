@@ -1,3 +1,5 @@
+const passport = require('passport')
+
 class ProjectRoute {
   constructor (options = {}) {
     this.options = options
@@ -7,7 +9,10 @@ class ProjectRoute {
   }
 
   initialize () {
-    this.router.post('/projects', (req, res) => this.createProject(req, res))
+    this.router.post(
+      '/projects',
+      (req, res) => this.createProject(req, res)
+    )
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
     this.router.put('/projects', (req, res) => this.updateProject(req, res))
     this.router.delete('/projects', (req, res) => this.deleteProject(req, res))
@@ -90,7 +95,7 @@ class ProjectRoute {
       console.error(err)
     }
   }
-  
+
   async updateProject (req, res) {
     try {
       const project = await this.ProjectService.updateProject(req.body)

@@ -10,20 +10,10 @@ class UserRoute {
   }
 
   initialize () {
-<<<<<<< HEAD
-    // this.router.put('/users', (req, res) => this.updateUser(req, res))
+    this.router.put('/users', (req, res) => this.updateUser(req, res))
     this.router.post('/users', (req, res, next) => {
       this.createUser(req, res, next)
     })
-=======
-    this.router.put('/users', (req, res) => this.updateUser(req, res))
-    this.router.post(
-      '/users',
-      (req, res, next) => {
-        this.createUser(req, res, next)
-      }
-    )
->>>>>>> origin
     this.router.get('/users', (req, res) => this.retrieveUsers(req, res))
     this.router.put('/users/volunteer', (req, res) =>
       this.updateVolunteer(req, res)

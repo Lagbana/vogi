@@ -34,6 +34,8 @@ function VolunteerLogIn () {
     })
   }
 
+  const inputSize = value => (value.length >= 6 ? true : false)
+
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }

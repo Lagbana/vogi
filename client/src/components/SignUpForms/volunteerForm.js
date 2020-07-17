@@ -34,6 +34,12 @@ function VolunteerSignUp () {
       }
     )
   }
+  const lengthValidator = (rule, value) => {
+    if (value.length > 6) {
+      return Promise.resolve()
+    }
+    return Promise.reject('Must be at least 6 characters.')
+  }
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
@@ -54,7 +60,7 @@ function VolunteerSignUp () {
           rules={[
             {
               type: 'email',
-              message: 'The input is not valid E-mail!'
+              message: 'The input is not a valid E-mail!'
             },
             { required: true, message: 'Please input your E-mail!' }
           ]}
@@ -66,7 +72,7 @@ function VolunteerSignUp () {
         <AntForm.Item
           {...styling.formLayout}
           label='Password'
-          rules={[{ required: true, message: 'Please input your password!' }]}
+          rules={[{ validator: lengthValidator }]}
           colon={false}
           name='password'
         >

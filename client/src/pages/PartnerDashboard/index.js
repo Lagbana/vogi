@@ -1,5 +1,5 @@
 // Import from the react library
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 // Import from AntDesign
 import { Layout, Card, Form } from 'antd'
 // Import Componentes
@@ -9,7 +9,8 @@ import NewProject from '../../dashboard-content/partner/NewProject'
 import OrganizationInfo from '../../dashboard-content/partner/OrganizationInfo'
 import CurrentProject from '../../dashboard-content/partner/CurrentProgress'
 // Import React Context API
-import ProjectContext from '../../utils/ProjectContext'
+import CreatedProjectContext from '../../utils/CreatedProjectContext'
+import UserContext from '../../utils/UserContext'
 import API from '../../utils/API'
 
 const { Content, Footer } = Layout
@@ -36,6 +37,7 @@ const styling = {
 function PartnerDashboard () {
   const [form] = Form.useForm()
   const [title, setTitle] = useState('Organization Information')
+  const user = useContext(UserContext)
   const [projects, setProjects] = useState([
     {
       _id: '',
@@ -59,19 +61,19 @@ function PartnerDashboard () {
   }
 
   useEffect(() => {
-    API.getProjects().then(res => {
-      const projectNames = res.data.map(
-        ({ _id, name, description, skills }) => {
+    API.getUser().then(res => {
+      const projectNames = res.data.projects.map(
+        ({ _id, name, description, skills, team }) => {
           return {
             _id,
             name,
             description,
-            skills
+            skills,
+            team
           }
         }
       )
       setProjects(projectNames)
-      return res.data
     })
   }, [])
 
@@ -82,13 +84,13 @@ function PartnerDashboard () {
       case 'Create New Project':
         return <NewProject onFinish={onFinish} form={form} />
       default:
-        return <CurrentProject getprojects={projects}/>
+        return <CurrentProject />
     }
   }
 
   return (
     <>
-      <ProjectContext.Provider value={projects}>
+      <CreatedProjectContext.Provider value={projects}>
         <Navbar authenticated='true' />
         <Layout style={styling.layout}>
           <PartnerSidebar contentHandler={contentHandler} />
@@ -99,11 +101,11 @@ function PartnerDashboard () {
               </Card>
             </Content>
             <Footer style={styling.footer}>
-              Ant Design ©2018 Created by Ant UED
+              Vogi ©2020
             </Footer>
           </Layout>
         </Layout>
-      </ProjectContext.Provider>
+      </CreatedProjectContext.Provider>
     </>
   )
 }

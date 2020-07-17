@@ -15,7 +15,13 @@ const ProjectSchema = new Schema(
     skills: {
       type: String,
       required: true
-    }
+    },
+    team: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'User'
+      }
+    ]
   },
   {
     timestamps: true

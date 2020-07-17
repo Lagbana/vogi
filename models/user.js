@@ -26,7 +26,13 @@ const UserSchema = new Schema(
       required: true,
       unique: true
     },
-    password: String
+    password: String,
+    projects: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: 'Project'
+      }
+    ]
   },
   {
     timestamps: true

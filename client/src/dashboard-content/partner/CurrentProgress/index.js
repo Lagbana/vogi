@@ -127,7 +127,7 @@ function CurrentProject ({ currentProjectData }) {
               <div
                 style={{
                   wordWrap: 'break-word',
-                  marginTop: '5rem',
+                  marginTop: '3.5rem',
                   backgroundColor: '#F8F8F8',
                   width: '100%',
                   // maginLeft: 'auto',
@@ -143,8 +143,8 @@ function CurrentProject ({ currentProjectData }) {
                   split={false}
                   dataSource={issuesData}
                   renderItem={item => {
-                    // const iconColor =
-                      // item.state === 'open' ? '#87d068' : '#c4c4c4'
+                    const iconColor =
+                      item.state === 'open' ? '#87d068' : '#c4c4c4'
                     return (
                       <List.Item
                         style={{
@@ -152,8 +152,7 @@ function CurrentProject ({ currentProjectData }) {
                           marginLeft: '2rem',
                         }}
                       >
-                        <CarryOutOutlined  />{' '}
-                        {/* <CarryOutOutlined style={{ color: iconColor }} />{' '} */}
+                        <CarryOutOutlined style={{ color: iconColor, fontSize: '2.5vh' }} />{' '}
                         {item.title}
                       </List.Item>
                     )

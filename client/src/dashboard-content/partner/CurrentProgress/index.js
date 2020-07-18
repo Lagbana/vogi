@@ -4,7 +4,7 @@ import { Layout, Card, Row, Col, Form as AntForm, Input, Button } from 'antd'
 import API from '../../../utils/API'
 
 const { Content } = Layout
-const { TextArea } = Input
+// const { TextArea } = Input
 
 const styling = {
   wrapper: {},
@@ -40,6 +40,7 @@ function CurrentProject ({ currentProjectData }) {
 
   const onFinish = values => {
     const { title, body } = values
+
     API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
       form.resetFields()
       setIssue([...issue, res.data])
@@ -47,11 +48,9 @@ function CurrentProject ({ currentProjectData }) {
   }
 
   const onDelete = () => {
-    console.log(dataObject)
-    API.deleteProject({ repo: dataObject.name, _id: dataObject._id }).then(
-      res => {
-        console.log(res)
-      }
+    API.deleteProject({ repo: dataObject.name, _id: dataObject._id }).then(() =>
+      // setProjects(res.data)
+      window.location.reload()
     )
   }
 
@@ -83,7 +82,7 @@ function CurrentProject ({ currentProjectData }) {
               >
                 <AntForm.Item
                   // {...styling.formLayout}
-                  label='title'
+                  label='Title'
                   rules={[
                     { required: true, message: 'Please input the issue title!' }
                   ]}
@@ -94,7 +93,7 @@ function CurrentProject ({ currentProjectData }) {
                 </AntForm.Item>
                 <AntForm.Item
                   // {...styling.formLayout}
-                  label='description'
+                  label='Description'
                   rules={[
                     {
                       required: true,
@@ -104,7 +103,7 @@ function CurrentProject ({ currentProjectData }) {
                   colon={false}
                   name='body'
                 >
-                  <TextArea rows={4} />
+                  <Input />
                 </AntForm.Item>
                 <AntForm.Item>
                   <Button type='primary' shape='round' htmlType='submit'>
@@ -121,18 +120,9 @@ function CurrentProject ({ currentProjectData }) {
               headStyle={styling.header}
               style={styling.card}
             >
-              <AntForm form={form} name='delete project form'>
-                <AntForm.Item>
-                  <Button
-                    type='primary'
-                    shape='round'
-                    danger
-                    onClick={onDelete}
-                  >
-                    Delete Project
-                  </Button>
-                </AntForm.Item>
-              </AntForm>
+              <Button type='primary' shape='round' danger onClick={onDelete}>
+                Delete Project
+              </Button>
             </Card>
           </Col>
         </Row>

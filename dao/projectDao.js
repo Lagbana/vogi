@@ -48,7 +48,7 @@ class ProjectDao {
   async eraseProject (context) {
     try {
       const res = await this.project.deleteOne(context)
-      return res.deletedCount
+      return res
     } catch (err) {
       throw err
     }

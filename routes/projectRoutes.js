@@ -12,7 +12,9 @@ class ProjectRoute {
     this.router.post('/projects', (req, res) => this.createProject(req, res))
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
     this.router.put('/projects', (req, res) => this.updateProject(req, res))
-    this.router.delete('/projects/:id', (req, res) => this.deleteProject(req, res))
+    this.router.delete('/projects/:id', (req, res) =>
+      this.deleteProject(req, res)
+    )
     this.router.post(`/projects/newissue`, (req, res) =>
       this.createIssue(req, res)
     )
@@ -57,15 +59,21 @@ class ProjectRoute {
       console.log(req.params)
       const projectID = req.params.id
       const repoName = req.query.repo
-   
+
       // Delete repository
       this.GithubService.deleteRepo(repoName)
 
       // Delete project in DB
-      const deletedProject = await this.ProjectService.deleteProject({
+      await this.ProjectService.deleteProject({
         _id: projectID
       })
-      res.json(deletedProject)
+
+      // Return the remaining projects
+      const projects = await this.ProjectService.retrieveProjects({
+        userID: req.user._id
+      })
+
+      res.json(projects)
     } catch (err) {
       console.error(err)
       throw err
@@ -74,6 +82,7 @@ class ProjectRoute {
 
   async createIssue (req, res) {
     try {
+      console.log(req.body)
       const { repoName, title, body } = req.body
       // const milestone = this.GithubService.new
       const newIssue = this.GithubService.newIssue(repoName, title, body)

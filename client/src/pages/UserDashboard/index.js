@@ -6,7 +6,7 @@ import API from '../../utils/API'
 
 function UserDashboard () {
   const [userRole, setUserRole] = useState()
-  const [user, setUser] = useState()
+  const [user, setUser] = useState('')
   useEffect(() => {
     API.getUser().then(res => {
       setUserRole(res.data.role)

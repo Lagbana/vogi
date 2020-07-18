@@ -100,7 +100,7 @@ function VolunteerLogIn () {
         </Button>
       </AntForm.Item>
       <Divider style={styling.responsiveMargin}>or</Divider>
-      <AntForm.Item>
+      <AntForm.Item style={styling.responsiveMargin}>
         <Button style={styling.githubButton} type='primary' shape='round'>
           <GithubOutlined />
           Continue with GitHub

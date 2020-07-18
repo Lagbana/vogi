@@ -15,7 +15,7 @@ class ProjectRoute {
     this.router.delete('/projects/:id', (req, res) =>
       this.deleteProject(req, res)
     )
-    this.router.post(`/projects/newissue`, (req, res) =>
+    this.router.post(`/projects/issues`, (req, res) =>
       this.createIssue(req, res)
     )
     this.router.get(`/projects/issues`, (req, res) =>
@@ -95,7 +95,8 @@ class ProjectRoute {
 
   async trackIssues (req, res) {
     try {
-      const { repoName } = req.body
+      const repoName = req.query.repo
+
       // const milestone = this.GithubService.new
       const newIssue = await this.GithubService.listIssues(repoName)
       res.json(newIssue)

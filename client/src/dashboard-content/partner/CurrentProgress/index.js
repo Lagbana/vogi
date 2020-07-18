@@ -1,10 +1,19 @@
-import React, { useState } from 'react'
-// import CreatedProjectContext from '../../../utils/CreatedProjectContext'
-import { Layout, Card, Row, Col, Form as AntForm, Input, Button } from 'antd'
+import React, { useState, useEffect } from 'react'
+import {
+  Layout,
+  Card,
+  Row,
+  Col,
+  Form as AntForm,
+  Input,
+  Button,
+  List
+} from 'antd'
+import { CarryOutOutlined } from '@ant-design/icons'
 import API from '../../../utils/API'
 
 const { Content } = Layout
-// const { TextArea } = Input
+const { TextArea } = Input
 
 const styling = {
   wrapper: {},
@@ -29,27 +38,29 @@ function CurrentProject ({ currentProjectData }) {
   const dataObject = currentProjectData()
   const [form] = AntForm.useForm()
 
-  const [issue, setIssue] = useState([
-    {
-      id: dataObject._id,
-      repoName: dataObject.name,
-      title: '',
-      body: ''
-    }
-  ])
+  const [issuesData, setIssuesData] = useState([])
+  const [issuesProgress, setIssuesProgress] = useState({})
+
+  useEffect(() => {
+    const repoName = dataObject.name.trim()
+    API.getAllIssues(repoName).then(res => {
+      const issues = res.data[0]
+      const progress = res.data[1]
+
+      setIssuesData(issues)
+      setIssuesProgress(progress)
+    })
+  }, [])
 
   const onFinish = values => {
     const { title, body } = values
-
     API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
       form.resetFields()
-      setIssue([...issue, res.data])
     })
   }
 
   const onDelete = () => {
     API.deleteProject({ repo: dataObject.name, _id: dataObject._id }).then(() =>
-      // setProjects(res.data)
       window.location.reload()
     )
   }
@@ -69,48 +80,86 @@ function CurrentProject ({ currentProjectData }) {
               style={styling.card}
             >
               <div>
-                <p>Project name: {dataObject.name}</p>
-                <p>Project Description: {dataObject.description}</p>
-                <p>Project Skills: {dataObject.skills}</p>
+                <h3>Create Project Issues</h3>
+                <AntForm
+                  form={form}
+                  name='issue form'
+                  initialValues={{ title: '', body: '' }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                >
+                  <AntForm.Item
+                    // {...styling.formLayout}
+                    label='Title'
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input the issue title!'
+                      }
+                    ]}
+                    colon={false}
+                    name='title'
+                  >
+                    <Input />
+                  </AntForm.Item>
+                  <AntForm.Item
+                    // {...styling.formLayout}
+                    label='Description'
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please enter the issue description!'
+                      }
+                    ]}
+                    colon={false}
+                    name='body'
+                  >
+                    <TextArea rows={4} />
+                  </AntForm.Item>
+                  <AntForm.Item>
+                    <Button type='primary' shape='round' htmlType='submit'>
+                      Add Project Issue
+                    </Button>
+                  </AntForm.Item>
+                </AntForm>
               </div>
-              <AntForm
-                form={form}
-                name='issue form'
-                initialValues={{ title: '', body: '' }}
-                onFinish={onFinish}
-                onFinishFailed={onFinishFailed}
+
+              <div
+                style={{
+                  wordWrap: 'break-word',
+                  marginTop: '5rem',
+                  backgroundColor: '#F8F8F8',
+                  width: '100%',
+                  // maginLeft: 'auto',
+                  // marginRight: 'auto',
+                }}
               >
-                <AntForm.Item
-                  // {...styling.formLayout}
-                  label='Title'
-                  rules={[
-                    { required: true, message: 'Please input the issue title!' }
-                  ]}
-                  colon={false}
-                  name='title'
-                >
-                  <Input />
-                </AntForm.Item>
-                <AntForm.Item
-                  // {...styling.formLayout}
-                  label='Description'
-                  rules={[
-                    {
-                      required: true,
-                      message: 'Please enter the issue description!'
-                    }
-                  ]}
-                  colon={false}
-                  name='body'
-                >
-                  <Input />
-                </AntForm.Item>
-                <AntForm.Item>
-                  <Button type='primary' shape='round' htmlType='submit'>
-                    Add Project Issue
-                  </Button>
-                </AntForm.Item>
-              </AntForm>
+                {/* <Timeline>
+                  {issuesData.map(item => <Timeline.Item>{item.title}</Timeline.Item>)}
+                </Timeline> */}
+                <h3 style={{paddingTop: "2rem"}}>View all issues</h3>
+                <List
+                  itemLayout='horizontal'
+                  split={false}
+                  dataSource={issuesData}
+                  renderItem={item => {
+                    // const iconColor =
+                      // item.state === 'open' ? '#87d068' : '#c4c4c4'
+                    return (
+                      <List.Item
+                        style={{
+                          textAlign: 'left',
+                          marginLeft: '2rem',
+                        }}
+                      >
+                        <CarryOutOutlined  />{' '}
+                        {/* <CarryOutOutlined style={{ color: iconColor }} />{' '} */}
+                        {item.title}
+                      </List.Item>
+                    )
+                  }}
+                />
+              </div>
             </Card>
           </Col>
           <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>

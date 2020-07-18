@@ -31,11 +31,16 @@ export default {
     return axios.put('/v1/api/projects', projectData)
   },
 
-  addIssue: function (projectData) {
-    return axios.post('/v1/api/projects/newissue', projectData)
-  },
-
   deleteProject: function (data) {
     return axios.delete(`/v1/api/projects/${data._id}?repo=${data.repo}`)
+  },
+
+  addIssue: function (projectData) {
+    return axios.post('/v1/api/projects/issues', projectData)
+  },
+
+  getAllIssues: function (repoName) {
+    return axios.get(`/v1/api/projects/issues/?repo=${repoName}`)
   }
+
 }

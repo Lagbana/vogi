@@ -57,7 +57,7 @@ function SignUp () {
             <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
               <Divider
                 type='vertical'
-                style={{ borderColor: 'darkGray', minHeight: '80vh' }}
+                style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}
               ></Divider>
             </Col>
             <Col xl={10} lg={10} md={18} sm={20} xs={22}>

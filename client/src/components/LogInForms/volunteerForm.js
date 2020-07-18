@@ -3,23 +3,28 @@ import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button, Divider } from 'antd'
 import API from '../../utils/API'
 import { GithubOutlined } from '@ant-design/icons'
-
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
-    },
-    wrapperCol: {
-      span: 16
-    }
-  },
-  githubButton: {
-    backgroundColor: 'black',
-    border: 'none'
-  }
-}
+import useWindowSize from '../../utils/useWindowSize'
 
 function VolunteerLogIn () {
+  const [width, height] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
+    },
+    githubButton: {
+      backgroundColor: 'black',
+      border: 'none'
+    },
+    responsiveMargin: {
+      marginBottom: width > 767 ? 12 : 0,
+      marginTop: width > 767 ? 12 : 0
+    }
+  }
   const [form] = AntForm.useForm()
   const isAuthenticated = localStorage.getItem('tokens')
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
@@ -57,6 +62,7 @@ function VolunteerLogIn () {
 
   return (
     <AntForm
+      size={width > 575 ? 'default' : 'small'}
       form={form}
       name='volunteer form'
       initialValues={{ email: '', password: '', remember: true }}
@@ -88,12 +94,12 @@ function VolunteerLogIn () {
       >
         <Input.Password placeholder='Enter your password...' />
       </AntForm.Item>
-      <AntForm.Item>
+      <AntForm.Item style={styling.responsiveMargin}>
         <Button type='primary' shape='round' htmlType='submit'>
           Log In
         </Button>
       </AntForm.Item>
-      <Divider>or</Divider>
+      <Divider style={styling.responsiveMargin}>or</Divider>
       <AntForm.Item>
         <Button style={styling.githubButton} type='primary' shape='round'>
           <GithubOutlined />

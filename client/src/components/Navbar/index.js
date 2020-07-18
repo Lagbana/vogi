@@ -17,7 +17,7 @@ function Navbar ({ authenticated }) {
     setVisible(false)
   }
   return (
-    <nav className='menuBar' style={{ borderBottom: '1px solid darkGray' }}>
+    <nav className='menuBar' style={{ borderBottom: '1px solid #C4C4C4' }}>
       <div className='logo'>
         <Link to='/'>VOGI</Link>
       </div>

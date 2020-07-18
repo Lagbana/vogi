@@ -15,18 +15,19 @@ const styling = {
   content: {
     padding: 24,
     margin: 0,
-    minHeight: '100vh'
+    minHeight: '100vh',
+    backgroundColor: '#F8F8F8'
   },
   volunteerCard: {
     width: '100%',
     marginLeft: '0rem',
-    // border: '1px darkGray solid',
+    border: '1px darkGray solid',
     marginTop: '10%'
   },
   partnerCard: {
     width: '100%',
     marginLeft: '0rem',
-    // border: '1px darkGray solid',
+    border: '1px darkGray solid',
     marginTop: '10%'
   }
 }
@@ -38,7 +39,7 @@ function Login () {
       <Layout>
         <Content style={styling.content}>
           <Row justify='center'>
-            <Col xl={10} lg={10} md={20} sm={20} xs={20} >
+            <Col xl={10} lg={10} md={20} sm={20} xs={20}>
               <Card
                 shape='round'
                 title='Volunteer Log In'
@@ -51,7 +52,7 @@ function Login () {
             <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
               <Divider
                 type='vertical'
-                style={{ borderColor: '#c4c4c4', minHeight: '60vh' }}
+                style={{ borderColor: 'darkGray', minHeight: '80vh' }}
               ></Divider>
             </Col>
 

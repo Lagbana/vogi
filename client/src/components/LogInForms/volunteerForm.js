@@ -1,7 +1,8 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button } from 'antd'
+import { Form as AntForm, Input, Button, Divider } from 'antd'
 import API from '../../utils/API'
+import { GithubOutlined } from '@ant-design/icons'
 
 const styling = {
   formLayout: {
@@ -90,6 +91,13 @@ function VolunteerLogIn () {
       <AntForm.Item>
         <Button type='primary' shape='round' htmlType='submit'>
           Log In
+        </Button>
+      </AntForm.Item>
+      <Divider>or</Divider>
+      <AntForm.Item>
+        <Button style={styling.githubButton} type='primary' shape='round'>
+          <GithubOutlined />
+          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

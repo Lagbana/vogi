@@ -78,7 +78,7 @@ class AuthService {
 
   localStrategy () {
     return new LocalStrategy(async (username, password, done) => {
-      const errorMsg = 'Invalid username or password'
+      const errorMsg = 'Invalid email or password'
       this.UserDao.getUser({ username })
         .then(user => {
           // if no matching user was found...

@@ -1,27 +1,32 @@
 import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button } from 'antd'
+import { Form as AntForm, Input, Button, Divider } from 'antd'
 import API from '../../utils/API'
-
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
-    },
-    wrapperCol: {
-      span: 16
-    }
-  },
-  githubButton: {
-    backgroundColor: 'black',
-    border: 'none'
-  }
-}
+import { GithubOutlined } from '@ant-design/icons'
+import useWindowSize from '../../utils/useWindowSize'
 
 function VolunteerSignUp () {
+  const [width, height] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
+    },
+    githubButton: {
+      backgroundColor: 'black',
+      border: 'none'
+    },
+    responsiveMargin: {
+      marginBottom: width > 767 ? 12 : 0,
+      marginTop: width > 767 ? 12 : 0
+    }
+  }
   const [form] = AntForm.useForm()
   const isAuthenticated = localStorage.getItem('tokens')
-  const [error, setError] = useState('')
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
@@ -58,6 +63,7 @@ function VolunteerSignUp () {
   return (
     <>
       <AntForm
+        size={width > 575 ? 'default' : 'small'}
         form={form}
         name='volunteer form'
         initialValues={{ email: '', password: '', remember: true }}
@@ -91,9 +97,16 @@ function VolunteerSignUp () {
         >
           <Input.Password placeholder='Choose a password...' />
         </AntForm.Item>
-        <AntForm.Item>
+        <AntForm.Item style={styling.responsiveMargin}>
           <Button type='primary' shape='round' htmlType='submit'>
             Sign Up
+          </Button>
+        </AntForm.Item>
+        <Divider style={styling.responsiveMargin}>or</Divider>
+        <AntForm.Item style={styling.responsiveMargin}>
+          <Button style={styling.githubButton} type='primary' shape='round'>
+            <GithubOutlined />
+            Continue with GitHub
           </Button>
         </AntForm.Item>
       </AntForm>

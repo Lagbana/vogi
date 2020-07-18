@@ -2,23 +2,27 @@ import React, { useState } from 'react'
 import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
-
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
-    },
-    wrapperCol: {
-      span: 16
-    }
-  },
-  githubButton: {
-    backgroundColor: 'black',
-    border: 'none'
-  }
-}
+import useWindowSize from '../../utils/useWindowSize'
 
 function PartnerSignUp () {
+  const [width, height] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
+    },
+    githubButton: {
+      backgroundColor: 'black',
+      border: 'none'
+    },
+    responsiveMargin: {
+      marginBottom: width > 767 ? 12 : 0
+    }
+  }
   const [form] = AntForm.useForm()
   const isAuthenticated = localStorage.getItem('tokens')
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
@@ -45,7 +49,7 @@ function PartnerSignUp () {
   }
 
   const lengthValidator = (rule, value) => {
-    if (value.length > 6) {
+    if (value.length > 5) {
       return Promise.resolve()
     }
     return Promise.reject('Password must be at least 6 characters.')
@@ -57,6 +61,7 @@ function PartnerSignUp () {
 
   return (
     <AntForm
+      size={width > 575 ? 'default' : 'small'}
       form={form}
       name='partner form'
       initialValues={{ email: '', password: '', remember: true }}
@@ -90,7 +95,7 @@ function PartnerSignUp () {
       >
         <Input.Password placeholder='Choose a password...' />
       </AntForm.Item>
-      <AntForm.Item>
+      <AntForm.Item style={styling.responsiveMargin}>
         <Button type='primary' shape='round' htmlType='submit'>
           Sign Up
         </Button>

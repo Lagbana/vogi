@@ -51,9 +51,9 @@ class AuthRoute {
 
   async createAuth (req, res) {
     try {
-      if (!req.user) {
+      if (!req.user || req.body.role !== req.user.role) {
         res.status(401).json({
-          message: 'Invalid username or password.'
+          message: 'Invalid email or password.'
         })
       }
       return this.getCurrentUser(req, res)

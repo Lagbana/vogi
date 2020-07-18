@@ -50,7 +50,7 @@ function VolunteerSignUp () {
       })
   }
   const lengthValidator = (rule, value) => {
-    if (value.length > 6) {
+    if (value.length > 5) {
       return Promise.resolve()
     }
     return Promise.reject('Password must be at least 6 characters.')

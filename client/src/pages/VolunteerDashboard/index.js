@@ -5,36 +5,41 @@ import VolunteerSidebar from '../../components/VolunteerSidebar'
 import Profile from '../../dashboard-content/volunteer/Profile'
 import NewProject from '../../dashboard-content/volunteer/NewProject'
 import API from '../../utils/API'
+import CurrentProject from '../../dashboard-content/volunteer/ActiveProjects'
 import UserContext from '../../utils/UserContext'
 // Import React Context API
 import AvailableProjectContext from '../../utils/AvailableProjectContext'
 import JoinedProjectContext from '../../utils/JoinedProjectContext'
+import useWindowSize from '../../utils/useWindowSize'
 
 const { Content, Footer } = Layout
-const styling = {
-  layout: {
-    minHeight: '100vh'
-  },
-  header: {
-    backgroundColor: '#E6F7FF'
-  },
-  content: {
-    margin: '16px'
-  },
-  contentDiv: {
-    padding: 24,
-    minHeight: 360,
-    backgroundColor: 'white'
-  },
-  footer: {
-    textAlign: 'center'
-  }
-}
 
 function VolunteerDashboard () {
+  const [width, height] = useWindowSize()
+  const styling = {
+    layout: {
+      minHeight: '100vh'
+    },
+    header: {
+      backgroundColor: '#E6F7FF'
+    },
+    content: {
+      margin: width > 767 ? '10px' : '5px'
+    },
+    contentDiv: {
+      padding: 24,
+      minHeight: 360,
+      backgroundColor: 'white'
+    },
+    footer: {
+      textAlign: 'center'
+    },
+    cardSize: width > 767 ? 'default' : 'small'
+  }
   const [title, setTitle] = useState('Profile')
   const [availableProjects, setAvailableProjects] = useState([])
   const [currentProjects, setCurrentProjects] = useState([])
+  const [currentProject, setCurrentProject] = useState('')
   const user = useContext(UserContext)
 
   // Get Available Projects to Join
@@ -76,20 +81,34 @@ function VolunteerDashboard () {
     setTitle(title)
   }
 
-  const joinProjectHandler = id => {
-    API.joinProject({ userID: user._id, projectID: id }).then(res => {
-      setCurrentProjects([...currentProjects, res.data])
+  const currentProjectHandler = id => {
+    console.log(id)
+    currentProjects.forEach(project => {
+      if (project._id === id) {
+        setCurrentProject(project)
+        setTitle(project.name)
+      }
     })
+  }
+
+  const joinProjectHandler = id => {
+    API.joinProject({ userID: user._id, projectID: id })
+      .then(res => {
+        setCurrentProjects([...currentProjects, res.data])
+      })
+      .catch(err => {
+        console.log(err)
+      })
   }
 
   const renderContent = () => {
     switch (title) {
       case 'Profile':
         return <Profile />
-      case 'New Project':
+      case 'Join a New Project':
         return <NewProject joinProjectHandler={joinProjectHandler} />
       default:
-        return <div />
+        return <CurrentProject currentProject={currentProject} />
     }
   }
   return (
@@ -98,10 +117,17 @@ function VolunteerDashboard () {
         <JoinedProjectContext.Provider value={currentProjects}>
           <Navbar authenticated='true' />
           <Layout style={styling.layout}>
-            <VolunteerSidebar contentHandler={contentHandler} />
+            <VolunteerSidebar
+              contentHandler={contentHandler}
+              currentProjectHandler={currentProjectHandler}
+            />
             <Layout>
               <Content style={styling.content}>
-                <Card title={title} headStyle={styling.header}>
+                <Card
+                  title={title}
+                  headStyle={styling.header}
+                  size={styling.cardSize}
+                >
                   {renderContent()}
                 </Card>
               </Content>

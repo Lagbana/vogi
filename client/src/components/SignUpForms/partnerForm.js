@@ -20,7 +20,7 @@ function PartnerSignUp () {
       border: 'none'
     },
     responsiveMargin: {
-      marginBottom: width > 767 ? 12 : 0
+      marginBottom: width > 575 ? 12 : 0
     }
   }
   const [form] = AntForm.useForm()

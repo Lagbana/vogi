@@ -107,8 +107,10 @@ function VolunteerDashboard () {
         return <Profile />
       case 'Join a New Project':
         return <NewProject joinProjectHandler={joinProjectHandler} />
-      default:
+      case currentProject.name:
         return <CurrentProject currentProject={currentProject} />
+      default:
+        return <div />
     }
   }
   return (

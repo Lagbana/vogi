@@ -32,7 +32,28 @@ const UserSchema = new Schema(
         type: Schema.Types.ObjectId,
         ref: 'Project'
       }
-    ]
+    ],
+    organizationType: {
+      type: String
+    },
+    organizationName: {
+      type: String
+    },
+    organizationAbout: {
+      type: String
+    },
+    volunteerFirstName: {
+      type: String
+    },
+    volunteerLastName: {
+      type: String
+    },
+    volunteerSkills: {
+      type: String
+    },
+    volunteerAbout: {
+      type: String
+    }
   },
   {
     timestamps: true

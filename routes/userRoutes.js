@@ -11,13 +11,16 @@ class UserRoute {
 
   initialize () {
     this.router.put('/users', (req, res) => this.updateUser(req, res))
-    this.router.post(
-      '/users',
-      (req, res, next) => {
-        this.createUser(req, res, next)
-      }
-    )
+    this.router.post('/users', (req, res, next) => {
+      this.createUser(req, res, next)
+    })
     this.router.get('/users', (req, res) => this.retrieveUsers(req, res))
+    this.router.put('/users/volunteer', (req, res) =>
+      this.updateVolunteer(req, res)
+    )
+    this.router.put('/users/partner', (req, res) =>
+      this.updatePartner(req, res)
+    )
   }
 
   // Update users who sign up via GitHub with their roles
@@ -35,6 +38,32 @@ class UserRoute {
       res.send(req.user)
     } catch (err) {
       console.error(err)
+      throw err
+    }
+  }
+
+  async updatePartner (req, res) {
+    try {
+      const updatedPartner = await this.UserService.changePartner({
+        ...req.body,
+        id: req.user._id
+      })
+      return res.json(updatedPartner)
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+  }
+
+  async updateVolunteer (req, res) {
+    try {
+      const updatedVolunteer = await this.UserService.changeVolunteer({
+        ...req.body,
+        id: req.user._id
+      })
+      return res.json(updatedVolunteer)
+    } catch (err) {
+      console.log(err)
       throw err
     }
   }
@@ -64,7 +93,7 @@ class UserRoute {
       // We can nicely redirect to the signup screen with this message
 
       if (err.code === 11000) {
-        res.status(400).json({ message: 'Username already in use.' })
+        res.status(400).json({ message: 'That email already exists.' })
       }
       next(err)
     }

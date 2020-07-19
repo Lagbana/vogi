@@ -2,35 +2,54 @@ import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
-
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
-    },
-    wrapperCol: {
-      span: 16
-    }
-  },
-  githubButton: {
-    backgroundColor: 'black',
-    border: 'none'
-  }
-}
+import useWindowSize from '../../utils/useWindowSize'
 
 function PartnerLoginForm () {
+  const [width, height] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
+    },
+    githubButton: {
+      backgroundColor: 'black',
+      border: 'none'
+    },
+    responsiveMargin: {
+      marginBottom: width > 767 ? 12 : 0
+    }
+  }
   const [form] = AntForm.useForm()
   const isAuthenticated = localStorage.getItem('tokens')
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
 
   const onFinish = values => {
     const { email, password } = values
-    API.logIn({ username: email, password }).then(res => {
-      form.resetFields()
-      localStorage.setItem('tokens', JSON.stringify(res.data))
-      localStorage.setItem('role', 'Partner')
-      window.location.reload()
-    })
+    API.logIn({ username: email, password, role: 'Partner' })
+      .then(res => {
+        form.resetFields()
+        localStorage.setItem('tokens', JSON.stringify(res.data))
+        localStorage.setItem('role', 'Partner')
+        window.location.reload()
+      })
+      .catch(e => {
+        if (e.response.status === 401) {
+          form.setFields([
+            {
+              name: 'password',
+              errors: ['Invalid email or password.']
+            },
+            {
+              name: 'email',
+              errors: [' ']
+            }
+          ])
+        }
+      })
   }
 
   const onFinishFailed = errorInfo => {
@@ -39,6 +58,7 @@ function PartnerLoginForm () {
 
   return (
     <AntForm
+      size={width > 575 ? 'default' : 'small'}
       form={form}
       name='partner form'
       initialValues={{ email: '', password: '', remember: true }}
@@ -58,7 +78,7 @@ function PartnerLoginForm () {
         colon={false}
         name='email'
       >
-        <Input />
+        <Input placeholder='Enter your email...' />
       </AntForm.Item>
 
       <AntForm.Item
@@ -68,9 +88,9 @@ function PartnerLoginForm () {
         colon={false}
         name='password'
       >
-        <Input.Password />
+        <Input.Password placeholder='Enter your password...' />
       </AntForm.Item>
-      <AntForm.Item>
+      <AntForm.Item style={styling.responsiveMargin}>
         <Button type='primary' shape='round' htmlType='submit'>
           Log In
         </Button>

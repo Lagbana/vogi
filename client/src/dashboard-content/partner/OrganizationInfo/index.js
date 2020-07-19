@@ -1,5 +1,6 @@
 import React from 'react'
 import { Form, Input, Button, Radio } from 'antd'
+import API from '../../../utils/API'
 
 const styling = {
   formLayout: {
@@ -20,14 +21,22 @@ const styling = {
 }
 
 function OrganizationInfo () {
+  const [form] = Form.useForm()
+  const onFinish = values => {
+    API.updatePartner(values).then(res => {
+      form.resetFields()
+      return res.data
+    })
+    console.log(values)
+  }
   return (
     <>
-      <Form>
+      <Form onFinish={onFinish} form={form}>
         <Form.Item
           {...styling.formLayout}
           style={styling.leftAlign}
           colon={false}
-          name='radio-button'
+          name='type'
           label='Type of Organization'
         >
           <Radio.Group>
@@ -39,14 +48,25 @@ function OrganizationInfo () {
           {...styling.formLayout}
           colon={false}
           label='Organization Name'
+          name='name'
         >
           <Input />
         </Form.Item>
-        <Form.Item {...styling.formLayout} colon={false} label='About'>
+        <Form.Item
+          {...styling.formLayout}
+          colon={false}
+          label='About'
+          name='about'
+        >
           <Input.TextArea />
         </Form.Item>
         <Form.Item>
-          <Button type='primary' shape='round' style={styling.button}>
+          <Button
+            type='primary'
+            htmlType='submit'
+            shape='round'
+            style={styling.button}
+          >
             Save
           </Button>
         </Form.Item>

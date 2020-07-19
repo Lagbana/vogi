@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 export default {
-
   getUser: function () {
     return axios.get('/v1/api/users/')
   },
@@ -28,10 +27,25 @@ export default {
   createProject: function (projectData) {
     return axios.post('/v1/api/projects', projectData)
   },
+
   getAvailableProjects: function () {
     return axios.get('/v1/api/projects')
   },
+
   joinProject: function (projectData) {
     return axios.put('/v1/api/projects', projectData)
+  },
+
+  deleteProject: function (data) {
+    return axios.delete(`/v1/api/projects/${data._id}?repo=${data.repo}`)
+  },
+
+  addIssue: function (projectData) {
+    return axios.post('/v1/api/projects/issues', projectData)
+  },
+
+  getAllIssues: function (repoName) {
+    return axios.get(`/v1/api/projects/issues/?repo=${repoName}`)
   }
+
 }

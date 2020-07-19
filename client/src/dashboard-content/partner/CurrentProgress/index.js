@@ -1,8 +1,21 @@
-import React from 'react'
-// import CreatedProjectContext from '../../../utils/CreatedProjectContext'
-import { Layout, Card, Row, Col, Divider } from 'antd'
+import React, { useState, useEffect } from 'react'
+import {
+  Layout,
+  Card,
+  Row,
+  Col,
+  Form as AntForm,
+  Input,
+  Button,
+  Steps,
+  List
+} from 'antd'
+import { CarryOutOutlined } from '@ant-design/icons'
+import API from '../../../utils/API'
 
 const { Content } = Layout
+const { TextArea } = Input
+const { Step } = Steps
 
 const styling = {
   wrapper: {},
@@ -12,27 +25,51 @@ const styling = {
     fontSize: '22px'
   },
   content: {
-    padding: 24,
+    padding: 0,
     margin: 0,
     minHeight: '100vh'
   },
-  volunteerCard: {
+  card: {
     width: '100%',
-    marginLeft: '0rem',
-    // border: '1px darkGray solid',
-    marginTop: '10%'
-  },
-
-  partnerCard: {
-    width: '100%',
-    marginLeft: '0rem',
-    // border: '1px darkGray solid',
-    marginTop: '10%'
+    // marginLeft: '3rem',
+    marginTop: '3%'
   }
 }
 
 function CurrentProject ({ currentProjectData }) {
   const dataObject = currentProjectData()
+  const [form] = AntForm.useForm()
+
+  const [issuesData, setIssuesData] = useState([])
+  const [issuesProgress, setIssuesProgress] = useState({})
+
+  useEffect(() => {
+    const repoName = dataObject.name.trim()
+    API.getAllIssues(repoName).then(res => {
+      const issues = res.data[0]
+      const progress = res.data[1]
+
+      setIssuesData(issues)
+      setIssuesProgress(progress)
+    })
+  }, [])
+
+  const onFinish = values => {
+    const { title, body } = values
+    API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
+      form.resetFields()
+    })
+  }
+
+  const onDelete = () => {
+    API.deleteProject({ repo: dataObject.name, _id: dataObject._id }).then(() =>
+      window.location.reload()
+    )
+  }
+
+  const onFinishFailed = errorInfo => {
+    console.log('Failed:', errorInfo)
+  }
 
   return (
     <>
@@ -40,29 +77,117 @@ function CurrentProject ({ currentProjectData }) {
         <Row justify='center'>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
-              title='Project Feature Issues'
+              title='Project Actions'
               headStyle={styling.header}
-              style={styling.volunteerCard}
+              style={styling.card}
             >
               <div>
-                <p>Project name: {dataObject.name}</p>
-                <p>Project Description: {dataObject.description}</p>
-                <p>Project Skills: {dataObject.skills}</p>
+                <h3>Create Project Issues</h3>
+                <AntForm
+                  form={form}
+                  name='issue form'
+                  initialValues={{ title: '', body: '' }}
+                  onFinish={onFinish}
+                  onFinishFailed={onFinishFailed}
+                >
+                  <AntForm.Item
+                    // {...styling.formLayout}
+                    label='Title'
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please input the issue title!'
+                      }
+                    ]}
+                    colon={false}
+                    name='title'
+                  >
+                    <Input />
+                  </AntForm.Item>
+                  <AntForm.Item
+                    // {...styling.formLayout}
+                    label='Description'
+                    rules={[
+                      {
+                        required: true,
+                        message: 'Please enter the issue description!'
+                      }
+                    ]}
+                    colon={false}
+                    name='body'
+                  >
+                    <TextArea rows={4} />
+                  </AntForm.Item>
+                  <AntForm.Item>
+                    <Button type='primary' shape='round' htmlType='submit'>
+                      Add Project Issue
+                    </Button>
+                  </AntForm.Item>
+                </AntForm>
+              </div>
+              <div>
+                <p style={{ color: 'red', paddingTop: '2rem' }}>
+                  Warning: Deleting the project erases your project from the
+                  database as well as the files on GitHub.
+                </p>
+                <Button type='primary' shape='round' danger onClick={onDelete}>
+                  Delete Project
+                </Button>
               </div>
             </Card>
           </Col>
-          <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
-          </Col>
+          <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
               title='Project Status'
               headStyle={styling.header}
-              style={styling.partnerCard}
+              style={styling.card}
             >
-              <div>
-                <p>Project name: {dataObject.name}</p>
-                <p>Project Description: {dataObject.description}</p>
-                <p>Project Skills: {dataObject.skills}</p>
+              <div
+                style={{
+                  wordWrap: 'break-word',
+                  marginTop: '1rem',
+                  backgroundColor: '#F8F8F8',
+                  width: '100%'
+                }}
+              >
+                {/* <Timeline>
+                  {issuesData.map(item => <Timeline.Item>{item.title}</Timeline.Item>)}
+                </Timeline> */}
+                <h3 style={{ paddingTop: '0rem' }}>View all issues</h3>
+                <List
+                  itemLayout='horizontal'
+                  split={false}
+                  dataSource={issuesData}
+                  renderItem={item => {
+                    const iconColor =
+                      item.state === 'open' ? '#87d068' : '#c4c4c4'
+                    return (
+                      <List.Item
+                        style={{
+                          textAlign: 'left',
+                          marginLeft: '2rem'
+                        }}
+                      >
+                        <CarryOutOutlined
+                          style={{ color: iconColor, fontSize: '2.5vh' }}
+                        />{' '}
+                        {item.title}
+                      </List.Item>
+                    )
+                  }}
+                />
+              </div>
+              <div style={{marginTop: "2rem"}}>
+                <Steps current={1}>
+                  <Step title='Finished' description='description.' />
+                  <Step
+                    title='In Progress'
+                    subTitle='Left 00:00:08'
+                    description='This is a description.'
+                  />
+                  <Step title='Waiting' description='description.' />
+                </Steps>
               </div>
             </Card>
           </Col>

@@ -47,11 +47,12 @@ function PartnerDashboard () {
     }
   ])
 
+
+
   const onFinish = values => {
     API.createProject(values).then(res => {
       form.resetFields()
       setProjects([...projects, res.data])
-      console.log(projects)
       return res
     })
   }
@@ -81,6 +82,8 @@ function PartnerDashboard () {
     const [result] = projects.filter(project => project.name === title)
     return result
   }
+
+
 
   const renderContent = () => {
     switch (title) {

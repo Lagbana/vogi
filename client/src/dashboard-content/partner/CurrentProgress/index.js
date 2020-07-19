@@ -7,6 +7,7 @@ import {
   Form as AntForm,
   Input,
   Button,
+  Steps,
   List
 } from 'antd'
 import { CarryOutOutlined } from '@ant-design/icons'
@@ -14,6 +15,7 @@ import API from '../../../utils/API'
 
 const { Content } = Layout
 const { TextArea } = Input
+const { Step } = Steps
 
 const styling = {
   wrapper: {},
@@ -75,7 +77,7 @@ function CurrentProject ({ currentProjectData }) {
         <Row justify='center'>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
-              title='Project Feature Issues'
+              title='Project Actions'
               headStyle={styling.header}
               style={styling.card}
             >
@@ -123,21 +125,36 @@ function CurrentProject ({ currentProjectData }) {
                   </AntForm.Item>
                 </AntForm>
               </div>
-
+              <div>
+                <p style={{ color: 'red', paddingTop: '2rem' }}>
+                  Warning: Deleting the project erases your project from the
+                  database as well as the files on GitHub.
+                </p>
+                <Button type='primary' shape='round' danger onClick={onDelete}>
+                  Delete Project
+                </Button>
+              </div>
+            </Card>
+          </Col>
+          <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>
+          <Col xl={10} lg={10} md={20} sm={20} xs={20}>
+            <Card
+              title='Project Status'
+              headStyle={styling.header}
+              style={styling.card}
+            >
               <div
                 style={{
                   wordWrap: 'break-word',
-                  marginTop: '3.5rem',
+                  marginTop: '1rem',
                   backgroundColor: '#F8F8F8',
-                  width: '100%',
-                  // maginLeft: 'auto',
-                  // marginRight: 'auto',
+                  width: '100%'
                 }}
               >
                 {/* <Timeline>
                   {issuesData.map(item => <Timeline.Item>{item.title}</Timeline.Item>)}
                 </Timeline> */}
-                <h3 style={{paddingTop: "2rem"}}>View all issues</h3>
+                <h3 style={{ paddingTop: '0rem' }}>View all issues</h3>
                 <List
                   itemLayout='horizontal'
                   split={false}
@@ -149,28 +166,29 @@ function CurrentProject ({ currentProjectData }) {
                       <List.Item
                         style={{
                           textAlign: 'left',
-                          marginLeft: '2rem',
+                          marginLeft: '2rem'
                         }}
                       >
-                        <CarryOutOutlined style={{ color: iconColor, fontSize: '2.5vh' }} />{' '}
+                        <CarryOutOutlined
+                          style={{ color: iconColor, fontSize: '2.5vh' }}
+                        />{' '}
                         {item.title}
                       </List.Item>
                     )
                   }}
                 />
               </div>
-            </Card>
-          </Col>
-          <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>
-          <Col xl={10} lg={10} md={20} sm={20} xs={20}>
-            <Card
-              title='Project Status'
-              headStyle={styling.header}
-              style={styling.card}
-            >
-              <Button type='primary' shape='round' danger onClick={onDelete}>
-                Delete Project
-              </Button>
+              <div style={{marginTop: "2rem"}}>
+                <Steps current={1}>
+                  <Step title='Finished' description='description.' />
+                  <Step
+                    title='In Progress'
+                    subTitle='Left 00:00:08'
+                    description='This is a description.'
+                  />
+                  <Step title='Waiting' description='description.' />
+                </Steps>
+              </div>
             </Card>
           </Col>
         </Row>

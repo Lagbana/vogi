@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react'
-import { Form, Input, Button, Radio } from 'antd'
+import { Form, Input, Button, notification } from 'antd'
 import API from '../../../utils/API'
 import UserContext from '../../../utils/UserContext'
 
@@ -23,12 +23,17 @@ const styling = {
 
 function Profile () {
   const [form] = Form.useForm()
-  const [message, setMessage] = useState('')
+  const openNotificationWithIcon = type => {
+    notification[type]({
+      message: 'Profile Updated',
+      description: 'You have successfully updated your profile.'
+    })
+  }
 
   const onFinish = values => {
     API.updateVolunteer(values)
       .then(res => {
-        setMessage('You have updated your profile.')
+        openNotificationWithIcon('success')
         return res.data
       })
       .catch(err => {
@@ -83,9 +88,6 @@ function Profile () {
           label='About'
         >
           <Input.TextArea placeholder='About you section...' />
-        </Form.Item>
-        <Form.Item>
-          <div style={{ color: 'gray' }}>{message}</div>
         </Form.Item>
         <Form.Item>
           <Button

@@ -1,10 +1,10 @@
 import React from 'react'
 import { Card } from 'antd'
 
-function ProjectCard () {
+function ProjectCard ({ currentProject }) {
   return (
-    <Card type='inner' title='inner card titile'>
-      inner card content
+    <Card type='inner'>
+      Description: {currentProject.description} Skills: {currentProject.skills}
     </Card>
   )
 }

@@ -1,7 +1,7 @@
 // Import from the react library
 import React, { useState, useEffect, useContext } from 'react'
 // Import from AntDesign
-import { Layout, Card, Form } from 'antd'
+import { Layout, Card, Form, notification } from 'antd'
 // Import Componentes
 import Navbar from '../../components/Navbar'
 import PartnerSidebar from '../../components/PartnerSidebar'
@@ -47,10 +47,22 @@ function PartnerDashboard () {
     }
   ])
 
-
+  const openNotification = type => {
+    notification[type]({
+      message: 'New Project',
+      description: 'You have successfully created a new project.'
+    })
+  }
 
   const onFinish = values => {
-    API.createProject(values).then(res => {
+    console.log(values)
+    const { name } = values
+    const strippedName = name.replace(
+      /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi,
+      ''
+    )
+    API.createProject({...values, name: strippedName}).then(res => {
+      openNotification('success')
       form.resetFields()
       setProjects([...projects, res.data])
       return res
@@ -82,8 +94,6 @@ function PartnerDashboard () {
     const [result] = projects.filter(project => project.name === title)
     return result
   }
-
-
 
   const renderContent = () => {
     switch (title) {

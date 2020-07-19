@@ -47,5 +47,4 @@ export default {
   getAllIssues: function (repoName) {
     return axios.get(`/v1/api/projects/issues/?repo=${repoName}`)
   }
-
 }

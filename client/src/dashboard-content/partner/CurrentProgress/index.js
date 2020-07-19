@@ -8,7 +8,8 @@ import {
   Input,
   Button,
   Steps,
-  List
+  List,
+  notification
 } from 'antd'
 import { CarryOutOutlined } from '@ant-design/icons'
 import API from '../../../utils/API'
@@ -54,9 +55,17 @@ function CurrentProject ({ currentProjectData }) {
     })
   }, [])
 
+  const openNotification = type => {
+    notification[type]({
+      message: 'Issue Created',
+      description: 'You have successfully created a new project issue.'
+    })
+  }
+
   const onFinish = values => {
     const { title, body } = values
     API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
+      openNotification('success')
       form.resetFields()
     })
   }
@@ -178,7 +187,7 @@ function CurrentProject ({ currentProjectData }) {
                   }}
                 />
               </div>
-              <div style={{marginTop: "2rem"}}>
+              <div style={{ marginTop: '2rem' }}>
                 <Steps current={1}>
                   <Step title='Finished' description='description.' />
                   <Step

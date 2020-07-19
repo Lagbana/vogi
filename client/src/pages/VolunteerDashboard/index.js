@@ -18,13 +18,14 @@ function VolunteerDashboard () {
   const [width, height] = useWindowSize()
   const styling = {
     layout: {
-      minHeight: '100vh'
+      minHeight: '78vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
     },
     content: {
-      margin: width > 767 ? '10px' : '5px'
+      margin: width > 767 ? '10px' : '5px',
+      height: '78vh'
     },
     contentDiv: {
       padding: 24,

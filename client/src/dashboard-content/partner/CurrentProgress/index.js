@@ -8,7 +8,8 @@ import {
   Input,
   Button,
   Steps,
-  List
+  List,
+  notification
 } from 'antd'
 import { CarryOutOutlined } from '@ant-design/icons'
 import API from '../../../utils/API'
@@ -41,22 +42,35 @@ function CurrentProject ({ currentProjectData }) {
   const [form] = AntForm.useForm()
 
   const [issuesData, setIssuesData] = useState([])
-  const [issuesProgress, setIssuesProgress] = useState({})
+  const [percentStatus, setPercentStatus] = useState('')
 
   useEffect(() => {
     const repoName = dataObject.name.trim()
     API.getAllIssues(repoName).then(res => {
       const issues = res.data[0]
       const progress = res.data[1]
-
       setIssuesData(issues)
-      setIssuesProgress(progress)
+      console.log(progress)
+      const value = Math.round(
+        (progress.closedIssues / progress.totalIssues) * 100
+      )
+        const status = `${value}% complete`
+      setPercentStatus(status)
     })
   }, [])
+
+
+  const openNotification = type => {
+    notification[type]({
+      message: 'Issue Created',
+      description: 'You have successfully created a new project issue.'
+    })
+  }
 
   const onFinish = values => {
     const { title, body } = values
     API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
+      openNotification('success')
       form.resetFields()
     })
   }
@@ -136,6 +150,7 @@ function CurrentProject ({ currentProjectData }) {
               </div>
             </Card>
           </Col>
+
           <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
@@ -171,22 +186,18 @@ function CurrentProject ({ currentProjectData }) {
                       >
                         <CarryOutOutlined
                           style={{ color: iconColor, fontSize: '2.5vh' }}
-                        />{' '}
+                        />
                         {item.title}
                       </List.Item>
                     )
                   }}
                 />
               </div>
-              <div style={{marginTop: "2rem"}}>
+              <div style={{ marginTop: '3.5rem' }}>
                 <Steps current={1}>
-                  <Step title='Finished' description='description.' />
-                  <Step
-                    title='In Progress'
-                    subTitle='Left 00:00:08'
-                    description='This is a description.'
-                  />
-                  <Step title='Waiting' description='description.' />
+                  <Step title='Start' />
+                  <Step title='In Progress' description={percentStatus} />
+                  <Step title='Final Review' />
                 </Steps>
               </div>
             </Card>

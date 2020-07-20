@@ -1,5 +1,5 @@
-import React from 'react'
-import { Form, Input, Button, Radio } from 'antd'
+import React, { useEffect } from 'react'
+import { Form, Input, Button, Radio, notification } from 'antd'
 import API from '../../../utils/API'
 
 const styling = {
@@ -10,6 +10,9 @@ const styling = {
     wrapperCol: {
       span: 16
     }
+  },
+  content: {
+    minHeight: '100vh'
   },
   leftAlign: {
     textAlign: 'left'
@@ -22,15 +25,38 @@ const styling = {
 
 function OrganizationInfo () {
   const [form] = Form.useForm()
-  const onFinish = values => {
-    API.updatePartner(values).then(res => {
-      form.resetFields()
-      return res.data
+
+  const openNotification = type => {
+    notification[type]({
+      message: 'Organization Info Updated',
+      description: 'You have successfully updated your organization profile.'
     })
-    console.log(values)
   }
+
+  const onFinish = values => {
+    API.updatePartner(values)
+      .then(res => {
+        openNotification('success')
+        return res.data
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
+
+  useEffect(() => {
+    API.getUser().then(res => {
+      if (res.data.organizationType)
+        form.setFieldsValue({ type: res.data.organizationType })
+      if (res.data.organizationName)
+        form.setFieldsValue({ name: res.data.organizationName })
+      if (res.data.organizationAbout)
+        form.setFieldsValue({ about: res.data.organizationAbout })
+    })
+  }, [])
+
   return (
-    <>
+    <div style={styling.content}>
       <Form onFinish={onFinish} form={form}>
         <Form.Item
           {...styling.formLayout}
@@ -71,7 +97,7 @@ function OrganizationInfo () {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   )
 }
 

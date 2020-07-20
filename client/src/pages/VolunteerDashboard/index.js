@@ -18,7 +18,7 @@ function VolunteerDashboard () {
   const [width, height] = useWindowSize()
   const styling = {
     layout: {
-      minHeight: '100vh'
+      height: '90vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -32,7 +32,8 @@ function VolunteerDashboard () {
       backgroundColor: 'white'
     },
     footer: {
-      textAlign: 'center'
+      textAlign: 'center',
+      height: '10vh'
     },
     cardSize: width > 767 ? 'default' : 'small'
   }
@@ -82,7 +83,6 @@ function VolunteerDashboard () {
   }
 
   const currentProjectHandler = id => {
-    console.log(id)
     currentProjects.forEach(project => {
       if (project._id === id) {
         setCurrentProject(project)
@@ -107,8 +107,10 @@ function VolunteerDashboard () {
         return <Profile />
       case 'Join a New Project':
         return <NewProject joinProjectHandler={joinProjectHandler} />
-      default:
+      case currentProject.name:
         return <CurrentProject currentProject={currentProject} />
+      default:
+        return <div />
     }
   }
   return (
@@ -116,12 +118,12 @@ function VolunteerDashboard () {
       <AvailableProjectContext.Provider value={availableProjects}>
         <JoinedProjectContext.Provider value={currentProjects}>
           <Navbar authenticated='true' />
-          <Layout style={styling.layout}>
+          <Layout>
             <VolunteerSidebar
               contentHandler={contentHandler}
               currentProjectHandler={currentProjectHandler}
             />
-            <Layout>
+            <Layout style={styling.layout}>
               <Content style={styling.content}>
                 <Card
                   title={title}

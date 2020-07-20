@@ -21,6 +21,9 @@ function VolunteerSignUp () {
       border: 'none'
     },
     responsiveMargin: {
+      marginBottom: width > 767 ? 12 : 0
+    },
+    dividerMargin: {
       marginBottom: width > 767 ? 12 : 0,
       marginTop: width > 767 ? 12 : 0
     }
@@ -102,7 +105,7 @@ function VolunteerSignUp () {
             Sign Up
           </Button>
         </AntForm.Item>
-        <Divider style={styling.responsiveMargin}>or</Divider>
+        <Divider style={styling.dividerMargin}>or</Divider>
         <AntForm.Item style={styling.responsiveMargin}>
           <Button style={styling.githubButton} type='primary' shape='round'>
             <GithubOutlined />

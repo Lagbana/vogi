@@ -20,7 +20,7 @@ function PartnerDashboard () {
   const [width, height] = useWindowSize()
   const styling = {
     layout: {
-      minHeight: '100vh'
+      height: '90vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -50,6 +50,7 @@ function PartnerDashboard () {
     //   skills: ''
     // }
   ])
+  const [currentProject, setCurrentProject] = useState('')
 
   const openNotification = type => {
     notification[type]({
@@ -59,7 +60,6 @@ function PartnerDashboard () {
   }
 
   const onFinish = values => {
-    // console.log(values)
     const { name } = values
     const strippedName = name.replace(
       /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi,
@@ -95,9 +95,13 @@ function PartnerDashboard () {
     })
   }, [])
 
-  const currentProjectData = () => {
-    const [result] = projects.filter(project => project.name === title)
-    return result
+  const currentProjectHandler = id => {
+    projects.forEach(project => {
+      if (project._id === id) {
+        setCurrentProject(project)
+        setTitle(project.name)
+      }
+    })
   }
 
   const renderContent = () => {
@@ -108,8 +112,10 @@ function PartnerDashboard () {
         return <NewProject onFinish={onFinish} form={form} />
       case 'Settings':
         return <div />
+      case currentProject.name:
+        return <CurrentProject currentProject={currentProject} />
       default:
-        return <CurrentProject currentProjectData={currentProjectData} />
+        return <div />
     }
   }
 
@@ -120,11 +126,15 @@ function PartnerDashboard () {
         <Layout style={styling.layout}>
           <PartnerSidebar
             contentHandler={contentHandler}
-            // currentProjectHandler={currentProjectHandler}
+            currentProjectHandler={currentProjectHandler}
           />
           <Layout>
             <Content style={styling.content}>
-              <Card title={title} headStyle={styling.header}>
+              <Card
+                size={styling.cardSize}
+                title={title}
+                headStyle={styling.header}
+              >
                 {renderContent()}
               </Card>
             </Content>

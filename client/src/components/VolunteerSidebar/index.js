@@ -53,8 +53,7 @@ function VolunteerSidebar ({ contentHandler, currentProjectHandler }) {
       collapsedWidth='50px'
       style={{
         overflow: 'auto',
-        borderRight: '1px solid #C4C4C4',
-        fixed: true
+        borderRight: '1px solid #C4C4C4'
       }}
       // onCollapse={onCollapse}
       // style={{ minWidth: '0px', padding: '0', margin: '0', width: '10px' }}

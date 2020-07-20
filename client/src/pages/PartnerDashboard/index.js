@@ -12,39 +12,43 @@ import CurrentProject from '../../dashboard-content/partner/CurrentProgress'
 import CreatedProjectContext from '../../utils/CreatedProjectContext'
 import UserContext from '../../utils/UserContext'
 import API from '../../utils/API'
+import useWindowSize from '../../utils/useWindowSize'
 
 const { Content, Footer } = Layout
-const styling = {
-  layout: {
-    minHeight: '100vh'
-  },
-  header: {
-    backgroundColor: '#E6F7FF'
-  },
-  content: {
-    margin: '16px'
-  },
-  contentDiv: {
-    padding: 24,
-    minHeight: 360,
-    backgroundColor: 'white'
-  },
-  footer: {
-    textAlign: 'center'
-  }
-}
 
 function PartnerDashboard () {
+  const [width, height] = useWindowSize()
+  const styling = {
+    layout: {
+      minHeight: '100vh'
+    },
+    header: {
+      backgroundColor: '#E6F7FF'
+    },
+    content: {
+      margin: width > 767 ? '10px' : '5px'
+    },
+    contentDiv: {
+      padding: 24,
+      minHeight: 360,
+      backgroundColor: 'white'
+    },
+    footer: {
+      textAlign: 'center'
+    },
+    cardSize: width > 767 ? 'default' : 'small'
+  }
+
   const [form] = Form.useForm()
   const [title, setTitle] = useState('Organization Information')
   const user = useContext(UserContext)
   const [projects, setProjects] = useState([
-    {
-      _id: '',
-      name: '',
-      description: '',
-      skills: ''
-    }
+    // {
+    //   _id: '',
+    //   name: '',
+    //   description: '',
+    //   skills: ''
+    // }
   ])
 
   const openNotification = type => {
@@ -55,13 +59,13 @@ function PartnerDashboard () {
   }
 
   const onFinish = values => {
-    console.log(values)
+    // console.log(values)
     const { name } = values
     const strippedName = name.replace(
       /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi,
       ''
     )
-    API.createProject({...values, name: strippedName}).then(res => {
+    API.createProject({ ...values, name: strippedName }).then(res => {
       openNotification('success')
       form.resetFields()
       setProjects([...projects, res.data])
@@ -73,6 +77,7 @@ function PartnerDashboard () {
     setTitle(title)
   }
 
+  // Get the user (partner)
   useEffect(() => {
     API.getUser().then(res => {
       const projectNames = res.data.projects.map(
@@ -113,7 +118,10 @@ function PartnerDashboard () {
       <CreatedProjectContext.Provider value={projects}>
         <Navbar authenticated='true' />
         <Layout style={styling.layout}>
-          <PartnerSidebar contentHandler={contentHandler} />
+          <PartnerSidebar
+            contentHandler={contentHandler}
+            // currentProjectHandler={currentProjectHandler}
+          />
           <Layout>
             <Content style={styling.content}>
               <Card title={title} headStyle={styling.header}>

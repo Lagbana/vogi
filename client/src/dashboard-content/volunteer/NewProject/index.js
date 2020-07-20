@@ -27,10 +27,12 @@ function NewProject ({ joinProjectHandler }) {
           title={project.name}
           size={styling.cardSize}
         >
-          <p>Skills: {project.skills}</p>
+          <p style={{ fontStyle: 'italic' }}>Skills: {project.skills}</p>
           <p style={{ textAlign: 'left' }}>{project.description}</p>
           <Button
             id={project._id}
+            shape='round'
+            type='primary'
             onClick={() => {
               openNotificationWithIcon('success', project.name)
               return joinProjectHandler(project._id)

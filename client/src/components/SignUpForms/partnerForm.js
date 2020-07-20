@@ -96,7 +96,7 @@ function PartnerSignUp () {
         <Input.Password placeholder='Choose a password...' />
       </AntForm.Item>
       <AntForm.Item style={styling.responsiveMargin}>
-        <Button type='primary' shape='round' htmlType='submit'>
+        <Button shape='round' htmlType='submit' type='primary'>
           Sign Up
         </Button>
       </AntForm.Item>

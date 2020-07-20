@@ -18,14 +18,14 @@ function VolunteerDashboard () {
   const [width, height] = useWindowSize()
   const styling = {
     layout: {
-      minHeight: '78vh'
+      height: '90vh',
+      display: 'fixed'
     },
     header: {
       backgroundColor: '#E6F7FF'
     },
     content: {
-      margin: width > 767 ? '10px' : '5px',
-      height: '78vh'
+      margin: width > 767 ? '10px' : '5px'
     },
     contentDiv: {
       padding: 24,
@@ -33,7 +33,8 @@ function VolunteerDashboard () {
       backgroundColor: 'white'
     },
     footer: {
-      textAlign: 'center'
+      textAlign: 'center',
+      height: '10vh'
     },
     cardSize: width > 767 ? 'default' : 'small'
   }
@@ -119,12 +120,12 @@ function VolunteerDashboard () {
       <AvailableProjectContext.Provider value={availableProjects}>
         <JoinedProjectContext.Provider value={currentProjects}>
           <Navbar authenticated='true' />
-          <Layout style={styling.layout}>
+          <Layout>
             <VolunteerSidebar
               contentHandler={contentHandler}
               currentProjectHandler={currentProjectHandler}
             />
-            <Layout>
+            <Layout style={styling.layout}>
               <Content style={styling.content}>
                 <Card
                   title={title}
@@ -134,9 +135,7 @@ function VolunteerDashboard () {
                   {renderContent()}
                 </Card>
               </Content>
-              <Footer style={styling.footer}>
-                Ant Design ©2018 Created by Ant UED
-              </Footer>
+              <Footer style={styling.footer}>Vogi ©2020</Footer>
             </Layout>
           </Layout>
         </JoinedProjectContext.Provider>

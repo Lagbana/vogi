@@ -18,8 +18,7 @@ function VolunteerDashboard () {
   const [width, height] = useWindowSize()
   const styling = {
     layout: {
-      height: '90vh',
-      display: 'fixed'
+      height: '90vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -84,7 +83,6 @@ function VolunteerDashboard () {
   }
 
   const currentProjectHandler = id => {
-    console.log(id)
     currentProjects.forEach(project => {
       if (project._id === id) {
         setCurrentProject(project)

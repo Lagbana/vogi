@@ -37,15 +37,14 @@ const styling = {
   }
 }
 
-function CurrentProject ({ currentProjectData }) {
-  const dataObject = currentProjectData()
+function CurrentProject ({ currentProject }) {
   const [form] = AntForm.useForm()
 
   const [issuesData, setIssuesData] = useState([])
   const [percentStatus, setPercentStatus] = useState('')
 
   useEffect(() => {
-    const repoName = dataObject.name.trim()
+    const repoName = currentProject.name.trim()
     API.getAllIssues(repoName).then(res => {
       const issues = res.data[0]
       const progress = res.data[1]
@@ -54,11 +53,10 @@ function CurrentProject ({ currentProjectData }) {
       const value = Math.round(
         (progress.closedIssues / progress.totalIssues) * 100
       )
-        const status = `${value}% complete`
+      const status = `${value}% complete`
       setPercentStatus(status)
     })
   }, [])
-
 
   const openNotification = type => {
     notification[type]({
@@ -69,16 +67,20 @@ function CurrentProject ({ currentProjectData }) {
 
   const onFinish = values => {
     const { title, body } = values
-    API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
+    API.addIssue({ repoName: currentProject.name, title, body }).then(res => {
       openNotification('success')
-      form.resetFields()
+      setIssuesData([
+        { title: title, body: body, state: 'open' },
+        ...issuesData
+      ])
     })
   }
 
   const onDelete = () => {
-    API.deleteProject({ repo: dataObject.name, _id: dataObject._id }).then(() =>
-      window.location.reload()
-    )
+    API.deleteProject({
+      repo: currentProject.name,
+      _id: currentProject._id
+    }).then(() => window.location.reload())
   }
 
   const onFinishFailed = errorInfo => {

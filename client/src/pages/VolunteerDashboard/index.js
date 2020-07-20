@@ -131,9 +131,7 @@ function VolunteerDashboard () {
                   {renderContent()}
                 </Card>
               </Content>
-              <Footer style={styling.footer}>
-                Ant Design ©2018 Created by Ant UED
-              </Footer>
+              <Footer style={styling.footer}>Vogi ©2020</Footer>
             </Layout>
           </Layout>
         </JoinedProjectContext.Provider>

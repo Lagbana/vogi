@@ -12,12 +12,21 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Sider } = Layout
 const { SubMenu } = Menu
 
-function PartnerSidebar ({ contentHandler }) {
+function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
   const [width, height] = useWindowSize()
   const [collapsed, setCollapsed] = useState(false)
   // const onCollapse = collapsed => {
   //   setCollapsed(collapsed)
   // }
+
+  const styling = {
+    responsiveMargin: {
+      marginLeft: width < 767 ? -14 : 0
+    },
+    topPadding: {
+      paddingTop: width < 767 ? '5px' : '10px'
+    }
+  }
 
   useEffect(() => {
     width < 767 ? setCollapsed(true) : setCollapsed(false)
@@ -27,7 +36,10 @@ function PartnerSidebar ({ contentHandler }) {
 
   const renderProjects = () => {
     return projects.map(project => (
-      <Menu.Item key={project._id} onClick={() => contentHandler(project.name)}>
+      <Menu.Item
+        key={project._id}
+        onClick={() => contentHandler(project.name)}
+      >
         {project.name}
       </Menu.Item>
     ))
@@ -37,13 +49,23 @@ function PartnerSidebar ({ contentHandler }) {
       theme='light'
       // collapsible
       collapsed={collapsed}
-      // onCollapse={onCollapse}
+      size='large'
+      collapsedWidth='50px'
+      style={{
+        overflow: 'auto',
+        borderRight: '1px solid #C4C4C4',
+        fixed: true
+      }}
     >
-      <div />
-      <Menu defaultSelectedKeys={['1']} mode='inline'>
+      <Menu
+        defaultSelectedKeys={['1']}
+        mode='inline'
+        style={styling.topPadding}
+      >
         <Menu.Item
           onClick={() => contentHandler('Organization Information')}
           key='1'
+          style={{ paddingLeft: '18px' }}
           icon={<UserOutlined />}
         >
           Organization Info
@@ -51,17 +73,24 @@ function PartnerSidebar ({ contentHandler }) {
         <Menu.Item
           onClick={() => contentHandler('Create New Project')}
           key='2'
+          style={{ paddingLeft: '18px' }}
           icon={<PlusOutlined />}
         >
           Create New Project
         </Menu.Item>
-        <SubMenu key='sub1' icon={<RiseOutlined />} title='Current Progress'>
+        <SubMenu
+          key='sub1'
+          icon={<RiseOutlined />}
+          title='Current Progress'
+          style={styling.responsiveMargin}
+        >
           {renderProjects()}
         </SubMenu>
         <Menu.Item
           onClick={() => contentHandler('Settings')}
           key='4'
           icon={<SettingOutlined />}
+          style={{ paddingLeft: '18px' }}
         >
           Settings
         </Menu.Item>

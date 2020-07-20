@@ -21,16 +21,18 @@ function NewProject ({ onFinish, form }) {
           colon={false}
           label='Project Name'
           name='name'
+          rules={[{ required: true, message: 'Please enter the project name' }]}
         >
-          <Input />
+          <Input placeholder='Enter the name of your project' />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
           colon={false}
           label='Project Description'
           name='description'
+          rules={[{ required: true, message: 'Please enter the project description' }]}
         >
-          <Input.TextArea />
+          <Input.TextArea placeholder='Describe your project objectives' />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
@@ -38,7 +40,7 @@ function NewProject ({ onFinish, form }) {
           label='Skills Required'
           name='skills'
         >
-          <Input />
+          <Input placeholder='List the skills your require separated by comma' />
         </Form.Item>
         <Form.Item>
           <Button

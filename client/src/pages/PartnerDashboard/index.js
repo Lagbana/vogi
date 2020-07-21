@@ -73,6 +73,14 @@ function PartnerDashboard () {
     })
   }
 
+  const projectValidator = (rule, value) => {
+    for (let project of projects) {
+      if (project.name === value)
+        return Promise.reject('This project name already exists')
+    }
+    return Promise.resolve()
+  }
+
   const contentHandler = title => {
     setTitle(title)
   }
@@ -109,7 +117,13 @@ function PartnerDashboard () {
       case 'Organization Information':
         return <OrganizationInfo />
       case 'Create New Project':
-        return <NewProject onFinish={onFinish} form={form} />
+        return (
+          <NewProject
+            projectValidator={projectValidator}
+            onFinish={onFinish}
+            form={form}
+          />
+        )
       case 'Settings':
         return <div />
       case currentProject.name:

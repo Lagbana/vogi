@@ -2,7 +2,7 @@ import React from 'react'
 import { Form, Input, Button } from 'antd'
 import useWindowSize from '../../../utils/useWindowSize'
 
-function NewProject ({ onFinish, form }) {
+function NewProject ({ onFinish, form, projectValidator }) {
   const [width, height] = useWindowSize()
   const styling = {
     formLayout: {
@@ -15,6 +15,7 @@ function NewProject ({ onFinish, form }) {
     },
     formSize: width > 950 ? 'default' : 'small'
   }
+
   return (
     <>
       <Form onFinish={onFinish} form={form}>
@@ -23,7 +24,10 @@ function NewProject ({ onFinish, form }) {
           colon={false}
           label='Name'
           name='name'
-          rules={[{ required: true, message: 'Please enter the project name' }]}
+          rules={[
+            { required: true, message: 'Please enter the project name' },
+            { validator: projectValidator }
+          ]}
         >
           <Input placeholder='Enter the name of your project' />
         </Form.Item>

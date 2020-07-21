@@ -17,7 +17,7 @@ function VolunteerLogIn () {
       }
     },
     responsiveMargin: {
-      marginBottom: width > 767 ? 12 : 0
+      marginBottom: width > 550 ? 12 : 0
     }
   }
   const [form] = AntForm.useForm()
@@ -57,15 +57,12 @@ function VolunteerLogIn () {
 
   return (
     <AntForm
-      size={width > 575 ? 'default' : 'small'}
+      size={width > 550 ? 'default' : 'small'}
       form={form}
       name='volunteer form'
       initialValues={{ email: '', password: '', remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
-      initialValues={{
-        remember: true
-      }}
     >
       <AntForm.Item
         {...styling.formLayout}

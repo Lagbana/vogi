@@ -10,9 +10,6 @@ const { Content } = Layout
 function SignUp () {
   const [width] = useWindowSize()
   const styling = {
-    page: {
-      height: '100%'
-    },
     wrapper: {},
     header: {
       border: 'none',

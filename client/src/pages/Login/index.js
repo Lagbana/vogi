@@ -8,7 +8,7 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Content } = Layout
 
 function Login () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     wrapper: {},
     header: {
@@ -19,14 +19,14 @@ function Login () {
     content: {
       paddingTop: width > 990 ? 24 : 16,
       margin: 0,
-      minHeight: '100vh',
+      minHeight: width > 767 ? '90vh' : '94vh',
       backgroundColor: '#F8F8F8'
     },
     volunteerCard: {
       width: '100%',
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '20%' : '0%',
+      marginTop: width > 990 ? '18%' : '0%',
       border: '1px #C4C4C4 solid'
     },
 
@@ -34,7 +34,7 @@ function Login () {
       width: '100%',
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '20%' : '0%',
+      marginTop: width > 990 ? '18%' : '0%',
       border: '1px #C4C4C4 solid'
     }
   }
@@ -44,9 +44,9 @@ function Login () {
       <Layout>
         <Content style={styling.content}>
           <Row justify='center'>
-            <Col xl={10} lg={10} md={18} sm={20} xs={22}>
+            <Col xl={10} lg={10} md={18} sm={20} xs={21}>
               <Card
-                size={width > 767 ? 'default' : 'small'}
+                size={width > 990 ? 'default' : 'small'}
                 shape='round'
                 title='Volunteer Log In'
                 headStyle={styling.header}
@@ -62,9 +62,9 @@ function Login () {
               ></Divider>
             </Col>
 
-            <Col xxl={10} lg={10} md={18} sm={20} xs={22}>
+            <Col xxl={10} lg={10} md={18} sm={20} xs={21}>
               <Card
-                size={width > 767 ? 'default' : 'small'}
+                size={width > 990 ? 'default' : 'small'}
                 title='Partner Log In'
                 headStyle={styling.header}
                 style={styling.partnerCard}

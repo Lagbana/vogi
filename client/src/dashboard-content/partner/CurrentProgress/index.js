@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import {
   Layout,
   Card,
@@ -71,6 +72,7 @@ function CurrentProject ({ currentProject }) {
   const onFinish = values => {
     const { title, body } = values
     API.addIssue({ repoName: currentProject.name, title, body }).then(res => {
+      form.resetFields()
       openNotification('success')
       setIssuesData([
         { title: title, body: body, state: 'open' },
@@ -202,7 +204,13 @@ function CurrentProject ({ currentProject }) {
                 />
               </div>
               <br />
-              <Button type='primary' shape='round'>
+              <Button
+                type='primary'
+                shape='round'
+                onClick={() =>
+                  (window.location.href = `https://github.com/vogiPartner/${currentProject.name}`)
+                }
+              >
                 View Repository
               </Button>
               <br />

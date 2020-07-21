@@ -84,7 +84,6 @@ function VolunteerLogIn () {
       >
         <Input placeholder='Enter your email...' />
       </AntForm.Item>
-
       <AntForm.Item
         {...styling.formLayout}
         label='Password'
@@ -94,16 +93,14 @@ function VolunteerLogIn () {
       >
         <Input.Password placeholder='Enter your password...' />
       </AntForm.Item>
+      <AntForm.Item>
+        <a className='login-form-forgot' href='/forgot'>
+          Forgot password
+        </a>
+      </AntForm.Item>
       <AntForm.Item style={styling.responsiveMargin}>
         <Button type='primary' shape='round' htmlType='submit'>
           Log In
-        </Button>
-      </AntForm.Item>
-      <Divider style={styling.responsiveMargin}>or</Divider>
-      <AntForm.Item style={styling.responsiveMargin}>
-        <Button style={styling.githubButton} type='primary' shape='round'>
-          <GithubOutlined />
-          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

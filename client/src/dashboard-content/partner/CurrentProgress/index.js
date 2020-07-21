@@ -70,8 +70,10 @@ function CurrentProject ({ currentProjectData }) {
   const onFinish = values => {
     const { title, body } = values
     API.addIssue({ repoName: dataObject.name, title, body }).then(res => {
+      console.log(res.data)
       openNotification('success')
       form.resetFields()
+      setIssuesData([...issuesData, res.data])
     })
   }
 

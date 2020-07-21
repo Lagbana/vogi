@@ -7,6 +7,8 @@ import Landing from './pages/Landing'
 import Login from './pages/Login'
 import SignUp from './pages/Signup'
 import UserDashboard from './pages/UserDashboard'
+import ForgotPassword from './pages/ForgotPassword'
+import ResetPassword from './pages/ResetPassword'
 
 function App () {
   return (
@@ -24,8 +26,12 @@ function App () {
           <Route exact path='/login'>
             <Login />
           </Route>
-          {/* <ProtectedRoute path='/user/dashboard' component={renderDashboard()} /> */}
-
+          <Route exact path='/forgot'>
+            <ForgotPassword />
+          </Route>
+          <Route exact path='/reset/:token'>
+            <ResetPassword />
+          </Route>
           <ProtectedRoute
             exact
             path='/user/dashboard'

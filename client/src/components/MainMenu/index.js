@@ -4,6 +4,16 @@ import { Link } from 'react-router-dom'
 // Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
 
+const styling = {
+  menu: {
+    backgroundColor: '#353452'
+  },
+  item: {
+    color: '#ffffff'
+  }
+}
+
+
 // Right Menu component
 function MainMenu (props) {
   const { order } = props
@@ -15,7 +25,7 @@ function MainMenu (props) {
   }
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
+    <Menu onClick={handleClick} selectedKeys={[current]} mode={order} style={styling.menu}>
       <Menu.Item key='volunteers'>
         <Link to='/'>Volunteers</Link>
       </Menu.Item>

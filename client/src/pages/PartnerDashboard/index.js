@@ -62,7 +62,7 @@ function PartnerDashboard () {
     // console.log(values)
     const { name } = values
     const strippedName = name.replace(
-      /[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/\s]/gi,
+      /[`~!@#$%^&*()_|+\-=?;:'",.<>{}[]\\\/\s]/gi,
       ''
     )
     API.createProject({ ...values, name: strippedName }).then(res => {

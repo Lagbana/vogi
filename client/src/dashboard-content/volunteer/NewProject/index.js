@@ -4,7 +4,7 @@ import AvailableProjectContext from '../../../utils/AvailableProjectContext'
 import useWindowSize from '../../../utils/useWindowSize'
 
 function NewProject ({ joinProjectHandler }) {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const projects = useContext(AvailableProjectContext)
   const styling = {
     cardSize: width > 767 ? 'default' : 'small'
@@ -27,8 +27,21 @@ function NewProject ({ joinProjectHandler }) {
           title={project.name}
           size={styling.cardSize}
         >
-          <p style={{ fontStyle: 'italic' }}>Skills: {project.skills}</p>
-          <p style={{ textAlign: 'left' }}>{project.description}</p>
+          <div style={{ wordWrap: 'break-word' }}>
+            <span style={{ fontWeight: 600 }}>Skills: </span>
+            <span style={{ fontStyle: 'italic' }}>{project.skills}</span>
+          </div>
+          <div
+            style={{
+              textAlign: 'left',
+              wordWrap: 'break-word',
+              marginTop: '0.5rem'
+            }}
+          >
+            <span style={{ fontWeight: 600 }}>Description: </span>
+            {project.description}
+          </div>
+          <br />
           <Button
             id={project._id}
             shape='round'

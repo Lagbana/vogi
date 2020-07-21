@@ -51,7 +51,7 @@ function NewProject ({ onFinish, form, projectValidator }) {
           label='Skills Required'
           name='skills'
         >
-          <Input placeholder='List the skills your require separated by comma' />
+          <Input placeholder='List the skills you require separated by a comma' />
         </Form.Item>
         <Form.Item>
           <Button

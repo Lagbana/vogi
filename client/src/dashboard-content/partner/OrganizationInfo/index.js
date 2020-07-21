@@ -5,7 +5,7 @@ import useWindowSize from '../../../utils/useWindowSize'
 
 function OrganizationInfo () {
   const [form] = Form.useForm()
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     formLayout: {
       labelCol: {
@@ -76,7 +76,7 @@ function OrganizationInfo () {
           label='Name'
           name='name'
         >
-          <Input placeholder='The name of the organization...' />
+          <Input placeholder='The name of the organization' />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
@@ -84,7 +84,7 @@ function OrganizationInfo () {
           label='About'
           name='about'
         >
-          <Input.TextArea placeholder='About the organization...' />
+          <Input.TextArea placeholder='About the organization' />
         </Form.Item>
         <Form.Item>
           <Button

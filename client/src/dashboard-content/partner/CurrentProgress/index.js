@@ -20,7 +20,7 @@ const { Content } = Layout
 const { TextArea } = Input
 
 function CurrentProject ({ currentProject }) {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     wrapper: {},
     header: {
@@ -44,7 +44,10 @@ function CurrentProject ({ currentProject }) {
     content: {
       minHeight: width > 767 ? '70vh' : '80vh'
     },
-    size: width > 767 ? 'default' : 'small'
+    size: width > 767 ? 'default' : 'small',
+    list: {
+      minHeight: 175
+    }
   }
 
   const [form] = AntForm.useForm()
@@ -192,8 +195,9 @@ function CurrentProject ({ currentProject }) {
                 {/* <Timeline>
                   {issuesData.map(item => <Timeline.Item>{item.title}</Timeline.Item>)}
                 </Timeline> */}
-                <h3 style={{ paddingTop: '0rem' }}>Issues</h3>
+                <h3 style={{ paddingTop: '0.5rem' }}>Issues</h3>
                 <List
+                  style={styling.list}
                   itemLayout='horizontal'
                   split={false}
                   dataSource={issuesData}
@@ -208,7 +212,11 @@ function CurrentProject ({ currentProject }) {
                         }}
                       >
                         <CarryOutOutlined
-                          style={{ color: iconColor, fontSize: '2.5vh' }}
+                          style={{
+                            color: iconColor,
+                            fontSize: '2.5vh',
+                            marginRight: 5
+                          }}
                         />
                         {item.title}
                       </List.Item>
@@ -217,18 +225,21 @@ function CurrentProject ({ currentProject }) {
                 />
               </div>
               <br />
+              <Progress width={80} type='circle' percent={percent} />
+              <br />
+              <br />
               <Button
                 type='primary'
                 shape='round'
                 onClick={() =>
-                  (window.location.href = `https://github.com/vogiPartner/${currentProject.name}`)
+                  window.open(
+                    `https://github.com/vogiPartner/${currentProject.name}`,
+                    '_blank'
+                  )
                 }
               >
                 View Repository
               </Button>
-              <br />
-              <br />
-              <Progress width={80} type='circle' percent={percent} />
             </Card>
           </Col>
         </Row>

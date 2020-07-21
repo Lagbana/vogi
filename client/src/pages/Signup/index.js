@@ -54,7 +54,7 @@ function SignUp () {
                 <VolunteerForm />
               </Card>
             </Col>
-            <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
+            <Col className='gutter-row' xl={2} lg={2} md={0} sm={0} xs={0}>
               <Divider
                 type='vertical'
                 style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}

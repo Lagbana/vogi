@@ -26,7 +26,7 @@ function Login () {
       width: '100%',
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '10%' : '0%',
+      marginTop: width > 990 ? '20%' : '0%',
       border: '1px #C4C4C4 solid'
     },
 
@@ -34,7 +34,7 @@ function Login () {
       width: '100%',
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '15%' : '0%',
+      marginTop: width > 990 ? '20%' : '0%',
       border: '1px #C4C4C4 solid'
     }
   }

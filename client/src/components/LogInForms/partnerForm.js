@@ -5,7 +5,7 @@ import API from '../../utils/API'
 import useWindowSize from '../../utils/useWindowSize'
 
 function PartnerLoginForm () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     formLayout: {
       labelCol: {

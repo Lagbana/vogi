@@ -8,7 +8,7 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Content } = Layout
 
 function SignUp () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     wrapper: {},
     header: {
@@ -17,16 +17,16 @@ function SignUp () {
       fontSize: width > 990 ? 22 : 20
     },
     content: {
-      paddingTop: width > 990 ? 24 : 16,
+      paddingTop: width > 767 ? 24 : 30,
       margin: 0,
-      minHeight: '100vh',
+      height: '90vh',
       backgroundColor: '#F8F8F8'
     },
     volunteerCard: {
       width: '100%',
       marginLeft: '0rem',
-      marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '10%' : '0%',
+      marginBottom: width > 990 ? '0%' : '5%',
+      marginTop: width > 990 ? '20%' : '0%',
       border: '1px #C4C4C4 solid'
     },
 
@@ -34,7 +34,7 @@ function SignUp () {
       width: '100%',
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '15%' : '0%',
+      marginTop: width > 990 ? '20%' : '0%',
       border: '1px #C4C4C4 solid'
     }
   }
@@ -44,9 +44,9 @@ function SignUp () {
       <Layout>
         <Content style={styling.content}>
           <Row justify='center'>
-            <Col xl={10} lg={10} md={18} sm={20} xs={22}>
+            <Col xl={10} lg={10} md={18} sm={20} xs={21}>
               <Card
-                size={width > 767 ? 'default' : 'small'}
+                size={width > 550 ? 'default' : 'small'}
                 title='Volunteer Sign Up'
                 headStyle={styling.header}
                 style={styling.volunteerCard}
@@ -60,9 +60,9 @@ function SignUp () {
                 style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}
               ></Divider>
             </Col>
-            <Col xl={10} lg={10} md={18} sm={20} xs={22}>
+            <Col xl={10} lg={10} md={18} sm={20} xs={21}>
               <Card
-                size={width > 767 ? 'default' : 'small'}
+                size={width > 550 ? 'default' : 'small'}
                 title='Partner Sign Up'
                 headStyle={styling.header}
                 style={styling.partnerCard}

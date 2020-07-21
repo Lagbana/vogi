@@ -16,16 +16,8 @@ function VolunteerSignUp () {
         span: 16
       }
     },
-    githubButton: {
-      backgroundColor: 'black',
-      border: 'none'
-    },
     responsiveMargin: {
       marginBottom: width > 767 ? 12 : 0
-    },
-    dividerMargin: {
-      marginBottom: width > 767 ? 12 : 0,
-      marginTop: width > 767 ? 12 : 0
     }
   }
   const [form] = AntForm.useForm()
@@ -100,16 +92,9 @@ function VolunteerSignUp () {
         >
           <Input.Password placeholder='Choose a password...' />
         </AntForm.Item>
-        <AntForm.Item style={styling.responsiveMargin}>
+        <AntForm.Item>
           <Button type='primary' shape='round' htmlType='submit'>
             Sign Up
-          </Button>
-        </AntForm.Item>
-        <Divider style={styling.dividerMargin}>or</Divider>
-        <AntForm.Item style={styling.responsiveMargin}>
-          <Button style={styling.githubButton} type='primary' shape='round'>
-            <GithubOutlined />
-            Continue with GitHub
           </Button>
         </AntForm.Item>
       </AntForm>

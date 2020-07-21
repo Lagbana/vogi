@@ -1,12 +1,12 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button, Divider } from 'antd'
+import { Form as AntForm, Input, Button, Checkbox } from 'antd'
 import API from '../../utils/API'
 import { GithubOutlined } from '@ant-design/icons'
 import useWindowSize from '../../utils/useWindowSize'
 
 function VolunteerLogIn () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     formLayout: {
       labelCol: {
@@ -16,16 +16,8 @@ function VolunteerLogIn () {
         span: 16
       }
     },
-    githubButton: {
-      backgroundColor: 'black',
-      border: 'none'
-    },
     responsiveMargin: {
       marginBottom: width > 767 ? 12 : 0
-    },
-    dividerMargin: {
-      marginBottom: width > 767 ? 12 : 0,
-      marginTop: width > 767 ? 12 : 0
     }
   }
   const [form] = AntForm.useForm()
@@ -71,6 +63,9 @@ function VolunteerLogIn () {
       initialValues={{ email: '', password: '', remember: true }}
       onFinish={onFinish}
       onFinishFailed={onFinishFailed}
+      initialValues={{
+        remember: true
+      }}
     >
       <AntForm.Item
         {...styling.formLayout}
@@ -104,13 +99,6 @@ function VolunteerLogIn () {
       <AntForm.Item style={styling.responsiveMargin}>
         <Button type='primary' shape='round' htmlType='submit'>
           Log In
-        </Button>
-      </AntForm.Item>
-      <Divider style={styling.dividerMargin}>or</Divider>
-      <AntForm.Item style={styling.responsiveMargin}>
-        <Button style={styling.githubButton} type='primary' shape='round'>
-          <GithubOutlined />
-          Continue with GitHub
         </Button>
       </AntForm.Item>
     </AntForm>

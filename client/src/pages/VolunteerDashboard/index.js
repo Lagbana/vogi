@@ -15,10 +15,10 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Content, Footer } = Layout
 
 function VolunteerDashboard () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     layout: {
-      height: '90vh'
+      height: width > 767 ? '90vh' : '93vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -30,10 +30,6 @@ function VolunteerDashboard () {
       padding: 24,
       minHeight: 360,
       backgroundColor: 'white'
-    },
-    footer: {
-      textAlign: 'center',
-      height: '10vh'
     },
     cardSize: width > 767 ? 'default' : 'small'
   }
@@ -133,7 +129,6 @@ function VolunteerDashboard () {
                   {renderContent()}
                 </Card>
               </Content>
-              <Footer style={styling.footer}>Vogi ©2020</Footer>
             </Layout>
           </Layout>
         </JoinedProjectContext.Provider>

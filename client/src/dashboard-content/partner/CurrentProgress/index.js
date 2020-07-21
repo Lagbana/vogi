@@ -9,39 +9,50 @@ import {
   Button,
   Steps,
   List,
-  notification
+  notification,
+  Progress
 } from 'antd'
 import { CarryOutOutlined } from '@ant-design/icons'
 import API from '../../../utils/API'
+import useWindowSize from '../../../utils/useWindowSize'
 
 const { Content } = Layout
 const { TextArea } = Input
-const { Step } = Steps
-
-const styling = {
-  wrapper: {},
-  header: {
-    border: 'none',
-    color: '#1890ff',
-    fontSize: '22px'
-  },
-  content: {
-    padding: 0,
-    margin: 0,
-    minHeight: '100vh'
-  },
-  card: {
-    width: '100%',
-    // marginLeft: '3rem',
-    marginTop: '3%'
-  }
-}
 
 function CurrentProject ({ currentProject }) {
-  const [form] = AntForm.useForm()
+  const [width] = useWindowSize()
+  const styling = {
+    wrapper: {},
+    header: {
+      border: 'none',
+      color: '#1890ff',
+      fontSize: width > 767 ? '22px' : '20px',
+      marginBottom: 0
+    },
+    content: {
+      padding: 0,
+      margin: 0,
+      minHeight: '100vh'
+    },
+    card: {
+      width: '100%',
+      marginTop: '3%'
+    },
+    cardBody: {
+      paddingTop: 0
+    },
+    content: {
+      minHeight: width > 767 ? '70vh' : '80vh'
+    },
+    size: width > 767 ? 'default' : 'small',
+    list: {
+      minHeight: 175
+    }
+  }
 
+  const [form] = AntForm.useForm()
   const [issuesData, setIssuesData] = useState([])
-  const [percentStatus, setPercentStatus] = useState('')
+  const [percent, setPercent] = useState(0)
 
   useEffect(() => {
     const repoName = currentProject.name.trim()
@@ -53,10 +64,9 @@ function CurrentProject ({ currentProject }) {
       const value = Math.round(
         (progress.closedIssues / progress.totalIssues) * 100
       )
-      const status = `${value}% complete`
-      setPercentStatus(status)
+      value === NaN ? setPercent(0) : setPercent(value)
     })
-  }, [])
+  }, [currentProject])
 
   const openNotification = type => {
     notification[type]({
@@ -68,6 +78,7 @@ function CurrentProject ({ currentProject }) {
   const onFinish = values => {
     const { title, body } = values
     API.addIssue({ repoName: currentProject.name, title, body }).then(res => {
+      form.resetFields()
       openNotification('success')
       setIssuesData([
         { title: title, body: body, state: 'open' },
@@ -88,18 +99,21 @@ function CurrentProject ({ currentProject }) {
   }
 
   return (
-    <>
+    <div style={styling.content}>
       <Content style={styling.content}>
         <Row justify='center'>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
+              size={styling.size}
               title='Project Actions'
               headStyle={styling.header}
               style={styling.card}
+              bodyStyle={styling.cardBody}
             >
               <div>
                 <h3>Create Project Issues</h3>
                 <AntForm
+                  size={styling.size}
                   form={form}
                   name='issue form'
                   initialValues={{ title: '', body: '' }}
@@ -139,16 +153,24 @@ function CurrentProject ({ currentProject }) {
                       Add Project Issue
                     </Button>
                   </AntForm.Item>
+                  <p
+                    style={{
+                      color: 'red',
+                      paddingTop: width > 767 ? '1rem' : 0
+                    }}
+                  >
+                    Warning: Deleting the project erases your project from the
+                    database as well as the files on GitHub.
+                  </p>
+                  <Button
+                    type='primary'
+                    shape='round'
+                    danger
+                    onClick={onDelete}
+                  >
+                    Delete Project
+                  </Button>
                 </AntForm>
-              </div>
-              <div>
-                <p style={{ color: 'red', paddingTop: '2rem' }}>
-                  Warning: Deleting the project erases your project from the
-                  database as well as the files on GitHub.
-                </p>
-                <Button type='primary' shape='round' danger onClick={onDelete}>
-                  Delete Project
-                </Button>
               </div>
             </Card>
           </Col>
@@ -156,9 +178,11 @@ function CurrentProject ({ currentProject }) {
           <Col className='gutter-row' xl={1} lg={1} md={0} sm={0} xs={0}></Col>
           <Col xl={10} lg={10} md={20} sm={20} xs={20}>
             <Card
+              size={styling.size}
               title='Project Status'
               headStyle={styling.header}
               style={styling.card}
+              bodyStyle={styling.cardBody}
             >
               <div
                 style={{
@@ -171,8 +195,9 @@ function CurrentProject ({ currentProject }) {
                 {/* <Timeline>
                   {issuesData.map(item => <Timeline.Item>{item.title}</Timeline.Item>)}
                 </Timeline> */}
-                <h3 style={{ paddingTop: '0rem' }}>View all issues</h3>
+                <h3 style={{ paddingTop: '0.5rem' }}>Issues</h3>
                 <List
+                  style={styling.list}
                   itemLayout='horizontal'
                   split={false}
                   dataSource={issuesData}
@@ -187,7 +212,11 @@ function CurrentProject ({ currentProject }) {
                         }}
                       >
                         <CarryOutOutlined
-                          style={{ color: iconColor, fontSize: '2.5vh' }}
+                          style={{
+                            color: iconColor,
+                            fontSize: '2.5vh',
+                            marginRight: 5
+                          }}
                         />
                         {item.title}
                       </List.Item>
@@ -195,18 +224,28 @@ function CurrentProject ({ currentProject }) {
                   }}
                 />
               </div>
-              <div style={{ marginTop: '3.5rem' }}>
-                <Steps current={1}>
-                  <Step title='Start' />
-                  <Step title='In Progress' description={percentStatus} />
-                  <Step title='Final Review' />
-                </Steps>
-              </div>
+              <br />
+              <Progress width={80} type='circle' percent={percent} />
+              <br />
+              <br />
+              <Button
+                size={width > 767 ? 'default' : 'small'}
+                type='primary'
+                shape='round'
+                onClick={() =>
+                  window.open(
+                    `https://github.com/vogiPartner/${currentProject.name}`,
+                    '_blank'
+                  )
+                }
+              >
+                View Repository
+              </Button>
             </Card>
           </Col>
         </Row>
       </Content>
-    </>
+    </div>
   )
 }
 

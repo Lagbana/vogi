@@ -1,27 +1,30 @@
-import React, { useState, useEffect, useContext } from 'react'
+import React, { useEffect } from 'react'
 import { Form, Input, Button, notification } from 'antd'
 import API from '../../../utils/API'
-// import UserContext from '../../../utils/UserContext'
-
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
-    },
-    wrapperCol: {
-      span: 16
-    }
-  },
-  leftAlign: {
-    textAlign: 'left'
-  },
-  button: {
-    span: 24,
-    align: 'center'
-  }
-}
+import useWindowSize from '../../../utils/useWindowSize'
 
 function Profile () {
+  const [width] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
+    },
+    leftAlign: {
+      textAlign: 'left'
+    },
+    button: {
+      span: 24,
+      align: 'center'
+    },
+    content: {
+      minHeight: width > 767 ? '70vh' : '80vh'
+    }
+  }
   const [form] = Form.useForm()
   const openNotificationWithIcon = type => {
     notification[type]({
@@ -55,7 +58,7 @@ function Profile () {
   }, [])
 
   return (
-    <>
+    <div style={styling.content}>
       <Form onFinish={onFinish} form={form}>
         <Form.Item
           {...styling.formLayout}
@@ -100,7 +103,7 @@ function Profile () {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   )
 }
 

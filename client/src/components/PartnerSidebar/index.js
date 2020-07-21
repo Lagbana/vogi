@@ -38,7 +38,7 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
     return projects.map(project => (
       <Menu.Item
         key={project._id}
-        onClick={() => contentHandler(project.name)}
+        onClick={() => currentProjectHandler(project._id)}
       >
         {project.name}
       </Menu.Item>

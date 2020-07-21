@@ -15,10 +15,10 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Content, Footer } = Layout
 
 function VolunteerDashboard () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     layout: {
-      minHeight: '100vh'
+      height: width > 767 ? '90vh' : '93vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -30,9 +30,6 @@ function VolunteerDashboard () {
       padding: 24,
       minHeight: 360,
       backgroundColor: 'white'
-    },
-    footer: {
-      textAlign: 'center'
     },
     cardSize: width > 767 ? 'default' : 'small'
   }
@@ -82,7 +79,6 @@ function VolunteerDashboard () {
   }
 
   const currentProjectHandler = id => {
-    console.log(id)
     currentProjects.forEach(project => {
       if (project._id === id) {
         setCurrentProject(project)
@@ -107,8 +103,10 @@ function VolunteerDashboard () {
         return <Profile />
       case 'Join a New Project':
         return <NewProject joinProjectHandler={joinProjectHandler} />
-      default:
+      case currentProject.name:
         return <CurrentProject currentProject={currentProject} />
+      default:
+        return <div />
     }
   }
   return (
@@ -116,12 +114,12 @@ function VolunteerDashboard () {
       <AvailableProjectContext.Provider value={availableProjects}>
         <JoinedProjectContext.Provider value={currentProjects}>
           <Navbar authenticated='true' />
-          <Layout style={styling.layout}>
+          <Layout>
             <VolunteerSidebar
               contentHandler={contentHandler}
               currentProjectHandler={currentProjectHandler}
             />
-            <Layout>
+            <Layout style={styling.layout}>
               <Content style={styling.content}>
                 <Card
                   title={title}
@@ -131,7 +129,6 @@ function VolunteerDashboard () {
                   {renderContent()}
                 </Card>
               </Content>
-              <Footer style={styling.footer}>Vogi ©2020</Footer>
             </Layout>
           </Layout>
         </JoinedProjectContext.Provider>

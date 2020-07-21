@@ -1,31 +1,31 @@
 import React, { useEffect } from 'react'
 import { Form, Input, Button, Radio, notification } from 'antd'
 import API from '../../../utils/API'
-
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
-    },
-    wrapperCol: {
-      span: 16
-    }
-  },
-  content: {
-    minHeight: '100vh'
-  },
-  leftAlign: {
-    textAlign: 'left'
-  },
-  button: {
-    span: 24,
-    align: 'center'
-  }
-}
+import useWindowSize from '../../../utils/useWindowSize'
 
 function OrganizationInfo () {
   const [form] = Form.useForm()
-
+  const [width] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
+    },
+    leftAlign: {
+      textAlign: 'left'
+    },
+    button: {
+      span: 24,
+      align: 'center'
+    },
+    content: {
+      minHeight: width > 767 ? '70vh' : '80vh'
+    }
+  }
   const openNotification = type => {
     notification[type]({
       message: 'Organization Info Updated',
@@ -63,7 +63,7 @@ function OrganizationInfo () {
           style={styling.leftAlign}
           colon={false}
           name='type'
-          label='Type of Organization'
+          label='Type'
         >
           <Radio.Group>
             <Radio.Button value='non-profit'>Non-Profit</Radio.Button>
@@ -73,10 +73,10 @@ function OrganizationInfo () {
         <Form.Item
           {...styling.formLayout}
           colon={false}
-          label='Organization Name'
+          label='Name'
           name='name'
         >
-          <Input />
+          <Input placeholder='The name of the organization' />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
@@ -84,7 +84,7 @@ function OrganizationInfo () {
           label='About'
           name='about'
         >
-          <Input.TextArea />
+          <Input.TextArea placeholder='About the organization' />
         </Form.Item>
         <Form.Item>
           <Button

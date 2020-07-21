@@ -1,36 +1,47 @@
 import React from 'react'
 import { Form, Input, Button } from 'antd'
+import useWindowSize from '../../../utils/useWindowSize'
 
-const styling = {
-  formLayout: {
-    labelCol: {
-      span: 5
+function NewProject ({ onFinish, form, projectValidator }) {
+  const [width, height] = useWindowSize()
+  const styling = {
+    formLayout: {
+      labelCol: {
+        span: 5
+      },
+      wrapperCol: {
+        span: 16
+      }
     },
-    wrapperCol: {
-      span: 16
+    formSize: width > 950 ? 'default' : 'small',
+    content: {
+      minHeight: width > 767 ? '70vh' : '80vh'
     }
   }
-}
 
-function NewProject ({ onFinish, form }) {
   return (
-    <>
+    <div style={styling.content}>
       <Form onFinish={onFinish} form={form}>
         <Form.Item
           {...styling.formLayout}
           colon={false}
-          label='Project Name'
+          label='Name'
           name='name'
-          rules={[{ required: true, message: 'Please enter the project name' }]}
+          rules={[
+            { required: true, message: 'Please enter the project name' },
+            { validator: projectValidator }
+          ]}
         >
           <Input placeholder='Enter the name of your project' />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
           colon={false}
-          label='Project Description'
+          label='Description'
           name='description'
-          rules={[{ required: true, message: 'Please enter the project description' }]}
+          rules={[
+            { required: true, message: 'Please enter the project description' }
+          ]}
         >
           <Input.TextArea placeholder='Describe your project objectives' />
         </Form.Item>
@@ -40,7 +51,7 @@ function NewProject ({ onFinish, form }) {
           label='Skills Required'
           name='skills'
         >
-          <Input placeholder='List the skills your require separated by comma' />
+          <Input placeholder='List the skills you require separated by a comma' />
         </Form.Item>
         <Form.Item>
           <Button
@@ -53,7 +64,7 @@ function NewProject ({ onFinish, form }) {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   )
 }
 

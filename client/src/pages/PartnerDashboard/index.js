@@ -17,10 +17,10 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Content, Footer } = Layout
 
 function PartnerDashboard () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     layout: {
-      minHeight: '100vh'
+      height: width > 767 ? '90vh' : '93vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -32,9 +32,6 @@ function PartnerDashboard () {
       padding: 24,
       minHeight: 360,
       backgroundColor: 'white'
-    },
-    footer: {
-      textAlign: 'center'
     },
     cardSize: width > 767 ? 'default' : 'small'
   }
@@ -50,6 +47,7 @@ function PartnerDashboard () {
     //   skills: ''
     // }
   ])
+  const [currentProject, setCurrentProject] = useState('')
 
   const openNotification = type => {
     notification[type]({
@@ -59,7 +57,6 @@ function PartnerDashboard () {
   }
 
   const onFinish = values => {
-    // console.log(values)
     const { name } = values
     const strippedName = name.replace(
       /[`~!@#$%^&*()_|+\-=?;:'",.<>{}[]\\\/\s]/gi,
@@ -71,6 +68,14 @@ function PartnerDashboard () {
       setProjects([...projects, res.data])
       return res
     })
+  }
+
+  const projectValidator = (rule, value) => {
+    for (let project of projects) {
+      if (project.name === value)
+        return Promise.reject('This project name already exists')
+    }
+    return Promise.resolve()
   }
 
   const contentHandler = title => {
@@ -95,9 +100,13 @@ function PartnerDashboard () {
     })
   }, [])
 
-  const currentProjectData = () => {
-    const [result] = projects.filter(project => project.name === title)
-    return result
+  const currentProjectHandler = id => {
+    projects.forEach(project => {
+      if (project._id === id) {
+        setCurrentProject(project)
+        setTitle(project.name)
+      }
+    })
   }
 
   const renderContent = () => {
@@ -105,11 +114,19 @@ function PartnerDashboard () {
       case 'Organization Information':
         return <OrganizationInfo />
       case 'Create New Project':
-        return <NewProject onFinish={onFinish} form={form} />
+        return (
+          <NewProject
+            projectValidator={projectValidator}
+            onFinish={onFinish}
+            form={form}
+          />
+        )
       case 'Settings':
         return <div />
+      case currentProject.name:
+        return <CurrentProject currentProject={currentProject} />
       default:
-        return <CurrentProject currentProjectData={currentProjectData} />
+        return <div />
     }
   }
 
@@ -120,15 +137,18 @@ function PartnerDashboard () {
         <Layout style={styling.layout}>
           <PartnerSidebar
             contentHandler={contentHandler}
-            // currentProjectHandler={currentProjectHandler}
+            currentProjectHandler={currentProjectHandler}
           />
           <Layout>
             <Content style={styling.content}>
-              <Card title={title} headStyle={styling.header}>
+              <Card
+                size={styling.cardSize}
+                title={title}
+                headStyle={styling.header}
+              >
                 {renderContent()}
               </Card>
             </Content>
-            <Footer style={styling.footer}>Vogi ©2020</Footer>
           </Layout>
         </Layout>
       </CreatedProjectContext.Provider>

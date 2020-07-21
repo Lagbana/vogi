@@ -229,6 +229,7 @@ function CurrentProject ({ currentProject }) {
               <br />
               <br />
               <Button
+                size={width > 767 ? 'default' : 'small'}
                 type='primary'
                 shape='round'
                 onClick={() =>

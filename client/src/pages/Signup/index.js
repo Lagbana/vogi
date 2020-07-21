@@ -10,6 +10,9 @@ const { Content } = Layout
 function SignUp () {
   const [width] = useWindowSize()
   const styling = {
+    page: {
+      height: '100%'
+    },
     wrapper: {},
     header: {
       border: 'none',
@@ -17,9 +20,9 @@ function SignUp () {
       fontSize: width > 990 ? 22 : 20
     },
     content: {
-      paddingTop: width > 767 ? 24 : 30,
+      paddingTop: width > 767 ? 24 : 20,
       margin: 0,
-      height: '90vh',
+      minHeight: width > 767 ? '90vh' : '94vh',
       backgroundColor: '#F8F8F8'
     },
     volunteerCard: {
@@ -39,7 +42,7 @@ function SignUp () {
     }
   }
   return (
-    <>
+    <div style={styling.page}>
       <Navbar />
       <Layout>
         <Content style={styling.content}>
@@ -73,7 +76,7 @@ function SignUp () {
           </Row>
         </Content>
       </Layout>
-    </>
+    </div>
   )
 }
 

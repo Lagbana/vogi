@@ -20,7 +20,7 @@ function PartnerDashboard () {
   const [width, height] = useWindowSize()
   const styling = {
     layout: {
-      height: '90vh'
+      height: width > 767 ? '90vh' : '92vh'
     },
     header: {
       backgroundColor: '#E6F7FF'
@@ -152,7 +152,6 @@ function PartnerDashboard () {
                 {renderContent()}
               </Card>
             </Content>
-            <Footer style={styling.footer}>Vogi ©2020</Footer>
           </Layout>
         </Layout>
       </CreatedProjectContext.Provider>

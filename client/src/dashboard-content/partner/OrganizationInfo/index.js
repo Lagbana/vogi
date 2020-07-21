@@ -21,6 +21,9 @@ function OrganizationInfo () {
     button: {
       span: 24,
       align: 'center'
+    },
+    content: {
+      minHeight: width > 767 ? '70vh' : '80vh'
     }
   }
   const openNotification = type => {
@@ -73,7 +76,7 @@ function OrganizationInfo () {
           label='Name'
           name='name'
         >
-          <Input />
+          <Input placeholder='The name of the organization...' />
         </Form.Item>
         <Form.Item
           {...styling.formLayout}
@@ -81,7 +84,7 @@ function OrganizationInfo () {
           label='About'
           name='about'
         >
-          <Input.TextArea />
+          <Input.TextArea placeholder='About the organization...' />
         </Form.Item>
         <Form.Item>
           <Button

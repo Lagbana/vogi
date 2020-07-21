@@ -13,11 +13,14 @@ function NewProject ({ onFinish, form, projectValidator }) {
         span: 16
       }
     },
-    formSize: width > 950 ? 'default' : 'small'
+    formSize: width > 950 ? 'default' : 'small',
+    content: {
+      minHeight: width > 767 ? '70vh' : '80vh'
+    }
   }
 
   return (
-    <>
+    <div style={styling.content}>
       <Form onFinish={onFinish} form={form}>
         <Form.Item
           {...styling.formLayout}
@@ -61,7 +64,7 @@ function NewProject ({ onFinish, form, projectValidator }) {
           </Button>
         </Form.Item>
       </Form>
-    </>
+    </div>
   )
 }
 

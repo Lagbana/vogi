@@ -9,7 +9,8 @@ import {
   Button,
   Steps,
   List,
-  notification
+  notification,
+  Progress
 } from 'antd'
 import { CarryOutOutlined } from '@ant-design/icons'
 import API from '../../../utils/API'
@@ -23,7 +24,8 @@ const styling = {
   header: {
     border: 'none',
     color: '#1890ff',
-    fontSize: '22px'
+    fontSize: '22px',
+    marginBottom: 0
   },
   content: {
     padding: 0,
@@ -32,8 +34,10 @@ const styling = {
   },
   card: {
     width: '100%',
-    // marginLeft: '3rem',
     marginTop: '3%'
+  },
+  cardBody: {
+    paddingTop: 0
   }
 }
 
@@ -41,7 +45,7 @@ function CurrentProject ({ currentProject }) {
   const [form] = AntForm.useForm()
 
   const [issuesData, setIssuesData] = useState([])
-  const [percentStatus, setPercentStatus] = useState('')
+  const [percent, setPercent] = useState(0)
 
   useEffect(() => {
     const repoName = currentProject.name.trim()
@@ -53,10 +57,9 @@ function CurrentProject ({ currentProject }) {
       const value = Math.round(
         (progress.closedIssues / progress.totalIssues) * 100
       )
-      const status = `${value}% complete`
-      setPercentStatus(status)
+      value === NaN ? setPercent(0) : setPercent(value)
     })
-  }, [])
+  }, [currentProject])
 
   const openNotification = type => {
     notification[type]({
@@ -96,6 +99,7 @@ function CurrentProject ({ currentProject }) {
               title='Project Actions'
               headStyle={styling.header}
               style={styling.card}
+              bodyStyle={styling.cardBody}
             >
               <div>
                 <h3>Create Project Issues</h3>
@@ -159,19 +163,21 @@ function CurrentProject ({ currentProject }) {
               title='Project Status'
               headStyle={styling.header}
               style={styling.card}
+              bodyStyle={styling.cardBody}
             >
               <div
                 style={{
                   wordWrap: 'break-word',
                   marginTop: '1rem',
                   backgroundColor: '#F8F8F8',
-                  width: '100%'
+                  width: '100%',
+                  minHeight: 220
                 }}
               >
                 {/* <Timeline>
                   {issuesData.map(item => <Timeline.Item>{item.title}</Timeline.Item>)}
                 </Timeline> */}
-                <h3 style={{ paddingTop: '0rem' }}>View all issues</h3>
+                <h3 style={{ paddingTop: '0rem' }}>Issues</h3>
                 <List
                   itemLayout='horizontal'
                   split={false}
@@ -195,13 +201,13 @@ function CurrentProject ({ currentProject }) {
                   }}
                 />
               </div>
-              <div style={{ marginTop: '3.5rem' }}>
-                <Steps current={1}>
-                  <Step title='Start' />
-                  <Step title='In Progress' description={percentStatus} />
-                  <Step title='Final Review' />
-                </Steps>
-              </div>
+              <br />
+              <Button type='primary' shape='round'>
+                View Repository
+              </Button>
+              <br />
+              <br />
+              <Progress width={80} type='circle' percent={percent} />
             </Card>
           </Col>
         </Row>

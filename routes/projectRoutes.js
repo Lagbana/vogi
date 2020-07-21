@@ -82,11 +82,12 @@ class ProjectRoute {
 
   async createIssue (req, res) {
     try {
-      console.log(req.body)
+      // console.log(req.body)
       const { repoName, title, body } = req.body
       // const milestone = this.GithubService.new
-      const newIssue = this.GithubService.newIssue(repoName, title, body)
-      res.json(newIssue)
+      const newIssue = await this.GithubService.newIssue(repoName, title, body)
+      console.log(newIssue)
+      res.json(newIssue.data.title)
     } catch (err) {
       console.error(err)
       throw err

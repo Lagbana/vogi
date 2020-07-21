@@ -68,7 +68,7 @@ class GithubService {
         title: issueTitle,
         body: issueBody
       })
-      return newIssue.statusText
+      return newIssue
     } catch (err) {
       console.error(err)
       throw err

@@ -87,7 +87,6 @@ function VolunteerLogIn () {
       >
         <Input placeholder='Enter your email...' />
       </AntForm.Item>
-
       <AntForm.Item
         {...styling.formLayout}
         label='Password'
@@ -96,6 +95,11 @@ function VolunteerLogIn () {
         name='password'
       >
         <Input.Password placeholder='Enter your password...' />
+      </AntForm.Item>
+      <AntForm.Item>
+        <a className='login-form-forgot' href='/forgot'>
+          Forgot password
+        </a>
       </AntForm.Item>
       <AntForm.Item style={styling.responsiveMargin}>
         <Button type='primary' shape='round' htmlType='submit'>

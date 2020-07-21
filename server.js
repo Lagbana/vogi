@@ -13,7 +13,7 @@ const bodyParser = require('body-parser')
 const path = require('path')
 const mongoose = require('mongoose')
 const compression = require('compression')
-const { AuthService} = require('./services')
+const { AuthService } = require('./services')
 const initializeRoutes = require('./routes')
 
 // Initialize the express app
@@ -64,6 +64,8 @@ if (process.env.NODE_ENV === 'production') {
 */
 const authService = new AuthService({ app })
 authService.initialize()
+
+
 
 // Send every other request to the React app
 // Define any API routes before this runs

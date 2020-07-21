@@ -1,6 +1,9 @@
 import axios from 'axios'
 
 export default {
+  resetPassword: function () {
+    return axios.post('/v1/api/reset')
+  },
   getUser: function () {
     return axios.get('/v1/api/users/')
   },

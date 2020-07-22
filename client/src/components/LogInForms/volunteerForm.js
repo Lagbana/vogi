@@ -94,7 +94,12 @@ function VolunteerLogIn () {
         </a>
       </AntForm.Item>
       <AntForm.Item style={styling.responsiveMargin}>
-        <Button type='primary' shape='round' htmlType='submit'>
+        <Button
+          style={{ backgroundColor: '#18ADCE', border: 'none' }}
+          type='primary'
+          shape='round'
+          htmlType='submit'
+        >
           Log In
         </Button>
       </AntForm.Item>

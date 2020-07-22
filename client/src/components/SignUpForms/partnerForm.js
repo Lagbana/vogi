@@ -96,7 +96,12 @@ function PartnerSignUp () {
         <Input.Password placeholder='Choose a password...' />
       </AntForm.Item>
       <AntForm.Item>
-        <Button shape='round' htmlType='submit' type='primary'>
+        <Button
+          style={{ backgroundColor: '#18ADCE', border: 'none' }}
+          shape='round'
+          htmlType='submit'
+          type='primary'
+        >
           Sign Up
         </Button>
       </AntForm.Item>

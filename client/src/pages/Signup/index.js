@@ -13,7 +13,7 @@ function SignUp () {
     wrapper: {},
     header: {
       border: 'none',
-      color: '#1890ff',
+      color: '#18ADCE',
       fontSize: width > 990 ? 22 : 20
     },
     content: {

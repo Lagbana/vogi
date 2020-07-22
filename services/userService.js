@@ -11,6 +11,8 @@ class UserService extends UserDao {
     this.options = options
   }
 
+  // Retrieve the current user and return it
+  // No modifications from UserDao
   async retrieveUser (context) {
     try {
       const user = await this.getUser(context)
@@ -20,6 +22,8 @@ class UserService extends UserDao {
     }
   }
 
+  // Update a partner user with type, name and about
+  // No modifications from UserDao
   async changePartner (context) {
     try {
       const updatedPartner = await this.modifyPartner(context)
@@ -29,6 +33,8 @@ class UserService extends UserDao {
     }
   }
 
+  // Update a volunteer user with firstname, lastname, skills, and about
+  // No modifications from UserDao
   async changeVolunteer (context) {
     try {
       const updatedVolunteer = await this.modifyVolunteer(context)
@@ -38,6 +44,8 @@ class UserService extends UserDao {
     }
   }
 
+  // Create a new user
+  // No modifications from UserDao
   async createUser (context) {
     try {
       const user = await this.newUser(context)
@@ -47,6 +55,8 @@ class UserService extends UserDao {
     }
   }
 
+  // Update the user
+  // No modifications from UserDao
   async updatedUser (context) {
     try {
       const user = await this.update(context)

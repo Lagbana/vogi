@@ -1,8 +1,15 @@
 /* 
 Import Dependencies
-  * express - is a framework for the server setup
-  * path - is a node js module that provides a way of working with directories and file paths
-  * compression - is a middleware that decreases the downloadable amount of data that’s served to users
+  * dotenv - environment variables
+  * express - a framework for the server setup
+  * logger - a debugging tool for development
+  * cors - allows for cross-origin resource sharing, so that the frontend can interact with the backend
+  * bodyParser - parses incoming request bodies
+  * path - a node js module that provides a way of working with directories and file paths
+  * mongoose - an ORM to model the collections in the database and facilitate querying
+  * compression - a middleware that decreases the downloadable amount of data that’s served to users
+  * AuthService - authentication service to be initialized
+  * initializeRoutes - set up all the routes
 */
 
 require('dotenv').config()
@@ -38,7 +45,7 @@ app.use(cors())
 app.use(logger('dev'))
 app.use(compression())
 
-// Connect to Mongo DB
+// Connect to Mongo DB for both development and production with specified options
 mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/vogiDB', {
   useCreateIndex: true,
   useNewUrlParser: true,
@@ -64,8 +71,6 @@ if (process.env.NODE_ENV === 'production') {
 */
 const authService = new AuthService({ app })
 authService.initialize()
-
-
 
 // Send every other request to the React app
 // Define any API routes before this runs

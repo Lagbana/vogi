@@ -73,7 +73,7 @@ function Landing () {
           </Col>
           <Col xl={10} lg={10} md={18} sm={20} xs={22}>
             <div>
-              <h3> For Partners</h3>
+              <h3> For Partners </h3>
               <p>
                 For non-profits and startup partners, create a project, add
                 issues, and track progress.

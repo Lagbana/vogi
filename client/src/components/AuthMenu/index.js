@@ -5,6 +5,17 @@ import { Link } from 'react-router-dom'
 import { Menu } from 'antd'
 import API from '../../utils/API'
 
+const styling = {
+  menu: {
+    backgroundColor: '#353452'
+  },
+  item: {
+    color: '#ffffff',
+    fontFamily: 'Poppins',
+    fontSize: '1rem'
+  }
+}
+
 // Right Menu component
 function AuthMenu (props) {
   const { order } = props
@@ -24,9 +35,9 @@ function AuthMenu (props) {
   }
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode={order}>
+    <Menu onClick={handleClick} selectedKeys={[current]} mode={order}  style={styling.menu}>
       <Menu.Item key='volunteers'>
-        <Link to='/' onClick={handleLogout}>
+        <Link to='/' onClick={handleLogout} style={styling.item}>
           Logout
         </Link>
       </Menu.Item>

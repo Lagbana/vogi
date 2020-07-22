@@ -4,11 +4,18 @@ import AuthMenu from '../AuthMenu'
 import { Drawer } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
 import { Link } from 'react-router-dom'
+import Logo from '../../resources/logo1.png'
 import './style.css'
 
 function Navbar ({ authenticated }) {
   //   const [current, setCurrent] = useState('mail')
   const [visible, setVisible] = useState(false)
+
+  const styling = {
+    logo: {
+      maxHeight: '4.5rem'
+    }
+  }
 
   const showDrawer = () => {
     setVisible(true)
@@ -26,7 +33,9 @@ function Navbar ({ authenticated }) {
       }}
     >
       <div className='logo'>
-        <Link to='/'>VOGI</Link>
+        <Link to='/'>
+          <img src={Logo} style={styling.logo} />
+        </Link>
       </div>
       <div className='menuCon'>
         <div className='rightMenu'>

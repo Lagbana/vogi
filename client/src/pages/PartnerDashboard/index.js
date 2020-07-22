@@ -58,9 +58,7 @@ function PartnerDashboard () {
 
   const onFinish = values => {
     const { name } = values
-    const strippedName = name.replace(/\W/g, '')
-
-    console.log(strippedName)
+    const strippedName = name.replace(/\W/gi, '')
     API.createProject({ ...values, name: strippedName }).then(res => {
       openNotification('success')
       form.resetFields()

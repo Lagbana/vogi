@@ -23,7 +23,7 @@ function PartnerDashboard () {
       height: width > 767 ? '90vh' : '93vh'
     },
     header: {
-      backgroundColor: '#E6F7FF'
+      backgroundColor: '#353452'
     },
     content: {
       margin: width > 767 ? '10px' : '5px'
@@ -59,7 +59,6 @@ function PartnerDashboard () {
   const onFinish = values => {
     const { name } = values
     const strippedName = name.replace(/\W/gi, '')
-    console.log(strippedName)
     API.createProject({ ...values, name: strippedName }).then(res => {
       openNotification('success')
       form.resetFields()

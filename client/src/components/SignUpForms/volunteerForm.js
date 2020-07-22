@@ -93,7 +93,12 @@ function VolunteerSignUp () {
           <Input.Password placeholder='Choose a password...' />
         </AntForm.Item>
         <AntForm.Item>
-          <Button type='primary' shape='round' htmlType='submit'>
+          <Button
+            style={{ backgroundColor: '#18ADCE', border: 'none' }}
+            type='primary'
+            shape='round'
+            htmlType='submit'
+          >
             Sign Up
           </Button>
         </AntForm.Item>

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 // Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
-import Logo from '../../resources/logo1.png'
+import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll'
 
 const styling = {
   menu: {
@@ -26,6 +26,12 @@ function MainMenu (props) {
     setCurrent({ current: e.key })
   }
 
+  // Function to scroll to the top of the page when called
+  // calling react-scroll method
+  const scrollToTop = () => {
+    scroll.scrollToTop()
+  }
+
   return (
     <Menu
       onClick={handleClick}
@@ -34,16 +40,40 @@ function MainMenu (props) {
       style={styling.menu}
     >
       <Menu.Item key='volunteers'>
-        <Link to='/' style={styling.item}>Volunteers</Link>
+        <ScrollLink
+          to='/volunteer'
+          style={styling.item}
+          activeClass='active'
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+        >
+          Volunteers
+        </ScrollLink>
       </Menu.Item>
       <Menu.Item key='partners'>
-        <Link to='/' style={styling.item}>Partners</Link>
+        <ScrollLink
+          to='/partner'
+          style={styling.item}
+          activeClass='active'
+          spy={true}
+          smooth={true}
+          offset={-70}
+          duration={500}
+        >
+          Partners
+        </ScrollLink>
       </Menu.Item>
       <Menu.Item key='signup'>
-        <Link to='/signup' style={styling.item}>Sign Up</Link>
+        <Link to='/signup' style={styling.item}>
+          Sign Up
+        </Link>
       </Menu.Item>
       <Menu.Item key='login'>
-        <Link to='/login' style={styling.item}>Log In</Link>
+        <Link to='/login' style={styling.item}>
+          Log In
+        </Link>
       </Menu.Item>
     </Menu>
   )

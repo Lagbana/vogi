@@ -16,14 +16,15 @@ function Landing () {
       margin: 0,
       minHeight: '89vh',
       backgroundColor: '#ffffff'
-      // backgroundColor: '#F8F8F8'
     },
     container: {
       wordWrap: 'break-word',
-      maxWidth: '80vw',
-      marginLeft: 'auto',
-      marginRight: 'auto',
-      marginTop: '3rem',
+      maxWidth: width > 990 ? '80vw' : '100vw',
+      marginLeft: width > 989 ? 'auto' : '18vw',
+      marginRight: width > 989 ? 'auto' : '0',
+      // marginLeft: 'auto',
+      // marginRight: 'auto',
+      marginTop: width > 990 ? '3rem' : '1.5rem',
       color: '#353452'
     },
     // container: {
@@ -36,7 +37,8 @@ function Landing () {
     // },
     valueProp: {
       fontFamily: 'Poppins',
-      fontSize: '2.5rem',
+      fontSize: width > 990 ? '2.5em' : '2em',
+      // fontSize: '2.5rem',
       textAlign: 'left',
       marginBottom: '0.5rem',
       fontWeight: 600
@@ -66,10 +68,14 @@ function Landing () {
       // backgroundColor: '#19A2C0',
       color: '#ffffff'
     },
+    groups: {
+      marginTop: width > 991 ? '12.5vh' : '5vh',
+      marginLeft: width > 991 ? '-3vw' : 'auto',
+      marginRight: width > 991 ? '-3vw' : 'auto',
+    },
     people: {
-      width: '28vw',
-      maxwidth: '25vw',
-      opacity: '100%'
+      width: width > 991 ? '25vw' : '50vw',
+      marginTop: width > 991 ? 0 : '2vh'
     },
     people2: {
       height: '40vh',
@@ -109,7 +115,6 @@ function Landing () {
       backgroundColor: 'green',
       width: '100vw'
     }
-
   }
 
   return (
@@ -144,7 +149,7 @@ function Landing () {
         </div> */}
         <Row
           justify='center'
-          style={{ marginTop: '12.5vh', marginLeft: '-3rem' }}
+          style={styling.groups}
         >
           {/* <Row justify='center' style={{marginTop: '5rem', marginLeft: 'auto', marginRight: 'auto'}}> */}
           <Col xl={10} lg={10} md={18} sm={20} xs={22}>
@@ -167,14 +172,7 @@ function Landing () {
               }}
             ></Divider>
           </Col>
-          <Col
-            xl={10}
-            lg={10}
-            md={18}
-            sm={20}
-            xs={22}
-            style={styling.subSection}
-          >
+          <Col xl={10} lg={10} md={18} sm={20} xs={22}>
             <div>
               <h3 style={styling.subHeaders}> For Partners </h3>
               <p style={styling.subContent}>
@@ -211,8 +209,12 @@ function Landing () {
           </Col>
         </Row>
         <Row style={styling.participants}>
-          <Col style={styling.volunteer}>Volunteer</Col>
-          <Col style={styling.partner}>Partner</Col>
+          <Col style={styling.volunteer} id='/volunteer'>
+            Volunteer
+          </Col>
+          <Col style={styling.partner} id='/partner'>
+            Partner
+          </Col>
         </Row>
       </Content>
     </div>

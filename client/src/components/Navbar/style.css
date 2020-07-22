@@ -10,9 +10,10 @@
 }
 .logo a {
   display: inline-block;
-  font-size: 20px;
-  padding: 19px 20px;
-  text-transform: capitalize;
+  /* font-size: 20px; */
+  /* padding: 19px 20px; */
+  padding: 0px 20px;
+  /* text-transform: capitalize; */
 }
 .menuCon {
   width: calc(100% - 150px);
@@ -38,33 +39,13 @@
 }
 .barsMenu {
   float: right;
-  height: 32px;
+  /* height: 32px; */
   padding: 6px;
   margin-top: 8px;
   display: none;
   background: none;
 }
-/* .barsBtn {
-  display: block;
-  width: 20px;
-  height: 2px;
-  background: #1890ff;
-  position: relative;
-}
-.barsBtn:after,
-.barsBtn:before {
-  content: attr(x);
-  width: 20px;
-  position: absolute;
-  top: -6px;
-  left: 0;
-  height: 2px;
-  background: #1890ff;
-}
-.barsBtn:after {
-  top: auto;
-  bottom: -6px;
-} */
+
 .ant-drawer-body {
   padding: 0;
 }
@@ -95,6 +76,6 @@
     padding: 1px 20px;
   }
   .logo a {
-    padding: 10px 20px;
+    /* padding: 10px 20px; */
   }
 }

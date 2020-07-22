@@ -13,21 +13,43 @@ function Landing () {
     content: {
       paddingTop: width > 990 ? 24 : 16,
       margin: 0,
-      minHeight: '90vh',
+      minHeight: '89vh',
       backgroundColor: '#F8F8F8'
+    },
+    container: {
+      wordWrap: 'break-word',
+      maxWidth: '70vw',
+      marginLeft: 'auto',
+      marginRight: 'auto',
+      marginTop: '2rem',
+      color: '#353452',
+    },
+    valueProp: {
+      fontFamily: 'Poppins',
+      fontSize: '2.5rem',
+      textAlign: 'left',
+      marginBottom: '0.5rem',
+      fontWeight: 600
+    },
+    detail: {
+      fontSize: '1.5rem',
+      textAlign: 'left'
+    },
+    span: {
+      color: '#19A2C0'
     }
   }
   
   return (
-    <div>
+    <div >
       <Navbar />
       <Content style={styling.content}>
-        <div>
-          <p>
+        <div style={styling.container}>
+          <p style={styling.valueProp}>
             Social impact and economic growth happens through collaboraton.
-            <span> We help make it happen.</span>
+            <span style={styling.span}> We help make it happen.</span>
           </p>
-          <p>
+          <p style={styling.detail}>
             Vogi is a not-for-profit solution provider to help meet software
             development and business analysis needs for non-profits and
             early-stage startups in Canada.
@@ -46,7 +68,7 @@ function Landing () {
           <Col className='gutter-row' xl={3} lg={3} md={0} sm={0} xs={0}>
             <Divider
               type='vertical'
-              style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}
+              style={{ borderColor: '#C4C4C4', minHeight: '20vh' }}
             ></Divider>
           </Col>
           <Col xl={10} lg={10} md={18} sm={20} xs={22}>

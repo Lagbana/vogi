@@ -5,7 +5,7 @@ import API from '../../utils/API'
 import useWindowSize from '../../utils/useWindowSize'
 
 function PartnerLoginForm () {
-  const [width, height] = useWindowSize()
+  const [width] = useWindowSize()
   const styling = {
     formLayout: {
       labelCol: {
@@ -15,12 +15,8 @@ function PartnerLoginForm () {
         span: 16
       }
     },
-    githubButton: {
-      backgroundColor: 'black',
-      border: 'none'
-    },
     responsiveMargin: {
-      marginBottom: width > 767 ? 12 : 0
+      marginBottom: width > 550 ? 12 : 0
     }
   }
   const [form] = AntForm.useForm()
@@ -58,7 +54,7 @@ function PartnerLoginForm () {
 
   return (
     <AntForm
-      size={width > 575 ? 'default' : 'small'}
+      size={width > 550 ? 'default' : 'small'}
       form={form}
       name='partner form'
       initialValues={{ email: '', password: '', remember: true }}

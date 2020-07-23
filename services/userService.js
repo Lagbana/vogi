@@ -69,7 +69,7 @@ class UserService extends UserDao {
     }
   }
 
-// Encrypt the password input using bycrypt hash method
+  // Encrypt the password input using bycrypt hash method
   async _hashPassword (password) {
     try {
       const salt = await bcrypt.genSalt(10)
@@ -90,17 +90,30 @@ class UserService extends UserDao {
   async setToken ({ token, email }) {
     try {
       const response = await this.update({ email, token, isResetToken: true })
-      const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/reset/${token}` : `https://www.vogi.ca/reset/${token}`
+      const baseURL =
+        process.env.NODE_ENV === 'development'
+          ? `http://localhost:3000/reset/${token}`
+          : `https://www.vogi.ca/reset/${token}`
+      // const msg = {
+      //   to: email,
+      //   from: 'dontreply@vogi.ca',
+      //   subject: 'Reset Password Token',
+      //   html: `<strong>
+      //           <a href=${baseURL}>
+      //             ${baseURL}
+      //           </a>
+      //         </strong>`
+      // }
       const msg = {
         to: email,
-        from: 'dontreply@vogi.ca', // Use the email address or domain you verified above
-        subject: 'Reset Password Token',
-        html: `<strong>
-                <a href=${baseURL}>
-                  ${baseURL}
-                </a>
-              </strong>`
+        from: 'donotreply@larryagbana.com',
+        subject: 'Reset Password',
+        templateId: 'd-1f22d59e30884ddbb54a6bb58e82c7f5',
+        dynamic_template_data: {
+          message: baseURL
+        }
       }
+
       const sendEmail = await sgMail.send(msg)
       return { response, sendEmail }
     } catch (err) {
@@ -116,7 +129,7 @@ class UserService extends UserDao {
     - updated the user collection with encrypted password
   */
 
-    async resetPassword ({ token, password }) {
+  async resetPassword ({ token, password }) {
     try {
       const encrypted = await this._hashPassword(password)
       const newUser = await this.update({

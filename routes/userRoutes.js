@@ -149,6 +149,26 @@ class UserRoute {
       throw err
     }
   }
+
+  // Receieve the password from request body and token from param
+  // Reset the verified user with the new password
+  async resetPassword (req, res) {
+    try {
+      const { password } = req.body
+      const { token } = req.params
+      if (!password || !token)
+        throw new Error('Password and token are required to fufil this request')
+      const user = await this.UserService.resetPassword({ token, password })
+
+      return res.json(user)
+    } catch (err) {
+      res.send({
+        msg: 'Something went wrong 🤯',
+        status: 400
+      })
+      throw err
+    }
+  }
 }
 // Export the user route
 module.exports = UserRoute

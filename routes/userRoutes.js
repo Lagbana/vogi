@@ -1,6 +1,4 @@
 const passport = require('passport')
-// Authentication check middleware
-const mustBeLoggedIn = require('../config/mustBeLoggedIn')
 
 // UserRoute Class
 class UserRoute {
@@ -28,6 +26,13 @@ class UserRoute {
     // Update a partner user
     this.router.put('/users/partner', (req, res) =>
       this.updatePartner(req, res)
+    )
+    // Send an email to the user with a link to update the password
+    this.router.post('/reset', (req, res) => this.resetPasswordEmail(req, res))
+    
+    // Reset password using the generated token as verfication
+    this.router.post('/reset/:token', (req, res) =>
+      this.resetPassword(req, res)
     )
   }
 

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 // Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
-import { Link as ScrollLink, animateScroll as scroll } from 'react-scroll'
+import { Link as ScrollLink } from 'react-scroll'
 
 const styling = {
   menu: {
@@ -28,9 +28,7 @@ function MainMenu (props) {
 
   // Function to scroll to the top of the page when called
   // calling react-scroll method
-  const scrollToTop = () => {
-    scroll.scrollToTop()
-  }
+
 
   return (
     <Menu

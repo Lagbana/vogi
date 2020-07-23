@@ -1,8 +1,11 @@
 import axios from 'axios'
 
 export default {
-  resetPassword: function () {
-    return axios.post('/v1/api/reset')
+  resetPasswordEmail: function ({ email }) {
+    return axios.post('/v1/api/reset', { email })
+  },
+  resetPassword: function ({ token, password }) {
+    return axios.post(`/v1/api/reset/${token}`, { password })
   },
   getUser: function () {
     return axios.get('/v1/api/users/')

@@ -39,7 +39,7 @@ const ForgotPassword = () => {
       fontSize: width > 990 ? 22 : 20
     },
     cardInfo: {
-    //   marginTop: '0.5rem',
+      //   marginTop: '0.5rem',
       marginBottom: '2rem'
     },
     content: {
@@ -59,7 +59,7 @@ const ForgotPassword = () => {
 
   const onFinish = values => {
     console.log('Success:', values)
-    API.resetPassword(values).then(res => {
+    API.resetPasswordEmail(values).then(res => {
       openNotification('success')
       form.resetFields()
       return res

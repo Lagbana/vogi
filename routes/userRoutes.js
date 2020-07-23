@@ -1,6 +1,7 @@
 const passport = require('passport')
 // Authentication check middleware
 const mustBeLoggedIn = require('../config/mustBeLoggedIn')
+const crypto = require('crypto')
 
 class UserRoute {
   constructor (options = {}) {
@@ -20,6 +21,10 @@ class UserRoute {
     )
     this.router.put('/users/partner', (req, res) =>
       this.updatePartner(req, res)
+    )
+    this.router.post('/reset', (req, res) => this.resetPasswordEmail(req, res))
+    this.router.post('/reset/:token', (req, res) =>
+      this.resetPassword(req, res)
     )
   }
 
@@ -99,6 +104,41 @@ class UserRoute {
     }
   }
 
+  async resetPasswordEmail (req, res) {
+    try {
+      const { email } = req.body
+      if (!email) throw new Error('Email is required in request body')
+      const buffer = crypto.randomBytes(20)
+      const token = buffer.toString('hex')
+      await this.UserService.setToken({ token, email })
+      res.send({
+        msg: 'Reset password message was successfully sent',
+        status: 200
+      })
+    } catch (err) {
+      throw err
+    }
+  }
+
+  async resetPassword (req, res) {
+    try {
+      const { password } = req.body
+      const { token } = req.params
+      if (!password || !token)
+        throw new Error('Password and token are required to fufil this request')
+      const user = await this.UserService.resetPassword({ token, password })
+      // req.login(user, err => {
+      //   if (err) console.log(err)
+      // })
+      return res.json(user)
+    } catch (err) {
+      res.send({
+        msg: 'Something went wrong 🤯',
+        status: 400
+      })
+      throw err
+    }
+  }
   // async createPartner (req, res, next) {
   //   try {
   //     const newUser = await this.UserService.createUser(req.body)

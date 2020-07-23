@@ -33,6 +33,7 @@ const UserSchema = new Schema(
         ref: 'Project'
       }
     ],
+    tokens: [String],
     organizationType: {
       type: String
     },

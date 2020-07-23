@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form as AntForm, Input, Button, notification } from 'antd'
 import API from '../../utils/API'
-import { Layout, Card, Row, Col, Divider } from 'antd'
+import { Layout, Card, Row, Col } from 'antd'
 import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
 const { Content } = Layout
@@ -57,9 +57,14 @@ const ForgotPassword = () => {
     }
   }
 
+  /*
+    @param values: Object of strings; form input values
+    If successful, reset form 
+  */
+
   const onFinish = values => {
     console.log('Success:', values)
-    API.resetPassword(values).then(res => {
+    API.resetPasswordEmail(values).then(res => {
       openNotification('success')
       form.resetFields()
       return res

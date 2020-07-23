@@ -16,6 +16,10 @@ function NewProject ({ onFinish, form, projectValidator }) {
     formSize: width > 950 ? 'default' : 'small',
     content: {
       minHeight: width > 767 ? '70vh' : '80vh'
+    },
+    button: {
+      backgroundColor: '#FD4F64',
+      border: 'none'
     }
   }
 

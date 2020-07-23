@@ -1,4 +1,6 @@
+// Import dependencies
 const passport = require('passport')
+const crypto = require('crypto')
 
 // UserRoute Class
 class UserRoute {
@@ -29,7 +31,7 @@ class UserRoute {
     )
     // Send an email to the user with a link to update the password
     this.router.post('/reset', (req, res) => this.resetPasswordEmail(req, res))
-    
+
     // Reset password using the generated token as verfication
     this.router.post('/reset/:token', (req, res) =>
       this.resetPassword(req, res)
@@ -120,28 +122,30 @@ class UserRoute {
     }
   }
 
-  // async createPartner (req, res, next) {
-  //   try {
-  //     const newUser = await this.UserService.createUser(req.body)
-  //     const { id, username } = newUser
-  //     res.json({ id, username })
-  //   } catch (err) {
-  //     // If this error code is shown that means the username already exists
-  //     // We can nicely redirect to the signup screen with this message
-
-  //     if (err.code === 11000) {
-  //       res.status(400).json({ message: 'Username already in use.' })
-  //     }
-  //     next(err)
-  //   }
-  // }
-
   // Get request for multiple data
   async retrieveUsers (req, res) {
     try {
       res.send(req.user)
     } catch (err) {
       console.error(error.response.body.err)
+      throw err
+    }
+  }
+
+  // Receieve the email from request body and generate a token
+  // Update the user collection with the generated token
+  async resetPasswordEmail (req, res) {
+    try {
+      const { email } = req.body
+      if (!email) throw new Error('Email is required in request body')
+      const buffer = crypto.randomBytes(20)
+      const token = buffer.toString('hex')
+      await this.UserService.setToken({ token, email })
+      res.send({
+        msg: 'Reset password message was successfully sent',
+        status: 200
+      })
+    } catch (err) {
       throw err
     }
   }

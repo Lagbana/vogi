@@ -1,4 +1,6 @@
 // Require user dao
+const sgMail = require('@sendgrid/mail')
+const bcrypt = require('bcrypt')
 const { UserDao } = require('../dao')
 
 /*
@@ -65,6 +67,27 @@ class UserService extends UserDao {
       throw err
     }
   }
+
+    async setToken ({ token, email }) {
+    try {
+      const response = await this.update({ email, token, isResetToken: true })
+      const msg = {
+        to: email,
+        from: 'dontreply@vogi.ca', // Use the email address or domain you verified above
+        subject: 'Reset Password Token',
+        html: `<strong>
+                <a href="http://localhost:3000/reset/${token}">
+                  http://localhost:3000/reset/${token}
+                </a>
+              </strong>`
+      }
+      const sendEmail = await sgMail.send(msg)
+      return { response, sendEmail }
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+  }  
 }
 
 module.exports = UserService

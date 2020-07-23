@@ -26,21 +26,21 @@ const initializeRoutes = require('./routes')
 // Initialize the express app
 const app = express()
 
-if (process.env.NODE_ENV === 'production') {
-  // Re-direct all unsecure traffic through the https protocol
-  function requireHTTPS (req, res, next) {
-    // The 'x-forwarded-proto' check is for Heroku
-    if (
-      !req.secure &&
-      req.get('x-forwarded-proto') !== 'https' &&
-      process.env.NODE_ENV !== 'development'
-    ) {
-      return res.redirect('https://' + req.get('host') + req.url)
-    }
-    next()
-  }
-  app.use(requireHTTPS)
-}
+// if (process.env.NODE_ENV === 'production') {
+//   // Re-direct all unsecure traffic through the https protocol
+//   function requireHTTPS (req, res, next) {
+//     // The 'x-forwarded-proto' check is for Heroku
+//     if (
+//       !req.secure &&
+//       req.get('x-forwarded-proto') !== 'https' &&
+//       process.env.NODE_ENV !== 'development'
+//     ) {
+//       return res.redirect('https://' + req.get('host') + req.url)
+//     }
+//     next()
+//   }
+//   app.use(requireHTTPS)
+// }
 
 
 
@@ -79,7 +79,7 @@ authService.initialize()
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get('*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 

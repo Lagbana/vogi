@@ -26,21 +26,25 @@ const initializeRoutes = require('./routes')
 // Initialize the express app
 const app = express()
 
-// Re-direct all unsecure traffic through the https protocol
-// function requireHTTPS (req, res, next) {
-//   // The 'x-forwarded-proto' check is for Heroku
-//   if (
-//     !req.secure &&
-//     req.get('x-forwarded-proto') !== 'https' &&
-//     process.env.NODE_ENV !== 'development'
-//   ) {
-//     return res.redirect('https://' + req.get('host') + req.url)
-//   }
-//   next()
-// }
+if (process.env.NODE_ENV === 'production') {
+  // Re-direct all unsecure traffic through the https protocol
+  function requireHTTPS (req, res, next) {
+    // The 'x-forwarded-proto' check is for Heroku
+    if (
+      !req.secure &&
+      req.get('x-forwarded-proto') !== 'https' &&
+      process.env.NODE_ENV !== 'development'
+    ) {
+      return res.redirect('https://' + req.get('host') + req.url)
+    }
+    next()
+  }
+  app.use(requireHTTPS)
+}
+
+
 
 // Set up all middleware
-// app.use(requireHTTPS)
 app.use(cors())
 app.use(logger('dev'))
 app.use(compression())
@@ -61,9 +65,10 @@ app.use(
 app.use(bodyParser.json())
 
 // Handling and rendering of static files
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'))
-}
+
+app.use(express.static(path.join(__dirname + '/client/build')))
+
+
 
 /*
     Create new authentication instance and pass the initialized express in to the AuthService option parameter object
@@ -74,7 +79,7 @@ authService.initialize()
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get('/', (req, res) => {
+app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
 })
 

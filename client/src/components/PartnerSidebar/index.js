@@ -21,7 +21,7 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
       marginLeft: width < 767 ? -14 : 0
     },
     topPadding: {
-      paddingTop: width < 767 ? '5px' : '10px',
+      paddingTop: width < 767 ? '5px' : '10px'
     }
   }
 

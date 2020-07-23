@@ -3,7 +3,6 @@ import PartnerForm from '../../components/LogInForms/partnerForm'
 import VolunteerForm from '../../components/LogInForms/volunteerForm'
 import { Layout, Card, Row, Col, Divider } from 'antd'
 import AltNavbar from '../../components/AltNavbar'
-// import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
 
 const { Content } = Layout

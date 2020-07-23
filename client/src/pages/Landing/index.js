@@ -14,32 +14,27 @@ function Landing () {
     content: {
       paddingTop: width > 990 ? 24 : 16,
       margin: 0,
-      minHeight: '89vh',
+      // minHeight: '89vh',
+      backgroundColor: '#ffffff'
+    },
+    content2: {
+      paddingTop: width > 990 ? 24 : 16,
+      margin: 0,
+      // minHeight: '100vh',
       backgroundColor: '#ffffff'
     },
     container: {
       wordWrap: 'break-word',
-      maxWidth: width > 990 ? '80vw' : '100vw',
-      marginLeft: width > 989 ? 'auto' : '18vw',
-      marginRight: width > 989 ? 'auto' : '0',
-      // marginLeft: 'auto',
-      // marginRight: 'auto',
+      maxWidth: width > 991 ? '80vw' : '90vw',
+      marginLeft: width > 991 ? 'auto' : 'auto',
+      marginRight: width > 991 ? 'auto' : '0',
       marginTop: width > 990 ? '3rem' : '1.5rem',
       color: '#353452'
     },
-    // container: {
-    //   wordWrap: 'break-word',
-    //   maxWidth: '70vw',
-    //   marginLeft: 'auto',
-    //   marginRight: 'auto',
-    //   marginTop: '2rem',
-    //   color: '#353452',
-    // },
     valueProp: {
       fontFamily: 'Poppins',
       fontSize: width > 990 ? '2.5em' : '2em',
-      // fontSize: '2.5rem',
-      textAlign: 'left',
+      marginRight: 'auto',
       marginBottom: '0.5rem',
       fontWeight: 600
     },
@@ -53,7 +48,8 @@ function Landing () {
       color: '#19A2C0'
     },
     subHeaders: {
-      fontSize: '1.35rem'
+      fontSize: width > 990 ? '1.35rem' : '1.2em',
+      marginTop: width > 991 ? '0' : '1em'
     },
     subContent: {
       fontSize: '1.05rem',
@@ -69,51 +65,76 @@ function Landing () {
       color: '#ffffff'
     },
     groups: {
-      marginTop: width > 991 ? '12.5vh' : '5vh',
-      marginLeft: width > 991 ? '-3vw' : 'auto',
-      marginRight: width > 991 ? '-3vw' : 'auto',
+      marginTop: width > 991 ? '8vh' : '5vh',
+      marginLeft: width > 991 ? 'auto' : 'auto',
+      marginRight: width > 991 ? 'auto' : 'auto'
     },
     people: {
       width: width > 991 ? '25vw' : '50vw',
       marginTop: width > 991 ? 0 : '2vh'
     },
     people2: {
-      height: '40vh',
-      marginTop: '2.5vh',
-      marginBottom: '2.5vh'
+      // marginLeft: width > 991 ? 'auto' : 'auto',
+      // marginRight: width > 991 ? 'auto' : 'auto',
+      marginTop: width > 991 ? '1vh' : '2vh',
+      marginBottom: width > 991 ? '1vh' : 0,
+      // // marginLeft: width > 991 ? 'auto' : 'auto',
+      // // marginRight: width > 991 ? 'auto' : 'auto',
+      width: width > 991 ? '24vw' : '45vw'
     },
-    about: {
-      height: '45vh',
-      width: '100vw',
-      backgroundColor: '#ecf9fc'
+    container2: {
+      backgroundColor: '#ecf9fc',
+      wordWrap: 'break-word',
+      maxWidth: '100vw',
+      marginLeft: width > 991 ? 'auto' : '0',
+      marginRight: width > 991 ? 'auto' : '0',
+      marginTop: '0rem'
     },
     valueCreation: {
       fontFamily: 'Poppins',
-      fontSize: '2.5rem',
-      // textAlign: 'left',
+      fontSize: width > 991 ? '2.5rem' : '1.15rem',
       color: '#19A2C0',
-      marginTop: '2rem',
-      marginBottom: '0.5rem',
-      marginLeft: '0.5rem',
+      marginTop: width > 991 ? '2rem' : '2vh',
+      marginLeft: width > 991 ? '0.5rem' : '0.01rem',
       fontWeight: 600
     },
     vogi: {
-      fontSize: '1.5rem',
+      fontSize: width > 991 ? '1.25rem' : '1.25rem',
+      // paddingLeft: '1rem',
+      paddingRight: '2vw',
       color: 'black',
-      marginTop: '2rem'
+      marginTop: width > 991 ? '2rem' : '0.5rem'
     },
     participants: {
-      height: '55vh'
+      // height: '55vh'
     },
     volunteer: {
-      height: '27.5vh',
-      backgroundColor: 'pink',
-      width: '100vw'
+      width: width > 991 ? '75vw' : '100vw',
+      marginLeft: width > 991 ? 'auto' : '0',
+      marginRight: width > 991 ? 'auto' : '0',
+      color: '#353452'
     },
     partner: {
-      height: '27.5vh',
-      backgroundColor: 'green',
-      width: '100vw'
+      width: width > 991 ? '75vw' : '100vw',
+      marginLeft: width > 991 ? 'auto' : '0',
+      marginRight: width > 991 ? 'auto' : '0',
+      color: '#353452'
+    },
+    groupDescription: {
+      paddingLeft: width > 991 ? '5vw' : '5vw',
+      paddingRight: width > 991 ? '5vw' : '5vw',
+      // marginBottom: width > 991 ? 0 : '5vh',
+      // marginBottom: width > 991 ? 0 : '10vw',
+      fontSize: width > 991 ? '1.15rem' : '1rem',
+      wordWrap: 'break-word'
+    },
+    groupHeader: {
+      fontFamily: 'Poppins',
+      fontSize: width > 991 ? '1.5rem' : '1rem',
+      color: '#19A2C0',
+      marginTop: width > 991 ? '2rem' : '2vh',
+      marginLeft: width > 991 ? '0.5rem' : '0.01rem',
+      fontWeight: 400
     }
   }
 
@@ -122,36 +143,21 @@ function Landing () {
       <Navbar />
       <Content style={styling.content}>
         <Row style={styling.container}>
-          <Col xl={14} lg={12} md={18} sm={20} xs={22}>
+          <Col xl={14} lg={14} md={18} sm={20} xs={22}>
             <p style={styling.valueProp}>
               Social impact and economic growth happens through collaboraton.
               <span style={styling.span}> We help make it happen.</span>
             </p>
           </Col>
-          <Col xl={10} lg={12} md={18} sm={20} xs={22}>
+          <Col xl={10} lg={10} md={18} sm={20} xs={22}>
             <img
               src={PeopleImg}
               style={styling.people}
-              alt='a team of programmers building products for a non-profit'
+              alt='a team of web developers building a website for a non-profit'
             />
           </Col>
         </Row>
-        {/* <div style={styling.container}>
-          <p style={styling.valueProp}>
-            Social impact and economic growth happens through collaboraton.
-            <span style={styling.span}> We help make it happen.</span>
-          </p>
-          <p style={styling.detail}>
-            Vogi is the not-for-profit solution provider to help meet software
-            development and business analysis needs for non-profits and
-            early-stage startups in Canada.
-          </p>
-        </div> */}
-        <Row
-          justify='center'
-          style={styling.groups}
-        >
-          {/* <Row justify='center' style={{marginTop: '5rem', marginLeft: 'auto', marginRight: 'auto'}}> */}
+        <Row justify='center' style={styling.groups}>
           <Col xl={10} lg={10} md={18} sm={20} xs={22}>
             <div>
               <h3 style={styling.subHeaders}> For Volunteers</h3>
@@ -184,36 +190,57 @@ function Landing () {
           </Col>
         </Row>
       </Content>
-      <Content>
-        <Row>
-          <Col style={styling.about}>
-            <Row>
-              <Col xl={10} lg={12} md={18} sm={20} xs={22}>
-                <img
-                  src={PeopleImg2}
-                  style={styling.people2}
-                  alt='three women and one man in a board room problem solving'
-                />
-              </Col>
-              <Col xl={12} lg={12} md={18} sm={20} xs={22}>
-                <div>
-                  <h3 style={styling.valueCreation}>Value Creation</h3>
-                </div>
-                <p style={styling.vogi}>
-                  Vogi is the not-for-profit solution provider to help meet
-                  software development and business analysis needs for
-                  non-profits and early-stage startups in Canada.
-                </p>
-              </Col>
-            </Row>
+      <Content style={styling.content2}>
+        <Row justify='center' style={styling.container2}>
+          <Col xl={10} lg={10} md={18} sm={22} xs={22}>
+            <img
+              src={PeopleImg2}
+              style={styling.people2}
+              alt='a team of analysts in a board room problem solving'
+            />
+          </Col>
+          <Col xl={14} lg={14} md={18} sm={22} xs={22}>
+            <div>
+              <h3 style={styling.valueCreation}>Value Creation</h3>
+            </div>
+            <p style={styling.vogi}>
+              Vogi is the not-for-profit solution provider to help meet software
+              development and business analysis needs for non-profits and
+              early-stage startups in Canada.
+            </p>
           </Col>
         </Row>
         <Row style={styling.participants}>
           <Col style={styling.volunteer} id='/volunteer'>
-            Volunteer
+            <div style={styling.groupDescription}>
+              <h3 style={styling.groupHeader}>Volunteers</h3>
+              <p>
+                Our volunteers are business and software developer professionals
+                and students seeking to do some good or create valye by
+                contributing to non-profit and early stage start up
+                organizations in Canada. References for each project completed
+                by volunteers are provided on request and any reward (if any)
+                provided by organizations go directly to the contributors.
+              </p>
+            </div>
+          </Col>
+          <Col xl={8} lg={8} md={8} sm={8} xs={8} style={{ marginLeft: 'auto', marginRight: 'auto'}}>
+            <Divider
+              type='horizontal'
+              style={{ borderColor: '#C4C4C4', maxWidth: '25vw' }}
+            ></Divider>
           </Col>
           <Col style={styling.partner} id='/partner'>
-            Partner
+            <div style={styling.groupDescription}>
+              <h3 style={styling.groupHeader}>Partners</h3>
+              <p>
+                Our partners are non-profit’s and early stage startups with no
+                financial backing. Before a project is accepted, we assess the
+                partner’s financial capacity to employ workers (or lack of), our
+                available volunteers, the project scope, and the timeframe for
+                the project completion.
+              </p>
+            </div>
           </Col>
         </Row>
       </Content>

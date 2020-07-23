@@ -81,12 +81,36 @@ class UserDao {
     }
   }
 
+  // Private method
+  // Find user by username(email) and add token
+  async _setToken (context) {
+    try {
+      const { email, token } = context
+      const response = await User.findOneAndUpdate(
+        { username: email },
+        {
+          $push: { tokens: token }
+        }
+      )
+      return response
+    } catch (err) {
+      throw err
+    }
+  }
+
   /*
-      *method to update existing user with the create query
+      *method to update existing user with the findOneAndUpdate query
       context = req.body, to be inserted in the associated route handler
   */
   async update (context) {
     try {
+      // Check to see if isResetToken === true and set the token using the
+      // _setToken private method
+      if (context && context.isResetToken) return await this._setToken(context)
+
+
+
+      
       const updatedUser = await this.user.findOneAndUpdate(
         { _id: context.id },
         context,

@@ -68,7 +68,14 @@ class UserService extends UserDao {
     }
   }
 
-    async setToken ({ token, email }) {
+  /*
+   @param: token => String
+   @param: email => String
+    - Update the user collection with the token
+    - Create the email template content and redirect to path with the token added as parameter
+    - Send the email using the provided email using the SendGrid method
+  */
+  async setToken ({ token, email }) {
     try {
       const response = await this.update({ email, token, isResetToken: true })
       const msg = {
@@ -87,7 +94,7 @@ class UserService extends UserDao {
       console.log(err)
       throw err
     }
-  }  
+  }
 }
 
 module.exports = UserService

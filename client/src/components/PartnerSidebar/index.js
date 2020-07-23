@@ -16,13 +16,12 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
   const [width, height] = useWindowSize()
   const [collapsed, setCollapsed] = useState(false)
 
-
   const styling = {
     responsiveMargin: {
       marginLeft: width < 767 ? -14 : 0
     },
     topPadding: {
-      paddingTop: width < 767 ? '5px' : '10px'
+      paddingTop: width < 767 ? '5px' : '10px',
     }
   }
 
@@ -45,7 +44,6 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
   return (
     <Sider
       theme='light'
-      // collapsible
       collapsed={collapsed}
       size='large'
       collapsedWidth='50px'

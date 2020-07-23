@@ -11,6 +11,7 @@ class UserService extends UserDao {
   constructor (options = {}) {
     super()
     this.options = options
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   }
 
   // Retrieve the current user and return it
@@ -89,13 +90,14 @@ class UserService extends UserDao {
   async setToken ({ token, email }) {
     try {
       const response = await this.update({ email, token, isResetToken: true })
+      const baseURL = process.env.NODE_ENV === 'development' ? `http://localhost:3000/reset/${token}` : `https://www.vogi.ca/reset/${token}`
       const msg = {
         to: email,
         from: 'dontreply@vogi.ca', // Use the email address or domain you verified above
         subject: 'Reset Password Token',
         html: `<strong>
-                <a href="http://localhost:3000/reset/${token}">
-                  http://localhost:3000/reset/${token}
+                <a href=${baseURL}>
+                  ${baseURL}
                 </a>
               </strong>`
       }

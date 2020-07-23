@@ -2,22 +2,30 @@ const passport = require('passport')
 // Authentication check middleware
 const mustBeLoggedIn = require('../config/mustBeLoggedIn')
 
+// UserRoute Class
 class UserRoute {
+  // Use the constructor to create methods
   constructor (options = {}) {
     this.options = options
     this.router = options.Router
     this.UserService = new options.UserService()
   }
 
+  // Initialize the routes
   initialize () {
+    // Update user route
     this.router.put('/users', (req, res) => this.updateUser(req, res))
+    // Create user route
     this.router.post('/users', (req, res, next) => {
       this.createUser(req, res, next)
     })
+    // Get users route
     this.router.get('/users', (req, res) => this.retrieveUsers(req, res))
+    // Update a volunteer user
     this.router.put('/users/volunteer', (req, res) =>
       this.updateVolunteer(req, res)
     )
+    // Update a partner user
     this.router.put('/users/partner', (req, res) =>
       this.updatePartner(req, res)
     )
@@ -42,8 +50,11 @@ class UserRoute {
     }
   }
 
+  // Update a partner user
   async updatePartner (req, res) {
     try {
+      // Pass in the req.body and the userid and call the changePartner method from UserService
+      // Update information for organization type, name and about
       const updatedPartner = await this.UserService.changePartner({
         ...req.body,
         id: req.user._id
@@ -57,6 +68,8 @@ class UserRoute {
 
   async updateVolunteer (req, res) {
     try {
+      // Pass in the req.body and the userid and call the changeVolunteer method from UserService
+      // Update information for first name, last name, skills and about
       const updatedVolunteer = await this.UserService.changeVolunteer({
         ...req.body,
         id: req.user._id
@@ -68,6 +81,7 @@ class UserRoute {
     }
   }
 
+  // Get the restricted route
   async getRestricted (req, res) {
     try {
       res.send(req.user)
@@ -77,8 +91,10 @@ class UserRoute {
     }
   }
 
+  // Create a new user
   async createUser (req, res, next) {
     try {
+      // Using the UserService, pass in the req.body to create a new user
       const newUser = await this.UserService.createUser({
         ...req.body,
         username: req.body.username
@@ -125,5 +141,5 @@ class UserRoute {
     }
   }
 }
-
+// Export the user route
 module.exports = UserRoute

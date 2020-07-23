@@ -1,26 +1,21 @@
+// Import dependencies
+// Use bcrypt and WORK_FACTOR to hash the password
 const mongoose = require('mongoose')
 const bcrypt = require('bcrypt')
 const WORK_FACTOR = 10
 
 const Schema = mongoose.Schema
 
+// User Schema with role, tokens, username, password,projects
+// For volunteers (firstName, lastName, skills and about)
+// For partners (organizationType, organizationAbout and organizationSkills)
 const UserSchema = new Schema(
   {
     role: {
       type: String
     },
-    githubId: {
-      type: String
-    },
     accessToken: String,
     refreshToken: String,
-    avatar: {
-      type: String
-    },
-    url: String,
-    name: {
-      type: String
-    },
     username: {
       type: String,
       required: true,
@@ -101,4 +96,5 @@ UserSchema.methods.validatePassword = function (candidatePassword) {
 }
 
 const User = mongoose.model('User', UserSchema)
+// Export the User model
 module.exports = User

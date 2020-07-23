@@ -1,30 +1,39 @@
 const passport = require('passport')
-
+// Project Route class
 class ProjectRoute {
+  // Contruct methods from the services
   constructor (options = {}) {
     this.options = options
     this.router = options.Router
     this.ProjectService = new options.ProjectService()
     this.GithubService = new options.GithubService()
   }
-
+  // Initialize the routes from its own methods
   initialize () {
+    // Create a new project
     this.router.post('/projects', (req, res) => this.createProject(req, res))
+    // Retrieve the projects
     this.router.get('/projects', (req, res) => this.retrieveProjects(req, res))
+    // Update a project
     this.router.put('/projects', (req, res) => this.updateProject(req, res))
+    // Delete a project
     this.router.delete('/projects/:id', (req, res) =>
       this.deleteProject(req, res)
     )
+    // Post an issue
     this.router.post(`/projects/issues`, (req, res) =>
       this.createIssue(req, res)
     )
+    // Get all issues
     this.router.get(`/projects/issues`, (req, res) =>
       this.trackIssues(req, res)
     )
   }
 
+  // Creates a new project
   async createProject (req, res) {
     try {
+      // Passes in the req.body and the user id to the project service
       const newProject = await this.ProjectService.newProject({
         ...req.body,
         userID: req.user._id
@@ -42,8 +51,10 @@ class ProjectRoute {
     }
   }
 
+  // Retrieve available projects
   async retrieveProjects (req, res) {
     try {
+      // Passes in the user id
       const projects = await this.ProjectService.retrieveProjects({
         userID: req.user._id
       })
@@ -54,6 +65,7 @@ class ProjectRoute {
     }
   }
 
+  // Deletes a project
   async deleteProject (req, res) {
     try {
       console.log(req.params)
@@ -79,7 +91,7 @@ class ProjectRoute {
       throw err
     }
   }
-
+  // Create a new githubissue
   async createIssue (req, res) {
     try {
       // console.log(req.body)
@@ -93,7 +105,7 @@ class ProjectRoute {
       throw err
     }
   }
-
+  // Retrieve all the issues
   async trackIssues (req, res) {
     try {
       const repoName = req.query.repo
@@ -106,8 +118,10 @@ class ProjectRoute {
     }
   }
 
+  // Update a project
   async updateProject (req, res) {
     try {
+      // Passes in the req.body to update the project
       const project = await this.ProjectService.updateProject(req.body)
       res.json(project)
     } catch (err) {

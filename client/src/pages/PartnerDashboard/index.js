@@ -23,7 +23,9 @@ function PartnerDashboard () {
       height: width > 767 ? '90vh' : '93vh'
     },
     header: {
-      backgroundColor: '#353452'
+      backgroundColor: 'white',
+      borderRadius: '15px',
+      borderBottom: 'none'
     },
     content: {
       margin: width > 767 ? '10px' : '5px'
@@ -142,6 +144,7 @@ function PartnerDashboard () {
                 size={styling.cardSize}
                 title={title}
                 headStyle={styling.header}
+                style={{ borderRadius: '15px' }}
               >
                 {renderContent()}
               </Card>

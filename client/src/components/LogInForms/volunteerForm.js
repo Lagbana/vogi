@@ -1,8 +1,7 @@
 import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button, Checkbox } from 'antd'
+import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
-import { GithubOutlined } from '@ant-design/icons'
 import useWindowSize from '../../utils/useWindowSize'
 
 function VolunteerLogIn () {
@@ -95,7 +94,7 @@ function VolunteerLogIn () {
       </AntForm.Item>
       <AntForm.Item style={styling.responsiveMargin}>
         <Button
-          style={{ backgroundColor: '#18ADCE', border: 'none' }}
+          style={{ backgroundColor: '#FD4F64', border: 'none' }}
           type='primary'
           shape='round'
           htmlType='submit'

@@ -20,7 +20,9 @@ function OrganizationInfo () {
     },
     button: {
       span: 24,
-      align: 'center'
+      align: 'center',
+      backgroundColor: '#FD4F64',
+      border: 'none'
     },
     content: {
       minHeight: width > 767 ? '70vh' : '80vh'

@@ -15,9 +15,6 @@ const { SubMenu } = Menu
 function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
   const [width, height] = useWindowSize()
   const [collapsed, setCollapsed] = useState(false)
-  // const onCollapse = collapsed => {
-  //   setCollapsed(collapsed)
-  // }
 
   const styling = {
     responsiveMargin: {
@@ -47,7 +44,6 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
   return (
     <Sider
       theme='light'
-      // collapsible
       collapsed={collapsed}
       size='large'
       collapsedWidth='50px'

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import MainMenu from '../MainMenu'
+import AltMenu from '../AltMenu'
 import AuthMenu from '../AuthMenu'
 import { Drawer } from 'antd'
 import { MenuOutlined } from '@ant-design/icons'
@@ -41,14 +41,14 @@ function Navbar ({ authenticated }) {
         </Link>
       </div>
       <div className='menuCon'>
-        <div className='rightMenu' >
+        <div className='rightMenu'>
           {authenticated ? (
             <div>
               <AuthMenu order='horizontal' />
             </div>
           ) : (
             <div>
-              <MainMenu order='horizontal'/>
+              <AltMenu order='horizontal' />
             </div>
           )}
         </div>
@@ -66,7 +66,7 @@ function Navbar ({ authenticated }) {
           {authenticated ? (
             <AuthMenu order='inline' />
           ) : (
-            <MainMenu order='inline' />
+            <AltMenu order='inline' />
           )}
         </Drawer>
       </div>

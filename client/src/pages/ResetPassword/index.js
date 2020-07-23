@@ -1,9 +1,11 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Form as AntForm, Input, Button, notification } from 'antd'
 import API from '../../utils/API'
 import { Layout, Card, Row, Col, Divider } from 'antd'
 import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
+import { useLocation, Redirect } from 'react-router-dom'
+
 const { Content } = Layout
 
 const layout = {
@@ -31,15 +33,15 @@ const openNotification = type => {
 const ResetPassword = () => {
   const [form] = AntForm.useForm()
   const [width, height] = useWindowSize()
+  const [redirect, setRedirect] = useState(false)
 
   const styling = {
     header: {
       border: 'none',
-      color: '#1890ff',
+      color: '#353452',
       fontSize: width > 990 ? 22 : 20
     },
     cardInfo: {
-      //   marginTop: '0.5rem',
       marginBottom: '2rem'
     },
     content: {
@@ -53,21 +55,35 @@ const ResetPassword = () => {
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
       marginTop: width > 990 ? '10%' : '0%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     }
   }
 
+  /*
+    @param values: Object of strings; form input values
+    If successful, reset form and redirect to login page
+  */
   const onFinish = values => {
     console.log('Success:', values)
     API.resetPassword(values).then(res => {
       openNotification('success')
       form.resetFields()
+      setRedirect(true)
       return res
     })
   }
 
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
+  }
+
+  // React method to get the path name and return as string
+  const { pathname } = useLocation()
+
+  // Redirect to login page if password is successfully reset
+  if (redirect) {
+    return <Redirect to='/login' />
   }
 
   return (
@@ -91,7 +107,12 @@ const ResetPassword = () => {
               <AntForm
                 {...layout}
                 name='basic'
-                onFinish={onFinish}
+                onFinish={values =>
+                  onFinish({
+                    ...values,
+                    token: pathname.split('/reset/').pop()
+                  })
+                }
                 onFinishFailed={onFinishFailed}
               >
                 <AntForm.Item
@@ -132,7 +153,12 @@ const ResetPassword = () => {
                   <Input.Password />
                 </AntForm.Item>
                 <AntForm.Item {...tailLayout}>
-                  <Button type='primary' htmlType='submit'>
+                  <Button
+                    type='primary'
+                    htmlType='submit'
+                    shape='round'
+                    style={{ backgroundColor: '#FD4F64', border: 'none' }}
+                  >
                     Reset Password
                   </Button>
                 </AntForm.Item>

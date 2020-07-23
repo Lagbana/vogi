@@ -1,4 +1,6 @@
 // Require user dao
+const sgMail = require('@sendgrid/mail')
+const bcrypt = require('bcrypt')
 const { UserDao } = require('../dao')
 
 /*
@@ -9,6 +11,7 @@ class UserService extends UserDao {
   constructor (options = {}) {
     super()
     this.options = options
+    sgMail.setApiKey(process.env.SENDGRID_API_KEY)
   }
 
   // Retrieve the current user and return it
@@ -61,6 +64,80 @@ class UserService extends UserDao {
     try {
       const user = await this.update(context)
       return user
+    } catch (err) {
+      throw err
+    }
+  }
+
+  // Encrypt the password input using bycrypt hash method
+  async _hashPassword (password) {
+    try {
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(password, salt)
+      return hashedPassword
+    } catch (err) {
+      throw err
+    }
+  }
+
+  /*
+   @param: token => String
+   @param: email => String
+    - Update the user collection with the token
+    - Create the email template content and redirect to path with the token added as parameter
+    - Send the email using the provided email using the SendGrid method
+  */
+  async setToken ({ token, email }) {
+    try {
+      const response = await this.update({ email, token, isResetToken: true })
+      const baseURL =
+        process.env.NODE_ENV === 'development'
+          ? `http://localhost:3000/reset/${token}`
+          : `https://www.vogi.ca/reset/${token}`
+      // const msg = {
+      //   to: email,
+      //   from: 'dontreply@vogi.ca',
+      //   subject: 'Reset Password Token',
+      //   html: `<strong>
+      //           <a href=${baseURL}>
+      //             ${baseURL}
+      //           </a>
+      //         </strong>`
+      // }
+      const msg = {
+        to: email,
+        from: 'donotreply@larryagbana.com',
+        subject: 'Reset Password',
+        templateId: 'd-1f22d59e30884ddbb54a6bb58e82c7f5',
+        dynamic_template_data: {
+          message: baseURL
+        }
+      }
+
+      const sendEmail = await sgMail.send(msg)
+      return { response, sendEmail }
+    } catch (err) {
+      console.log(err)
+      throw err
+    }
+  }
+
+  /*
+   @param: token => String
+   @param: password => String
+    - hash the password provided by user using the _hashPassword private method
+    - updated the user collection with encrypted password
+  */
+
+  async resetPassword ({ token, password }) {
+    try {
+      const encrypted = await this._hashPassword(password)
+      const newUser = await this.update({
+        password: encrypted,
+        token,
+        shouldUpdatePassword: true
+      })
+      return newUser
     } catch (err) {
       throw err
     }

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 // Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
-import { Link as ScrollLink } from 'react-scroll'
+
 
 const styling = {
   menu: {
@@ -17,7 +17,7 @@ const styling = {
 }
 
 // Right Menu component
-function MainMenu (props) {
+function AltMenu (props) {
   const { order } = props
   const [current, setCurrent] = useState('mail')
 
@@ -29,7 +29,6 @@ function MainMenu (props) {
   // Function to scroll to the top of the page when called
   // calling react-scroll method
 
-
   return (
     <Menu
       onClick={handleClick}
@@ -37,32 +36,6 @@ function MainMenu (props) {
       mode={order}
       style={styling.menu}
     >
-      <Menu.Item key='volunteers'>
-        <ScrollLink
-          to='/volunteer'
-          style={styling.item}
-          activeClass='active'
-          spy={true}
-          smooth={true}
-          offset={-70}
-          duration={500}
-        >
-          Volunteers
-        </ScrollLink>
-      </Menu.Item>
-      <Menu.Item key='partners'>
-        <ScrollLink
-          to='/partner'
-          style={styling.item}
-          activeClass='active'
-          spy={true}
-          smooth={true}
-          offset={-70}
-          duration={500}
-        >
-          Partners
-        </ScrollLink>
-      </Menu.Item>
       <Menu.Item key='signup'>
         <Link to='/signup' style={styling.item}>
           Sign Up
@@ -76,4 +49,4 @@ function MainMenu (props) {
     </Menu>
   )
 }
-export default MainMenu
+export default AltMenu

@@ -1,7 +1,7 @@
 import React from 'react'
 import { Form as AntForm, Input, Button, notification } from 'antd'
 import API from '../../utils/API'
-import { Layout, Card, Row, Col, Divider } from 'antd'
+import { Layout, Card, Row, Col } from 'antd'
 import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
 const { Content } = Layout
@@ -35,11 +35,10 @@ const ForgotPassword = () => {
   const styling = {
     header: {
       border: 'none',
-      color: '#1890ff',
+      color: '#353452',
       fontSize: width > 990 ? 22 : 20
     },
     cardInfo: {
-      //   marginTop: '0.5rem',
       marginBottom: '2rem'
     },
     content: {
@@ -53,13 +52,19 @@ const ForgotPassword = () => {
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
       marginTop: '20%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     }
   }
 
+  /*
+    @param values: Object of strings; form input values
+    If successful, reset form 
+  */
+
   const onFinish = values => {
     console.log('Success:', values)
-    API.resetPassword(values).then(res => {
+    API.resetPasswordEmail(values).then(res => {
       openNotification('success')
       form.resetFields()
       return res
@@ -78,7 +83,6 @@ const ForgotPassword = () => {
           <Col xl={10} lg={10} md={18} sm={20} xs={22}>
             <Card
               size={width > 767 ? 'default' : 'small'}
-              shape='round'
               title='Reset Password'
               headStyle={styling.header}
               style={styling.card}
@@ -108,7 +112,12 @@ const ForgotPassword = () => {
                   <Input placeholder='Enter email address' />
                 </AntForm.Item>
                 <AntForm.Item {...tailLayout}>
-                  <Button type='primary' htmlType='submit'>
+                  <Button
+                    type='primary'
+                    htmlType='submit'
+                    shape='round'
+                    style={{ backgroundColor: '#FD4F64', border: 'none' }}
+                  >
                     Reset Password
                   </Button>
                 </AntForm.Item>

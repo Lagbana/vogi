@@ -41,14 +41,7 @@ function PartnerDashboard () {
   const [form] = Form.useForm()
   const [title, setTitle] = useState('Organization Information')
   const user = useContext(UserContext)
-  const [projects, setProjects] = useState([
-    // {
-    //   _id: '',
-    //   name: '',
-    //   description: '',
-    //   skills: ''
-    // }
-  ])
+  const [projects, setProjects] = useState([])
   const [currentProject, setCurrentProject] = useState('')
 
   const openNotification = type => {

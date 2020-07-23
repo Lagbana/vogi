@@ -1,8 +1,7 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
-import { Form as AntForm, Input, Button, Divider } from 'antd'
+import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
-import { GithubOutlined } from '@ant-design/icons'
 import useWindowSize from '../../utils/useWindowSize'
 
 function VolunteerSignUp () {
@@ -94,7 +93,7 @@ function VolunteerSignUp () {
         </AntForm.Item>
         <AntForm.Item>
           <Button
-            style={{ backgroundColor: '#18ADCE', border: 'none' }}
+            style={{  backgroundColor: '#FD4F64', border: 'none' }}
             type='primary'
             shape='round'
             htmlType='submit'

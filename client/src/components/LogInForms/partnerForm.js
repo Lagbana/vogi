@@ -93,7 +93,7 @@ function PartnerLoginForm () {
       </AntForm.Item>
       <AntForm.Item style={styling.responsiveMargin}>
         <Button
-          style={{ backgroundColor: '#18ADCE', border: 'none' }}
+          style={{ backgroundColor: '#FD4F64', border: 'none' }}
           type='primary'
           shape='round'
           htmlType='submit'

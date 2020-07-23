@@ -6,7 +6,7 @@ const WORK_FACTOR = 10
 
 const Schema = mongoose.Schema
 
-// User Schema with role, tokens, username, password,projects
+// User Schema with role, tokens, username, password, projects
 // For volunteers (firstName, lastName, skills and about)
 // For partners (organizationType, organizationAbout and organizationSkills)
 const UserSchema = new Schema(
@@ -28,6 +28,7 @@ const UserSchema = new Schema(
         ref: 'Project'
       }
     ],
+    tokens: [String],
     organizationType: {
       type: String
     },

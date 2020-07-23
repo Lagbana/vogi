@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Redirect } from 'react-router-dom'
 import { Form as AntForm, Input, Button } from 'antd'
 import API from '../../utils/API'
@@ -97,7 +97,7 @@ function PartnerSignUp () {
       </AntForm.Item>
       <AntForm.Item>
         <Button
-          style={{ backgroundColor: '#18ADCE', border: 'none' }}
+          style={{ backgroundColor: '#FD4F64', border: 'none' }}
           shape='round'
           htmlType='submit'
           type='primary'

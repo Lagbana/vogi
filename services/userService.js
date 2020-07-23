@@ -68,6 +68,17 @@ class UserService extends UserDao {
     }
   }
 
+// Encrypt the password input using bycrypt hash method
+  async _hashPassword (password) {
+    try {
+      const salt = await bcrypt.genSalt(10)
+      const hashedPassword = await bcrypt.hash(password, salt)
+      return hashedPassword
+    } catch (err) {
+      throw err
+    }
+  }
+
   /*
    @param: token => String
    @param: email => String
@@ -92,6 +103,27 @@ class UserService extends UserDao {
       return { response, sendEmail }
     } catch (err) {
       console.log(err)
+      throw err
+    }
+  }
+
+  /*
+   @param: token => String
+   @param: password => String
+    - hash the password provided by user using the _hashPassword private method
+    - updated the user collection with encrypted password
+  */
+
+    async resetPassword ({ token, password }) {
+    try {
+      const encrypted = await this._hashPassword(password)
+      const newUser = await this.update({
+        password: encrypted,
+        token,
+        shouldUpdatePassword: true
+      })
+      return newUser
+    } catch (err) {
       throw err
     }
   }

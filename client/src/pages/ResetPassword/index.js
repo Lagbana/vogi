@@ -35,11 +35,10 @@ const ResetPassword = () => {
   const styling = {
     header: {
       border: 'none',
-      color: '#1890ff',
+      color: '#353452',
       fontSize: width > 990 ? 22 : 20
     },
     cardInfo: {
-      //   marginTop: '0.5rem',
       marginBottom: '2rem'
     },
     content: {
@@ -53,7 +52,8 @@ const ResetPassword = () => {
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
       marginTop: width > 990 ? '10%' : '0%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     }
   }
 
@@ -132,7 +132,12 @@ const ResetPassword = () => {
                   <Input.Password />
                 </AntForm.Item>
                 <AntForm.Item {...tailLayout}>
-                  <Button type='primary' htmlType='submit'>
+                  <Button
+                    type='primary'
+                    htmlType='submit'
+                    shape='round'
+                    style={{ backgroundColor: '#FD4F64', border: 'none' }}
+                  >
                     Reset Password
                   </Button>
                 </AntForm.Item>

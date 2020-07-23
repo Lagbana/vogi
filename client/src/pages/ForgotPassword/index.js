@@ -39,20 +39,20 @@ const ForgotPassword = () => {
       fontSize: width > 990 ? 22 : 20
     },
     cardInfo: {
-    //   marginTop: '0.5rem',
+      //   marginTop: '0.5rem',
       marginBottom: '2rem'
     },
     content: {
       paddingTop: width > 990 ? 24 : 16,
       margin: 0,
-      minHeight: '80vh',
+      minHeight: width > 767 ? '90vh' : '94vh',
       backgroundColor: '#F8F8F8'
     },
     card: {
       width: '100%',
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
-      marginTop: width > 990 ? '10%' : '0%',
+      marginTop: '20%',
       border: '1px #C4C4C4 solid'
     }
   }

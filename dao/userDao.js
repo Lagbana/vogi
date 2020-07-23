@@ -21,6 +21,11 @@ class UserDao {
       throw err
     }
   }
+
+  /*
+   *Method to modify volunteer user with first, last, skills and about
+   *Find by the id
+   */
   async modifyVolunteer (context) {
     const { first, last, skills, about, id } = context
     try {
@@ -40,6 +45,10 @@ class UserDao {
       throw err
     }
   }
+  /*
+   *Method to modify volunteer user with first, last, skills and about
+   *Find by the id
+   */
   async modifyPartner (context) {
     const { id, name, type, about } = context
     try {
@@ -89,5 +98,5 @@ class UserDao {
     }
   }
 }
-
+// Export the UserDao
 module.exports = UserDao

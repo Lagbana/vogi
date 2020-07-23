@@ -14,7 +14,7 @@ function SignUp () {
     wrapper: {},
     header: {
       border: 'none',
-      color: '#1890ff',
+      color: '#353452',
       fontSize: width > 990 ? 22 : 20
     },
     content: {
@@ -28,15 +28,17 @@ function SignUp () {
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '5%',
       marginTop: width > 990 ? '20%' : '0%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     },
 
     partnerCard: {
       width: '100%',
       marginLeft: '0rem',
-      marginBottom: width > 990 ? '0%' : '4%',
+      marginBottom: width > 990 ? '0%' : '5%',
       marginTop: width > 990 ? '20%' : '0%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     }
   }
   return (
@@ -58,7 +60,12 @@ function SignUp () {
             <Col className='gutter-row' xl={2} lg={2} md={0} sm={0} xs={0}>
               <Divider
                 type='vertical'
-                style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}
+                // style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}
+                style={{
+                  borderColor: '#C4C4C4',
+                  minHeight: '50vh',
+                  marginTop: '85px'
+                }}
               ></Divider>
             </Col>
             <Col xl={10} lg={10} md={18} sm={20} xs={21}>

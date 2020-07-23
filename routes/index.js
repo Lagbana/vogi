@@ -24,5 +24,5 @@ const initializeRoutes = app => {
     app.use(process.env.PREFIX, route.router)
   })
 }
-
+// Export the routes
 module.exports = initializeRoutes

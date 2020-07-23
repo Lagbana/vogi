@@ -1,8 +1,8 @@
-// Require user dao
+// Require project dao
 const { ProjectDao } = require('../dao')
 
 /*
-    User service extends UserDao to access it's methods
+    Project service extends ProjectDao to access it's methods
 */
 
 class ProjectService extends ProjectDao {
@@ -11,6 +11,9 @@ class ProjectService extends ProjectDao {
     this.options = options
   }
 
+  // Retrieves all projects created using the method from ProjectDao
+  // then filters out any projects the user has already joined
+  // returns the filtered projects
   async retrieveProjects (context) {
     try {
       const projects = await this.getAvailableProjects()
@@ -23,6 +26,8 @@ class ProjectService extends ProjectDao {
     }
   }
 
+  // Deletes the project using the ProjectDao method and returns the projects
+  // No modifications from ProjectDao
   async deleteProject (context) {
     try {
       const projects = await this.eraseProject(context)
@@ -32,6 +37,9 @@ class ProjectService extends ProjectDao {
     }
   }
 
+  // Creates a new project using the ProjectDao method
+  // Returns the new project
+  // No modifications from ProjectDao
   async createProject (context) {
     try {
       const project = await this.newProject(context)
@@ -40,6 +48,8 @@ class ProjectService extends ProjectDao {
       throw err
     }
   }
+  // Updates the project with the volunteer who joined the project in ProjectDao
+  // No modifications from ProjectDao
   async updateProject (context) {
     try {
       const project = await this.joinProject(context)
@@ -50,4 +60,5 @@ class ProjectService extends ProjectDao {
   }
 }
 
+// Export the Project Service
 module.exports = ProjectService

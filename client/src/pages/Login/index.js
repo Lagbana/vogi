@@ -14,7 +14,7 @@ function Login () {
     wrapper: {},
     header: {
       border: 'none',
-      color: '#1890ff',
+      color: '#353452',
       fontSize: width > 990 ? 22 : 20
     },
     content: {
@@ -28,7 +28,8 @@ function Login () {
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
       marginTop: width > 990 ? '18%' : '0%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     },
 
     partnerCard: {
@@ -36,7 +37,8 @@ function Login () {
       marginLeft: '0rem',
       marginBottom: width > 990 ? '0%' : '4%',
       marginTop: width > 990 ? '18%' : '0%',
-      border: '1px #C4C4C4 solid'
+      border: '1px #C4C4C4 solid',
+      borderRadius: '15px'
     }
   }
   return (
@@ -48,7 +50,6 @@ function Login () {
             <Col xl={10} lg={10} md={18} sm={20} xs={21}>
               <Card
                 size={width > 990 ? 'default' : 'small'}
-                shape='round'
                 title='Volunteer Log In'
                 headStyle={styling.header}
                 style={styling.volunteerCard}
@@ -59,7 +60,11 @@ function Login () {
             <Col className='gutter-row' xl={2} lg={2} md={0} sm={0} xs={0}>
               <Divider
                 type='vertical'
-                style={{ borderColor: '#C4C4C4', minHeight: '80vh' }}
+                style={{
+                  borderColor: '#C4C4C4',
+                  minHeight: '57vh',
+                  marginTop: '70px'
+                }}
               ></Divider>
             </Col>
 

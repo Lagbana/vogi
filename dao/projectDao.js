@@ -1,7 +1,7 @@
 // Require volunteer model
 const { Project, User } = require('../models')
 
-// User Dao Class with database querying methods
+// Project Dao Class with database querying methods
 class ProjectDao {
   constructor (options = {}) {
     this.options = options
@@ -10,9 +10,8 @@ class ProjectDao {
   }
 
   /*
-      *method to get the user using the findOne query
-      context = req.body, to be inserted in the associated route handler
-  */
+   *Method to retrieve all projects in the database
+   */
   async getAvailableProjects (context) {
     try {
       const projects = await this.project.find({})
@@ -23,9 +22,10 @@ class ProjectDao {
   }
 
   /*
-      *method to create new user with the create query
-      context = req.body, to be inserted in the associated route handler
-  */
+   *Method to create a new project in the database
+   *Also update the partner user with the project that they have created
+   *Push the project ID into projects field to keep track of the projects the user has created
+   */
   async newProject (context) {
     try {
       const newProject = await this.project.create(context)
@@ -53,7 +53,11 @@ class ProjectDao {
       throw err
     }
   }
-  
+
+  /*
+   *Method for a volunteer to join a project
+   *Project is update with team member ID and user is updated with project IDs
+   */
   async joinProject (context) {
     console.log(context)
     try {
@@ -74,5 +78,5 @@ class ProjectDao {
     }
   }
 }
-
+// Export Project Dao
 module.exports = ProjectDao

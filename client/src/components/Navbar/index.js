@@ -14,6 +14,9 @@ function Navbar ({ authenticated }) {
   const styling = {
     logo: {
       maxHeight: '4.5rem'
+    },
+    drawer: {
+      backgroundColor: '#353452'
     }
   }
 
@@ -38,14 +41,14 @@ function Navbar ({ authenticated }) {
         </Link>
       </div>
       <div className='menuCon'>
-        <div className='rightMenu'>
+        <div className='rightMenu' >
           {authenticated ? (
             <div>
               <AuthMenu order='horizontal' />
             </div>
           ) : (
             <div>
-              <MainMenu order='horizontal' />
+              <MainMenu order='horizontal'/>
             </div>
           )}
         </div>
@@ -53,12 +56,12 @@ function Navbar ({ authenticated }) {
           <MenuOutlined onClick={showDrawer} />
         </div>
         <Drawer
-          // title='Vogi Menu Items'
           placement='right'
           closable={true}
           onClose={onClose}
           visible={visible}
           keyboard={true}
+          bodyStyle={styling.drawer}
         >
           {authenticated ? (
             <AuthMenu order='inline' />

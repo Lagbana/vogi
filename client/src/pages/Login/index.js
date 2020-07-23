@@ -2,7 +2,8 @@ import React from 'react'
 import PartnerForm from '../../components/LogInForms/partnerForm'
 import VolunteerForm from '../../components/LogInForms/volunteerForm'
 import { Layout, Card, Row, Col, Divider } from 'antd'
-import Navbar from '../../components/Navbar'
+import AltNavbar from '../../components/AltNavbar'
+// import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
 
 const { Content } = Layout
@@ -40,7 +41,7 @@ function Login () {
   }
   return (
     <>
-      <Navbar />
+      <AltNavbar />
       <Layout>
         <Content style={styling.content}>
           <Row justify='center'>

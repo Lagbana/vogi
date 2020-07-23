@@ -15,9 +15,7 @@ const { SubMenu } = Menu
 function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
   const [width, height] = useWindowSize()
   const [collapsed, setCollapsed] = useState(false)
-  // const onCollapse = collapsed => {
-  //   setCollapsed(collapsed)
-  // }
+
 
   const styling = {
     responsiveMargin: {

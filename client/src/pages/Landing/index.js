@@ -8,19 +8,18 @@ import PeopleImg2 from '../../resources/people1.jpg'
 const { Content } = Layout
 
 // Landing page
-function Landing () {
+function Landing() {
+  // Width width watching custom hook
   const [width, height] = useWindowSize()
   const styling = {
     content: {
       paddingTop: width > 990 ? 24 : 16,
       margin: 0,
-      // minHeight: '89vh',
       backgroundColor: '#ffffff'
     },
     content2: {
       paddingTop: width > 990 ? 24 : 16,
       margin: 0,
-      // minHeight: '100vh',
       backgroundColor: '#ffffff'
     },
     container: {
@@ -40,7 +39,6 @@ function Landing () {
     },
     detail: {
       fontSize: '1.15rem',
-      // fontSize: '1.25rem',
       textAlign: 'left',
       marginRight: '5rem'
     },
@@ -61,7 +59,6 @@ function Landing () {
     getStarted: {
       borderRadius: '1rem',
       backgroundColor: '#FD4F64',
-      // backgroundColor: '#19A2C0',
       color: '#ffffff'
     },
     groups: {
@@ -74,12 +71,8 @@ function Landing () {
       marginTop: width > 991 ? 0 : '2vh'
     },
     people2: {
-      // marginLeft: width > 991 ? 'auto' : 'auto',
-      // marginRight: width > 991 ? 'auto' : 'auto',
       marginTop: width > 991 ? '1vh' : '2vh',
       marginBottom: width > 991 ? '1vh' : 0,
-      // // marginLeft: width > 991 ? 'auto' : 'auto',
-      // // marginRight: width > 991 ? 'auto' : 'auto',
       width: width > 991 ? '24vw' : '45vw'
     },
     container2: {
@@ -100,13 +93,9 @@ function Landing () {
     },
     vogi: {
       fontSize: width > 991 ? '1.25rem' : '1.25rem',
-      // paddingLeft: '1rem',
       paddingRight: '2vw',
       color: 'black',
       marginTop: width > 991 ? '2rem' : '0.5rem'
-    },
-    participants: {
-      // height: '55vh'
     },
     volunteer: {
       width: width > 991 ? '75vw' : '100vw',
@@ -123,8 +112,6 @@ function Landing () {
     groupDescription: {
       paddingLeft: width > 991 ? '5vw' : '5vw',
       paddingRight: width > 991 ? '5vw' : '5vw',
-      // marginBottom: width > 991 ? 0 : '5vh',
-      // marginBottom: width > 991 ? 0 : '10vw',
       fontSize: width > 991 ? '1.15rem' : '1rem',
       wordWrap: 'break-word'
     },
@@ -210,7 +197,7 @@ function Landing () {
             </p>
           </Col>
         </Row>
-        <Row style={styling.participants}>
+        <Row>
           <Col style={styling.volunteer} id='/volunteer'>
             <div style={styling.groupDescription}>
               <h3 style={styling.groupHeader}>Volunteers</h3>

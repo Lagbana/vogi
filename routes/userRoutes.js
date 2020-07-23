@@ -1,5 +1,7 @@
 // Import dependencies
 const passport = require('passport')
+// Authentication check middleware
+const mustBeLoggedIn = require('../config/mustBeLoggedIn')
 const crypto = require('crypto')
 
 // UserRoute Class

@@ -44,6 +44,7 @@ function NewProject ({ joinProjectHandler }) {
           <br />
           <Button
             id={project._id}
+            style={{ backgroundColor: '#FD4F64', border: 'none' }}
             shape='round'
             type='primary'
             onClick={() => {

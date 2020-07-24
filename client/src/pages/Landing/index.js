@@ -1,5 +1,6 @@
 // Import React dependencies
 import React from 'react'
+import { Link } from 'react-router-dom'
 import { Button, Layout, Row, Col, Divider } from 'antd'
 import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
@@ -151,7 +152,9 @@ function Landing () {
               <p style={styling.subContent}>
                 Create a profile and find interesting projects to contribute to.
               </p>
-              <Button style={styling.getStarted}>Get Started</Button>
+              <Link to='/signup'>
+                <Button style={styling.getStarted}>Get Started</Button>
+              </Link>
             </div>
           </Col>
           <Col xl={1} lg={0} md={0} sm={0} xs={0}>
@@ -172,7 +175,9 @@ function Landing () {
                 For non-profits and startup partners, create a project, add
                 issues, and track progress.
               </p>
-              <Button style={styling.getStarted}>Get Started</Button>
+              <Link to='/signup'>
+                <Button style={styling.getStarted}>Get Started</Button>
+              </Link>
             </div>
           </Col>
         </Row>

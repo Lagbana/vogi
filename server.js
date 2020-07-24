@@ -26,24 +26,10 @@ const initializeRoutes = require('./routes')
 // Initialize the express app
 const app = express()
 
-// Ensure all traffic is passed through secure protocol only in production
+// Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === 'production') {
-  // Re-direct all unsecure traffic through the https protocol
-  function requireHTTPS (req, res, next) {
-    // The 'x-forwarded-proto' check is for Heroku
-    if (
-      !req.secure &&
-      req.get('x-forwarded-proto') !== 'https' &&
-      process.env.NODE_ENV !== 'development'
-    ) {
-      return res.redirect('https://' + req.get('host') + req.url)
-    }
-    next()
-  }
-  app.use(requireHTTPS)
+  app.use(express.static('client/build'))
 }
-
-
 
 // Set up all middleware
 app.use(cors())
@@ -51,7 +37,7 @@ app.use(logger('dev'))
 app.use(compression())
 
 // Connect to Mongo DB for both development and production with specified options
-mongoose.connect(process.env.MONGO_URI || 'mongodb://localhost/vogiDB', {
+mongoose.connect(process.env.MONGODB_URI || 'mongodb://localhost/vogiDB', {
   useCreateIndex: true,
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -65,12 +51,6 @@ app.use(
 )
 app.use(bodyParser.json())
 
-// Handling and rendering of static files
-
-app.use(express.static(path.join(__dirname + '/client/build')))
-
-
-
 /*
     Create new authentication instance and pass the initialized express in to the AuthService option parameter object
     Initialize authentication for volunteer and partner sign up and login
@@ -80,12 +60,12 @@ authService.initialize()
 
 // Send every other request to the React app
 // Define any API routes before this runs
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname + '/client/build/index.html'))
-})
 
 initializeRoutes(app)
 
+app.use((req, res) =>
+  res.sendFile(path.join(__dirname, '/client/build/index.html'))
+)
 /*
   Set's the PORT to 3000 when in local development OR to the PORT set by Heroku's environment when deployed
   The server accepts the PORT as a parameter to listen on.

@@ -41,19 +41,19 @@ function Navbar ({ authenticated }) {
         </Link>
       </div>
       <div className='menuCon'>
-        <div className='rightMenu' >
+        <div className='rightMenu'>
           {authenticated ? (
             <div>
               <AuthMenu order='horizontal' />
             </div>
           ) : (
             <div>
-              <MainMenu order='horizontal'/>
+              <MainMenu order='horizontal' />
             </div>
           )}
         </div>
         <div className='barsMenu'>
-          <MenuOutlined onClick={showDrawer} />
+          <MenuOutlined onClick={showDrawer} style={{ marginTop: '15px' }} />
         </div>
         <Drawer
           placement='right'

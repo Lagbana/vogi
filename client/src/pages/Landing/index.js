@@ -172,8 +172,7 @@ function Landing () {
             <div>
               <h3 style={styling.subHeaders}> For Partners </h3>
               <p style={styling.subContent}>
-                For non-profits and startup partners, create a project, add
-                issues, and track progress.
+                Create a project, add issues, and track the progress.
               </p>
               <Link to='/signup'>
                 <Button style={styling.getStarted}>Get Started</Button>
@@ -198,7 +197,7 @@ function Landing () {
             <p style={styling.vogi}>
               Vogi is the not-for-profit solution provider to help meet software
               development and business analysis needs for non-profits and
-              early-stage startups in Canada.
+              early-stage start-ups in Canada.
             </p>
           </Col>
         </Row>
@@ -208,8 +207,8 @@ function Landing () {
               <h3 style={styling.groupHeader}>Volunteers</h3>
               <p>
                 Our volunteers are business and software developer professionals
-                and students seeking to do some good or create valye by
-                contributing to non-profit and early stage start up
+                and students seeking to do some good or create value by
+                contributing to non-profit and early stage start-up
                 organizations in Canada. References for each project completed
                 by volunteers are provided on request and any reward (if any)
                 provided by organizations go directly to the contributors.
@@ -233,7 +232,7 @@ function Landing () {
             <div style={styling.groupDescription}>
               <h3 style={styling.groupHeader}>Partners</h3>
               <p>
-                Our partners are non-profit’s and early stage startups with no
+                Our partners are non-profits and early stage start-ups with no
                 financial backing. Before a project is accepted, we assess the
                 partner’s financial capacity to employ workers (or lack of), our
                 available volunteers, the project scope, and the timeframe for

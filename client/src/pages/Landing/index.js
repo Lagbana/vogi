@@ -8,7 +8,7 @@ import PeopleImg2 from '../../resources/people1.jpg'
 const { Content } = Layout
 
 // Landing page
-function Landing() {
+function Landing () {
   // Width width watching custom hook
   const [width, height] = useWindowSize()
   const styling = {
@@ -132,7 +132,7 @@ function Landing() {
         <Row style={styling.container}>
           <Col xl={14} lg={14} md={18} sm={20} xs={22}>
             <p style={styling.valueProp}>
-              Social impact and economic growth happens through collaboraton.
+              Social impact and economic growth happens through collaboration.
               <span style={styling.span}> We help make it happen.</span>
             </p>
           </Col>
@@ -211,7 +211,14 @@ function Landing() {
               </p>
             </div>
           </Col>
-          <Col xl={8} lg={8} md={8} sm={8} xs={8} style={{ marginLeft: 'auto', marginRight: 'auto'}}>
+          <Col
+            xl={8}
+            lg={8}
+            md={8}
+            sm={8}
+            xs={8}
+            style={{ marginLeft: 'auto', marginRight: 'auto' }}
+          >
             <Divider
               type='horizontal'
               style={{ borderColor: '#C4C4C4', maxWidth: '25vw' }}

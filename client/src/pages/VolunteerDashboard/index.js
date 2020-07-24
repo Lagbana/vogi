@@ -21,7 +21,9 @@ function VolunteerDashboard () {
       height: width > 767 ? '90vh' : '93vh'
     },
     header: {
-      backgroundColor: '#E6F7FF'
+      backgroundColor: 'white',
+      borderRadius: '15px',
+      borderBottom: 'none'
     },
     content: {
       margin: width > 767 ? '10px' : '5px'
@@ -125,6 +127,7 @@ function VolunteerDashboard () {
                   title={title}
                   headStyle={styling.header}
                   size={styling.cardSize}
+                  style={{ borderRadius: '15px' }}
                 >
                   {renderContent()}
                 </Card>

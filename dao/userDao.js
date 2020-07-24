@@ -100,7 +100,7 @@ class UserDao {
 
   // Private method
   // Find a user with the token param and update the user's password
-    async _updatePassword (context) {
+  async _updatePassword (context) {
     try {
       const { token, password } = context
       const query = { tokens: { $in: [token] } }

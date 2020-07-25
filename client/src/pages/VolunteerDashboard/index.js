@@ -1,20 +1,25 @@
+// Import dependencies from react
 import React, { useState, useEffect, useContext } from 'react'
-import Navbar from '../../components/Navbar'
+// Import components from antdesign
 import { Layout, Card } from 'antd'
+// Import Components
+import Navbar from '../../components/Navbar'
 import VolunteerSidebar from '../../components/VolunteerSidebar'
 import Profile from '../../dashboard-content/volunteer/Profile'
 import NewProject from '../../dashboard-content/volunteer/NewProject'
-import API from '../../utils/API'
 import CurrentProject from '../../dashboard-content/volunteer/ActiveProjects'
-import UserContext from '../../utils/UserContext'
+// Import API methods
+import API from '../../utils/API'
 // Import React Context API
+import UserContext from '../../utils/UserContext'
 import AvailableProjectContext from '../../utils/AvailableProjectContext'
 import JoinedProjectContext from '../../utils/JoinedProjectContext'
 import useWindowSize from '../../utils/useWindowSize'
-
+// Destructure Components from Layout in the antdesign library
 const { Content, Footer } = Layout
 
 function VolunteerDashboard () {
+  // Responsive styling
   const [width] = useWindowSize()
   const styling = {
     layout: {
@@ -35,10 +40,12 @@ function VolunteerDashboard () {
     },
     cardSize: width > 767 ? 'default' : 'small'
   }
+  // UseState hooks
   const [title, setTitle] = useState('Profile')
   const [availableProjects, setAvailableProjects] = useState([])
   const [currentProjects, setCurrentProjects] = useState([])
   const [currentProject, setCurrentProject] = useState('')
+  // UserContext
   const user = useContext(UserContext)
 
   // Get Available Projects to Join
@@ -75,11 +82,12 @@ function VolunteerDashboard () {
       setCurrentProjects(joinedProjects)
     })
   }, [])
-
+  // Update the title when the user clicks on a new tab
   const contentHandler = title => {
     setTitle(title)
   }
 
+  // Display the content of the project the user wishes to view
   const currentProjectHandler = id => {
     currentProjects.forEach(project => {
       if (project._id === id) {
@@ -89,6 +97,7 @@ function VolunteerDashboard () {
     })
   }
 
+  // Join a new project and save the info to the database
   const joinProjectHandler = id => {
     API.joinProject({ userID: user._id, projectID: id })
       .then(res => {
@@ -99,6 +108,7 @@ function VolunteerDashboard () {
       })
   }
 
+  // Render the appropriate content
   const renderContent = () => {
     switch (title) {
       case 'Profile':
@@ -140,4 +150,5 @@ function VolunteerDashboard () {
   )
 }
 
+// Export the Component
 export default VolunteerDashboard

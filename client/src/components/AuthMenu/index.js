@@ -25,7 +25,7 @@ function AuthMenu (props) {
     // console.log('click ', e)
     setCurrent({ current: e.key })
   }
-
+  // Log the user out of the session
   const handleLogout = async () => {
     try {
       await API.logOut()
@@ -35,7 +35,12 @@ function AuthMenu (props) {
   }
 
   return (
-    <Menu onClick={handleClick} selectedKeys={[current]} mode={order}  style={styling.menu}>
+    <Menu
+      onClick={handleClick}
+      selectedKeys={[current]}
+      mode={order}
+      style={styling.menu}
+    >
       <Menu.Item key='volunteers'>
         <Link to='/' onClick={handleLogout} style={styling.item}>
           Logout
@@ -44,4 +49,5 @@ function AuthMenu (props) {
     </Menu>
   )
 }
+//Export the component
 export default AuthMenu

@@ -1,4 +1,6 @@
+// Import the dependencies from react
 import React, { useState, useEffect } from 'react'
+// Import components from antdesign
 import {
   Layout,
   Card,
@@ -12,14 +14,18 @@ import {
   notification,
   Progress
 } from 'antd'
+// Import antdesign icons
 import { CarryOutOutlined } from '@ant-design/icons'
+// Import API methods
 import API from '../../../utils/API'
+// useWindow size for responsiveness
 import useWindowSize from '../../../utils/useWindowSize'
-
+// Destructure components from antdesign
 const { Content } = Layout
 const { TextArea } = Input
 
 function CurrentProject ({ currentProject }) {
+  // Responsive stying
   const [width] = useWindowSize()
   const styling = {
     wrapper: {},
@@ -49,11 +55,13 @@ function CurrentProject ({ currentProject }) {
       minHeight: 175
     }
   }
-
+  // Import antdesign form methods
   const [form] = AntForm.useForm()
+  // Component state using react hooks
   const [issuesData, setIssuesData] = useState([])
   const [percent, setPercent] = useState(0)
 
+  // Watch for changes in the currentproject and get issues associated with that project
   useEffect(() => {
     const repoName = currentProject.name.trim()
     API.getAllIssues(repoName).then(res => {
@@ -68,13 +76,14 @@ function CurrentProject ({ currentProject }) {
     })
   }, [currentProject])
 
+  // Send a notification that the user has successfully created an issue
   const openNotification = type => {
     notification[type]({
       message: 'Issue Created',
       description: 'You have successfully created a new project issue.'
     })
   }
-
+  // Submit the issue
   const onFinish = values => {
     const { title, body } = values
     API.addIssue({ repoName: currentProject.name, title, body }).then(res => {
@@ -86,14 +95,14 @@ function CurrentProject ({ currentProject }) {
       ])
     })
   }
-
+  // Delete the project and repo
   const onDelete = () => {
     API.deleteProject({
       repo: currentProject.name,
       _id: currentProject._id
     }).then(() => window.location.reload())
   }
-
+  // Check to see if the form submission has failed and console.log the error
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -248,5 +257,5 @@ function CurrentProject ({ currentProject }) {
     </div>
   )
 }
-
+// Export the component
 export default CurrentProject

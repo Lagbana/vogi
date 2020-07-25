@@ -1,13 +1,17 @@
+// Import React
 import React from 'react'
+// Import components from antdesign
+import { Layout, Card, Row, Col, Divider } from 'antd'
+// Import Components
 import PartnerForm from '../../components/LogInForms/partnerForm'
 import VolunteerForm from '../../components/LogInForms/volunteerForm'
-import { Layout, Card, Row, Col, Divider } from 'antd'
 import AltNavbar from '../../components/AltNavbar'
 import useWindowSize from '../../utils/useWindowSize'
 
 const { Content } = Layout
 
 function Login () {
+  // Responsive styling
   const [width] = useWindowSize()
   const styling = {
     wrapper: {},

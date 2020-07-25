@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 // Import Menu and SubMenu components from ant design
 import { Menu } from 'antd'
 
-
+// Styling
 const styling = {
   menu: {
     backgroundColor: '#353452'
@@ -49,4 +49,5 @@ function AltMenu (props) {
     </Menu>
   )
 }
+// Export the component
 export default AltMenu

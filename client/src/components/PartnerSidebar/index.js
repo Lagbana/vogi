@@ -1,18 +1,24 @@
+// Import React dependencies
 import React, { useState, useContext, useEffect } from 'react'
+// Import components from antdesign
 import { Layout, Menu } from 'antd'
+// Import icons from antdesign
 import {
   SettingOutlined,
   PlusOutlined,
   RiseOutlined,
   UserOutlined
 } from '@ant-design/icons'
+// Import Context API
 import CreatedProjectContext from '../../utils/CreatedProjectContext'
+// Import windowsize
 import useWindowSize from '../../utils/useWindowSize'
-
+// Destructure components from antdesign
 const { Sider } = Layout
 const { SubMenu } = Menu
-
+// Destructure props
 function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
+  // Responsive styling
   const [width, height] = useWindowSize()
   const [collapsed, setCollapsed] = useState(false)
 
@@ -24,13 +30,13 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
       paddingTop: width < 767 ? '5px' : '10px'
     }
   }
-
+  // Look at the width of the screen and make it responsive
   useEffect(() => {
     width < 767 ? setCollapsed(true) : setCollapsed(false)
   }, [width])
 
   const projects = useContext(CreatedProjectContext)
-
+  // Render the projects on the sidebar
   const renderProjects = () => {
     return projects.map(project => (
       <Menu.Item
@@ -94,5 +100,5 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
     </Sider>
   )
 }
-
+// Export the sidebar
 export default PartnerSidebar

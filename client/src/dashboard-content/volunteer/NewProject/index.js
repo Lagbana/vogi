@@ -1,8 +1,13 @@
+// Import React dependencies
 import React, { useContext } from 'react'
+// Import components from antdesign
 import { Card, Button, notification } from 'antd'
+// Use the Context API
 import AvailableProjectContext from '../../../utils/AvailableProjectContext'
+// use window size for responsiveness
 import useWindowSize from '../../../utils/useWindowSize'
 
+// New project component and destructure props
 function NewProject ({ joinProjectHandler }) {
   const [width] = useWindowSize()
   const projects = useContext(AvailableProjectContext)
@@ -10,6 +15,7 @@ function NewProject ({ joinProjectHandler }) {
     cardSize: width > 767 ? 'default' : 'small'
   }
 
+  // Send a message that the user has joined the project successsfully
   const openNotificationWithIcon = (type, name) => {
     notification[type]({
       message: 'Welcome!',
@@ -19,6 +25,7 @@ function NewProject ({ joinProjectHandler }) {
 
   return (
     <>
+      // Map over the projects in state
       {projects.map(project => (
         <Card
           style={{ marginBottom: 10 }}
@@ -59,5 +66,5 @@ function NewProject ({ joinProjectHandler }) {
     </>
   )
 }
-
+// Export the component
 export default NewProject

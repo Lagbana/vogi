@@ -1,6 +1,9 @@
+// Import React
 import React from 'react'
+// Import Components
 import PartnerForm from '../../components/SignUpForms/partnerForm'
 import VolunteerForm from '../../components/SignUpForms/volunteerForm'
+// Import Components from Antdesign
 import { Layout, Card, Row, Col, Divider } from 'antd'
 import AltNavbar from '../../components/AltNavbar'
 // import Navbar from '../../components/Navbar'
@@ -9,6 +12,7 @@ import useWindowSize from '../../utils/useWindowSize'
 const { Content } = Layout
 
 function SignUp () {
+  // Responsive Styling
   const [width] = useWindowSize()
   const styling = {
     wrapper: {},
@@ -84,5 +88,5 @@ function SignUp () {
     </div>
   )
 }
-
+// Export The Component
 export default SignUp

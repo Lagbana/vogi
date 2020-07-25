@@ -29,7 +29,6 @@ function MainMenu (props) {
   // Function to scroll to the top of the page when called
   // calling react-scroll method
 
-
   return (
     <Menu
       onClick={handleClick}
@@ -76,4 +75,5 @@ function MainMenu (props) {
     </Menu>
   )
 }
+// Export the component
 export default MainMenu

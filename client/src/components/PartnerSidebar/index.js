@@ -82,14 +82,14 @@ function PartnerSidebar ({ contentHandler, currentProjectHandler }) {
         >
           {renderProjects()}
         </SubMenu>
-        <Menu.Item
+        {/* <Menu.Item
           onClick={() => contentHandler('Settings')}
           key='4'
           icon={<SettingOutlined />}
           style={{ paddingLeft: '18px' }}
         >
           Settings
-        </Menu.Item>
+        </Menu.Item> */}
       </Menu>
     </Sider>
   )

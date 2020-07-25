@@ -113,8 +113,8 @@ function PartnerDashboard () {
             form={form}
           />
         )
-      case 'Settings':
-        return <div />
+      // case 'Settings':
+      //   return <div />
       case currentProject.name:
         return <CurrentProject currentProject={currentProject} />
       default:

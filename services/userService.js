@@ -94,21 +94,12 @@ class UserService extends UserDao {
         process.env.NODE_ENV === 'development'
           ? `http://localhost:3000/reset/${token}`
           : `https://www.vogi.ca/reset/${token}`
-      // const msg = {
-      //   to: email,
-      //   from: 'dontreply@vogi.ca',
-      //   subject: 'Reset Password Token',
-      //   html: `<strong>
-      //           <a href=${baseURL}>
-      //             ${baseURL}
-      //           </a>
-      //         </strong>`
-      // }
+
       const msg = {
         to: email,
-        from: 'donotreply@larryagbana.com',
+        from: 'donotreply@vogi.ca',
         subject: 'Reset Password',
-        templateId: 'd-1f22d59e30884ddbb54a6bb58e82c7f5',
+        templateId: 'd-c4090867d940410e8eec2b51f727b89f',
         dynamic_template_data: {
           message: baseURL
         }

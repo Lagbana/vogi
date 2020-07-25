@@ -27,8 +27,9 @@ class GithubService {
       Vogi.createRepo({
         name: context.name,
         description: context.description,
-        private: true,
-        visibility: 'private',
+        private: false,
+        // private: true,
+        // visibility: 'private',
         has_issues: true,
         has_projects: true,
         auto_init: true

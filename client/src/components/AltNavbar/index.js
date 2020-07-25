@@ -19,7 +19,7 @@ function Navbar ({ authenticated }) {
       backgroundColor: '#353452'
     }
   }
-
+  // Hide or show the drawer
   const showDrawer = () => {
     setVisible(true)
   }
@@ -73,4 +73,5 @@ function Navbar ({ authenticated }) {
     </nav>
   )
 }
+// Export the component
 export default Navbar

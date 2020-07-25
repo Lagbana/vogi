@@ -1,9 +1,14 @@
+// Import React dependencies
 import React, { useEffect } from 'react'
+// Import components from antdesign
 import { Form, Input, Button, notification } from 'antd'
+// Import the API methods
 import API from '../../../utils/API'
+// Use WindowSize for responsiveness
 import useWindowSize from '../../../utils/useWindowSize'
 
 function Profile () {
+  // Responsive styling
   const [width] = useWindowSize()
   const styling = {
     formLayout: {
@@ -27,14 +32,16 @@ function Profile () {
       minHeight: width > 767 ? '70vh' : '80vh'
     }
   }
+  // Use antdesign form methods
   const [form] = Form.useForm()
+  // Notification method that the user has updated their profile
   const openNotificationWithIcon = type => {
     notification[type]({
       message: 'Profile Updated',
       description: 'You have successfully updated your profile.'
     })
   }
-
+  // Update the user info for a volunteer
   const onFinish = values => {
     API.updateVolunteer(values)
       .then(res => {
@@ -45,7 +52,7 @@ function Profile () {
         console.log(err)
       })
   }
-
+  // when the component mounts conditionally put in user info into the inputs if the user has added the info already
   useEffect(() => {
     API.getUser().then(res => {
       if (res.data.volunteerFirstName)
@@ -108,5 +115,5 @@ function Profile () {
     </div>
   )
 }
-
+// Export the Component
 export default Profile

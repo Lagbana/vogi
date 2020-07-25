@@ -1,10 +1,17 @@
+// Import React dependencies
 import React, { useState, useEffect } from 'react'
+// Import antdesign components
 import { Card, Button, Progress, List } from 'antd'
+// Use window size for responsiveness
 import useWindowSize from '../../../utils/useWindowSize'
+// Import antdesign icons
 import { CarryOutOutlined } from '@ant-design/icons'
+// Import API methods
 import API from '../../../utils/API'
 
+// Destructure props
 function ProjectCard ({ currentProject }) {
+  // Responsive styling
   const [width] = useWindowSize()
   const styling = {
     header: {
@@ -32,10 +39,10 @@ function ProjectCard ({ currentProject }) {
       minHeight: 175
     }
   }
-
+  // UseState hook for local component state
   const [percent, setPercent] = useState(0)
   const [issuesData, setIssuesData] = useState([])
-
+  // Look for changes in the current project and get the issues for that project
   useEffect(() => {
     const repoName = currentProject.name.trim()
     API.getAllIssues(repoName).then(res => {
@@ -120,5 +127,5 @@ function ProjectCard ({ currentProject }) {
     </div>
   )
 }
-
+// Export the component
 export default ProjectCard

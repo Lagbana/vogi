@@ -1,8 +1,13 @@
+// Import React dependencies
 import React, { useState } from 'react'
+// import components
 import MainMenu from '../MainMenu'
 import AuthMenu from '../AuthMenu'
+// Import antdesign components
 import { Drawer } from 'antd'
+// Import antdesign icons
 import { MenuOutlined } from '@ant-design/icons'
+// Import link from react-router-dom
 import { Link } from 'react-router-dom'
 import Logo from '../../resources/logo1.png'
 import './style.css'
@@ -19,7 +24,7 @@ function Navbar ({ authenticated }) {
       backgroundColor: '#353452'
     }
   }
-
+  // Show or close the drawer
   const showDrawer = () => {
     setVisible(true)
   }
@@ -73,4 +78,5 @@ function Navbar ({ authenticated }) {
     </nav>
   )
 }
+// Export the component
 export default Navbar

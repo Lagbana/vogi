@@ -1,10 +1,16 @@
+// Import React
 import React from 'react'
+// Import redirect from react-router-dom
 import { Redirect } from 'react-router-dom'
+// Import components from antdesign
 import { Form as AntForm, Input, Button } from 'antd'
+// Import API methods
 import API from '../../utils/API'
+// Use window size
 import useWindowSize from '../../utils/useWindowSize'
 
 function PartnerLoginForm () {
+  // Responsive styling
   const [width] = useWindowSize()
   const styling = {
     formLayout: {
@@ -19,10 +25,12 @@ function PartnerLoginForm () {
       marginBottom: width > 550 ? 12 : 0
     }
   }
+  // Use antdesign forms
   const [form] = AntForm.useForm()
+  // Look for tokens in local storage and redirect to the dashboard
   const isAuthenticated = localStorage.getItem('tokens')
   if (isAuthenticated) return <Redirect to='/user/dashboard' />
-
+  // Submit the information to the db and authenticate on login
   const onFinish = values => {
     const { email, password } = values
     API.logIn({ username: email, password, role: 'Partner' })
@@ -47,7 +55,7 @@ function PartnerLoginForm () {
         }
       })
   }
-
+  // Console.log the error info if login fails
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -104,5 +112,5 @@ function PartnerLoginForm () {
     </AntForm>
   )
 }
-
+// Export the component
 export default PartnerLoginForm

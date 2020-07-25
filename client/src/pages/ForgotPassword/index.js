@@ -1,11 +1,18 @@
+// Import React for JSX
 import React from 'react'
+// Import components from antdesign
 import { Form as AntForm, Input, Button, notification } from 'antd'
+// Import the API methods
 import API from '../../utils/API'
+// Import Components from antdesign
 import { Layout, Card, Row, Col } from 'antd'
+// Import Components
 import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
+// Destructure Content from layout provided by antdesign
 const { Content } = Layout
 
+// Styling
 const layout = {
   labelCol: {
     span: 6
@@ -20,18 +27,19 @@ const tailLayout = {
     span: 16
   }
 }
-
+// Function that provides a message to the user when they have successfully reset their password
 const openNotification = type => {
   notification[type]({
     message: 'Reset Email',
     description: 'Please check your email for the reset instructions.'
   })
 }
-
+// Forgot Password Component
 const ForgotPassword = () => {
+  // Use antdesign form
   const [form] = AntForm.useForm()
   const [width, height] = useWindowSize()
-
+  // Responsive styling
   const styling = {
     header: {
       border: 'none',
@@ -70,7 +78,7 @@ const ForgotPassword = () => {
       return res
     })
   }
-
+  // `If the user isn't successful console.log the error
   const onFinishFailed = errorInfo => {
     console.log('Failed:', errorInfo)
   }
@@ -130,4 +138,5 @@ const ForgotPassword = () => {
   )
 }
 
+// export the function
 export default ForgotPassword

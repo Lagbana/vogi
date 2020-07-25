@@ -1,10 +1,15 @@
+// Import React dependencies
 import React, { useEffect } from 'react'
+// Import antdesign components
 import { Form, Input, Button, Radio, notification } from 'antd'
+// Import API methods
 import API from '../../../utils/API'
 import useWindowSize from '../../../utils/useWindowSize'
 
 function OrganizationInfo () {
+  // Use the form methods from antdesign
   const [form] = Form.useForm()
+  // Responsive Styling
   const [width] = useWindowSize()
   const styling = {
     formLayout: {
@@ -28,6 +33,7 @@ function OrganizationInfo () {
       minHeight: width > 767 ? '70vh' : '80vh'
     }
   }
+  // Send a notification that the user has successfully updated the organization info
   const openNotification = type => {
     notification[type]({
       message: 'Organization Info Updated',
@@ -35,6 +41,7 @@ function OrganizationInfo () {
     })
   }
 
+  // Update the partner user with information about the organization
   const onFinish = values => {
     API.updatePartner(values)
       .then(res => {
@@ -45,7 +52,7 @@ function OrganizationInfo () {
         console.log(err)
       })
   }
-
+  // If the info exists set it into the inputs
   useEffect(() => {
     API.getUser().then(res => {
       if (res.data.organizationType)
@@ -102,5 +109,5 @@ function OrganizationInfo () {
     </div>
   )
 }
-
+// Export the Component
 export default OrganizationInfo

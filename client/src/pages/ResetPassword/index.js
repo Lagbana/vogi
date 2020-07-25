@@ -1,13 +1,19 @@
-import React, {useState} from 'react'
+// Import React and useState from 'react'
+import React, { useState } from 'react'
+// Import components from antdesign
 import { Form as AntForm, Input, Button, notification } from 'antd'
-import API from '../../utils/API'
 import { Layout, Card, Row, Col, Divider } from 'antd'
+// Import API methods from the module
+import API from '../../utils/API'
+// Import components
 import Navbar from '../../components/Navbar'
+// Monitor screen size for responsiveness
 import useWindowSize from '../../utils/useWindowSize'
+// Import components from react router dom
 import { useLocation, Redirect } from 'react-router-dom'
-
+// Destructure Content from antdesign's Layout component
 const { Content } = Layout
-
+// Styling
 const layout = {
   labelCol: {
     span: 6
@@ -22,19 +28,21 @@ const tailLayout = {
     span: 16
   }
 }
-
+// Send a notification that user has successfully changed their password
 const openNotification = type => {
   notification[type]({
     message: 'Reset Email',
     description: 'You have successfully changed your password.'
   })
 }
-
+// Reset password component
 const ResetPassword = () => {
+  // Import form Antdesign
   const [form] = AntForm.useForm()
+  // Use Window size for responsiveness
   const [width, height] = useWindowSize()
   const [redirect, setRedirect] = useState(false)
-
+  // Styling
   const styling = {
     header: {
       border: 'none',
@@ -170,5 +178,5 @@ const ResetPassword = () => {
     </>
   )
 }
-
+// Export the Component
 export default ResetPassword

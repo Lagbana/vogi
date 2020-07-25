@@ -1,11 +1,15 @@
 // Import React dependencies
 import React from 'react'
 import { Link } from 'react-router-dom'
+// Import antdesign dependencies
 import { Button, Layout, Row, Col, Divider } from 'antd'
+// Import Components
 import Navbar from '../../components/Navbar'
 import useWindowSize from '../../utils/useWindowSize'
+// Import images
 import PeopleImg from '../../resources/people.jpg'
 import PeopleImg2 from '../../resources/people1.jpg'
+// Destructure Content from layout provided by antdesign
 const { Content } = Layout
 
 // Landing page

@@ -1,8 +1,12 @@
+// Import react
 import React from 'react'
+// Import antdesign components
 import { Form, Input, Button } from 'antd'
+// UseWindow size for responsiveness
 import useWindowSize from '../../../utils/useWindowSize'
-
+// Take in props
 function NewProject ({ onFinish, form, projectValidator }) {
+  // Responsive styling
   const [width, height] = useWindowSize()
   const styling = {
     formLayout: {
@@ -71,5 +75,5 @@ function NewProject ({ onFinish, form, projectValidator }) {
     </div>
   )
 }
-
+// Export the component
 export default NewProject

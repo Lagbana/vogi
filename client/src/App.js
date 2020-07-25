@@ -1,7 +1,10 @@
+// Import React, App.css, AntDesign and React-Route-Dom
 import React from 'react'
 import './App.css'
 import 'antd/dist/antd.css'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+
+// Import the components
 import ProtectedRoute from './utils/ProtectedRoute.js'
 import Landing from './pages/Landing'
 import Login from './pages/Login'
@@ -15,6 +18,7 @@ function App () {
     <div className='App'>
       {/* <AuthContext.Provider value={true}> */}
       {/* <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}> */}
+      {/* Client Side Routing with A switch and protected routes*/}
       <Router>
         <Switch>
           <Route exact path='/'>
@@ -43,5 +47,5 @@ function App () {
     </div>
   )
 }
-
+// Export the application
 export default App

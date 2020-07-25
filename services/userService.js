@@ -99,7 +99,7 @@ class UserService extends UserDao {
         to: email,
         from: 'donotreply@vogi.ca',
         subject: 'Reset Password',
-        templateId: ' d-c4090867d940410e8eec2b51f727b89f ',
+        templateId: 'd-c4090867d940410e8eec2b51f727b89f',
         dynamic_template_data: {
           message: baseURL
         }

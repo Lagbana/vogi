@@ -22,10 +22,9 @@ function NewProject ({ joinProjectHandler }) {
       description: `You are now a part of ${name}.`
     })
   }
-
+  // Map over the projects in state
   return (
     <>
-      // Map over the projects in state
       {projects.map(project => (
         <Card
           style={{ marginBottom: 10 }}
